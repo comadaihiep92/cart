@@ -215,6 +215,7 @@
 <div class="have-content">
     <!-- order -->
     <div class="have-tab have-order" id="new" data-tab="tab1">
+    
         <div class="have-order__left search-order" >
             <div class="search-order__box-input">
             {* <i class="icon-search"></i> *}
@@ -224,7 +225,7 @@
             
             <ul class="search-order__list">
                 {foreach from=$orders item="o"}
-                {if $o.status =="O"}
+                {if $o.status =="G"}
                     <li class="search-order__box" data-order="order{$o.order_id}" >
                     {* {btn type="list" href="orders.details?order_id=`$o.order_id`" text={__("view")}} *}
                         <div class="search-order__left">
@@ -278,46 +279,31 @@
                                     
                                 </div>
                                 <div class="search-order__right">
-                                    
-                                    <img class="search-order__print" src="https://i.imgur.com/q6OYhBH.png" />
-                                    
+                                    <div class="search-order__right-print dropdown show">
+                                        <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img class="search-order__print" src="https://i.imgur.com/q6OYhBH.png" />
+                                        </a>
+                                        <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li>
+                                                <a href="#">Invoice</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Invoice (PDF)</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Packing slip</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                     <p class="search-order__date">21 Jul 2020 02:08 PM</p>
                                 </div>
                             </div>
                             <ul class="search-order__list-details">
-                                {* {foreach from=$order_info item="oi" key="key"} *}
                                 <li class="search-order__details">
                                     <div class="search-order__details--left">
                                         <img src="https://i.imgur.com/76y9dFM.png" />
                                         <div class="search-order__dish">
-                                            <p class="search-order__title">Chicken Biryani {$oi.product} {$oi.pname} {$order_info.order_id}</p>
-                                            <p class="search-order__type">Biryani</p>
-                                            <p class="search-order__price">$150</p>
-                                        </div>
-                                    </div>
-                                    <div class="search-order__details--right">
-                                        <p class="search-order__amount">X1</p>
-                                    </div>
-                                </li>
-                                {* {/foreach} *}
-                                <li class="search-order__details">
-                                    <div class="search-order__details--left">
-                                        <img src="https://i.imgur.com/76y9dFM.png" />
-                                        <div class="search-order__dish">
-                                            <p class="search-order__title">Chicken Biryani</p>
-                                            <p class="search-order__type">Biryani</p>
-                                            <p class="search-order__price">$150</p>
-                                        </div>
-                                    </div>
-                                    <div class="search-order__details--right">
-                                        <p class="search-order__amount">X1</p>
-                                    </div>
-                                </li>
-                                <li class="search-order__details">
-                                    <div class="search-order__details--left">
-                                        <img src="https://i.imgur.com/76y9dFM.png" />
-                                        <div class="search-order__dish">
-                                            <p class="search-order__title">Chicken Biryani</p>
+                                            <p class="search-order__title">Chicken Biryani </p>
                                             <p class="search-order__type">Biryani</p>
                                             <p class="search-order__price">$150</p>
                                         </div>
@@ -327,6 +313,32 @@
                                     </div>
                                 </li>
                                 
+                                <li class="search-order__details">
+                                    <div class="search-order__details--left">
+                                        <img src="https://i.imgur.com/76y9dFM.png" />
+                                        <div class="search-order__dish">
+                                            <p class="search-order__title">Chicken Biryani</p>
+                                            <p class="search-order__type">Biryani</p>
+                                            <p class="search-order__price">$150</p>
+                                        </div>
+                                    </div>
+                                    <div class="search-order__details--right">
+                                        <p class="search-order__amount">X1</p>
+                                    </div>
+                                </li>
+                                <li class="search-order__details">
+                                    <div class="search-order__details--left">
+                                        <img src="https://i.imgur.com/76y9dFM.png" />
+                                        <div class="search-order__dish">
+                                            <p class="search-order__title">Chicken Biryani</p>
+                                            <p class="search-order__type">Biryani</p>
+                                            <p class="search-order__price">$150</p>
+                                        </div>
+                                    </div>
+                                    <div class="search-order__details--right">
+                                        <p class="search-order__amount">X1</p>
+                                    </div>
+                                </li>
                             </ul>
 
                             <div class="search-order__buttons">
@@ -1641,7 +1653,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content modal-showStork__content">
       <div class="modal-body">
-        <div class="order-modal">
+        <div class="order-modal modal-showStork__margin">
             <div class="order-modal__top">Enter your desired quantily and click continue</div>
             <div class="order-modal__list">
                 <p class="order-modal__label">Enter Quantity</p>
@@ -1671,13 +1683,55 @@
       <div class="modal-footer modal-showStork__footer">
         <div class="order-modal__buttons">
             <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal">Cancel</button>
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--continue">Continue</button>
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--continue" data-toggle="modal" data-target="#continue" onclick="hideModal()">Continue</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Modal Continue -->
+<div class="modal modal-showStork fade" id="continue" tabindex="-1" role="dialog" aria-labelledby="continue" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-showStork__content">
+      <div class="modal-body">
+        <div class="order-modal modal-showStork__margin">
+            <div class="order-modal__top">Note: Order once confirmed can't be edited again.</div>
+            <div class="order-modal__list">
+            
+                <p class="order-modal__label">Quantity</p>
+                <div class="order-modal__box"> 
+                    <span class="order-modal__index">1</span>
+                    <div class="order-modal__details--left">
+                        <img src="https://i.imgur.com/76y9dFM.png" />
+                        <div class="order-modal__dish">
+                            <p class="order-modal__title">Chicken Biryani</p>
+                            <p class="order-modal__type">Biryani</p>
+                        </div>
+                    </div>
+                    <div class="order-modal__details--right">
+                        <p class="order-modal__amount">$127</p>
+                    </div>
+                    <div class="order-modal__input">
+                        <input class="order-modal__quantity order-modal__quantity--noedit" value="1" type="number" />
+                        <div class="order-modal__grand-total">
+                            <p class="order-modal__grand">Grand total</p>
+                            <p class="order-modal__amount order-modal__amount--big">$127</p>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer modal-showStork__footer">
+        <div class="order-modal__buttons">
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal" onclick="backModal()">Back</button>
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 {else}
@@ -1781,6 +1835,23 @@
 
 {* make tab *}
 <script>
+    
+
+
+    function hideModal() {
+        document.getElementById("showStork").style.display="none";
+        document.getElementById("continue").style.display="block";
+        document.querySelector(".modal-backdrop").style.display="none";
+        console.log("hide")
+    }
+    function backModal() {
+         document.getElementById("showStork").style.display="block";
+         document.getElementById("continue").style.display="none";
+         document.querySelector(".modal-backdrop").style.display="block";
+         console.log("show")
+    }
+    /*document.getElementById("new").style.display="none";
+        document.getElementById("packing").style.display="flex";*/
     
     document.querySelector('.tab__li[data-tab=tab1]').classList.add('active');
     document.querySelector('.have-tab[data-tab=tab1]').classList.add('activeTab');

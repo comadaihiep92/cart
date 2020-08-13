@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<addon scheme="3.0">
+    <id>new_ui</id>
+    <version>1.0</version>
+    <priority>1500</priority>
+    <status>active</status>
+    <default_language>en</default_language>
+</addon>
