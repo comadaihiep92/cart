@@ -254,7 +254,7 @@
             </ul>
         </div>
         <div class="have-packing__content">
-            <div class="have-packing__mid">
+            {* <div class="have-packing__mid">
                 <div class="have-packing__mid--rel" data-order="order9161">
                     <div class="search-packing__box search-packing__box--mid">
                         <div class="search-packing__left">
@@ -514,7 +514,7 @@
                         <a class="search-packing__link" href="javascript:void(0)">Need help with this order?</a>
                     </div>
                 </div>
-            </div>
+            </div> *}
         </div>
     </div>
     {* {/if}
@@ -1413,17 +1413,17 @@
                 <span>New</span>
                 <span class="number number--order">{literal}${statusLength}{/literal}</span>
             </a>` : ''} 
-         {literal}${status === "E"{/literal} ? `<a href="#packing" class="tab__link" title="Packing" >
+        {literal}${status === "E"{/literal} ? `<a href="#packing" class="tab__link" title="Packing" >
                 <span class="icon preparing-orders-icon"></span>
                 <span>Packing</span>
                 <span class="number number--packing">{literal}${statusLength}{/literal}</span>
             </a>` : ''} 
-         {literal}${status === "A"{/literal} ? `  <a href="#ready" class="tab__link" title="Ready" >
+        {literal}${status === "A"{/literal} ? `  <a href="#ready" class="tab__link" title="Ready" >
                 <span class="icon ready-orders-icon"></span>
                 <span>Ready</span>
                 <span class="number number--ready">{literal}${statusLength}{/literal}</span>
             </a>` : ''} 
-         {literal}${status === "C"{/literal} ? `<a href="#past" class="tab__link" title="More"  >
+        {literal}${status === "C"{/literal} ? `<a href="#past" class="tab__link" title="More"  >
                 <span class="icon more-orders-icon"></span>
                 <span>Past Orders</span>
                 <span class="number number--past">{literal}${statusLength}{/literal}</span>
@@ -1445,7 +1445,7 @@
     renderCountStatus("C", "tab4");
 
     // render status left side
-    async function renderData(status, path) {
+    async function renderLeftSide(status, path) {
         let datas = await getStatus(status);
         
         let html = "";
@@ -1470,7 +1470,7 @@
                 </li>` : ''} 
                 
                 {literal}${status === "E"{/literal} ? 
-                `<li class="search-packing__box search-packing__box--column search-packing__box--nopd" data-order="order{literal}${data.order_id}{/literal}">
+                `<li class="search-packing__box search-packing__box--column search-packing__box--nopd" data-order="order{literal}${data.order_id}{/literal}" onclick="renderDetailsPacking({literal}${data.order_id}{/literal})">
                     <div class="search-packing__container">
                         <div class="search-packing__left">
                             <h3 class="search-packing__id search-packing__id--packing">
@@ -1587,10 +1587,10 @@
         container.innerHTML = html;
     }
 
-    renderData("G", "order");
-    renderData("E", "packing");
-    renderData("A", "ready");
-    renderData("C", "past");
+    renderLeftSide("G", "order");
+    renderLeftSide("E", "packing");
+    renderLeftSide("A", "ready");
+    renderLeftSide("C", "past");
 
    /* setInterval(async function() {
             let abb = await getStatus();
@@ -1701,7 +1701,7 @@
                         <div class="search-order__buttons">
                             <input type="button" class="search-order__buttons--btn search-order__buttons--mark"  data-toggle="modal" data-target="#showStork" value="Mark out of stork" />
 
-                            <input type="button" class="search-order__buttons--btn search-order__buttons--confirm" onclick="openPacking()" value="Confirm order" />
+                            <input type="button" class="search-order__buttons--btn search-order__buttons--confirm" onclick="openPacking({literal}${details.order_id}{/literal})" value="Confirm order" />
                         </div>
                     </div>
 
@@ -1794,6 +1794,164 @@
      
     }
     renderDetails(78398);
+
+    async function renderDetailsPacking(ids) {
+        let details = await getDataProduct(ids);
+        console.log("details: ----- ", details);
+
+      /*  let abc = Object.keys(details.products).forEach(key => {
+            console.log("obj: ",key, details.products[key].product);
+            return details.products[key].product;
+        });
+        console.log("aaa: ", abc); 
+
+        Object.keys(details.product_groups).forEach(key => {
+            console.log("key: ",key, "obj: ",details.product_groups[key].products.amount);
+           
+        });*/
+       
+
+
+
+        let html2 = "";
+        let htmlSub = "";
+
+        for(let a in details.products ) {
+            console.log("a: ", a, "det: ", details.products[a].product)
+            let pName = details.products[a];
+            console.log("z: ", pName)
+            let htmlItem0 = `
+                            <li class="search-packing__details">
+                                <div class="search-packing__details--left">
+                                    <img src="https://i.imgur.com/76y9dFM.png" />
+                                    <div class="search-packing__dish">
+                                        <p class="search-packing__title">{literal}${pName.product}{/literal}</p>
+                                        <p class="search-packing__type">Biryani</p>
+                                        <p class="search-packing__price">{literal}${pName.price}{/literal}</p>
+                                    </div>
+                                </div>
+                                <div class="search-packing__details--right">
+                                    <p class="search-packing__amount">X  {literal}${pName.amount}{/literal}</p>
+                                </div>
+                            </li>
+                            
+            `
+            htmlSub += htmlItem0;
+        }
+    
+
+            let htmlItem2 = `
+               
+
+            <div class="have-packing__mid">
+                <div class="have-packing__mid--rel active" data-order="order{literal}${details.order_id}{/literal}">
+                    <div class="search-packing__box search-packing__box--mid">
+                        <div class="search-packing__left">
+                            <h3 class="search-packing__id search-packing__id--bold search-packing__id--packing">
+                                {literal}Order #${details.order_id}{/literal}<span class="search-packing__new search-packing__new--packing">Packing</span>
+                            </h3>
+                            <p class="search-packing__desc search-packing__desc--gray">1 items for #127</p>
+                            
+                        </div>
+                        <div class="search-packing__right">
+                            
+                            <img class="search-packing__print" src="https://i.imgur.com/q6OYhBH.png" />
+                            
+                            <p class="search-packing__date">21 Jul 2020 02:08 PM</p>
+                        </div>
+                    </div>
+                    <ul class="search-packing__list-details">
+                        
+                        
+                    </ul>
+
+                
+                    <div class="search-packing__buttons">
+                        <input type="button" class="search-packing__buttons--btn search-packing__buttons--packing" value="Mark order packed" onclick="openReady()"/>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="have-packing__right">
+                <div class="search-packing__right-top active" data-order="order{literal}${details.order_id}{/literal}>
+                    <div class="search-packing__right-box">
+                        <div class="search-packing__img-box search-packing__img-box--big">
+                            <img src="https://i.imgur.com/CYDfvhi.png" />
+                        </div>
+                        <div class="search-packing__right-content">
+                            <h4 class="search-packing__right-title">
+                                Packing Time
+                            </h4>
+                            <p class="search-packing__right-time">
+                                10 mins remaning
+                            </p>
+                            <p class="search-packing__right-status">
+                                Packin started
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="search-packing__right-box">
+                        <div class="search-packing__img-box search-packing__img-box--big">
+                            <img src="https://i.imgur.com/UKWKNWg.png" />
+                        </div>
+                        <div class="search-packing__right-content">
+                            <h4 class="search-packing__right-title">
+                                Delivery Executive
+                            </h4>
+                            <p class="search-packing__right-assign">
+                                Pending assignent...
+                            </p>
+                            
+                        </div>
+                    </div>
+
+                    <div class="search-packing__right-box">
+                        <div class="search-packing__img-box search-packing__img-box--big">
+                            <img src="https://i.imgur.com/OFK8M5L.png" />
+                        </div>
+                        <div class="search-packing__right-content">
+                            <h4 class="search-packing__right-title">
+                                Grand Total
+                            </h4>
+                            <p class="search-packing__right-price">
+                                {literal}${details.total}{/literal}
+                            </p>
+                            <div class="search-packing__right-info">
+                                <div class="search-packing__right-row">
+                                    <p class="search-packing__right-label">Item total</p>
+                                    <p class="search-packing__right-money">$122</p>
+                                </div>
+                                <div class="search-packing__right-row">
+                                    <p class="search-packing__right-label">GST</p>
+                                    <p class="search-packing__right-money">$0</p>
+                                </div>
+                                <div class="search-packing__right-row">
+                                    <p class="search-packing__right-label">Discount</p>
+                                    <p class="search-packing__right-money">$30</p>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="search-packing__right-box">
+                        <a class="search-packing__link" href="javascript:void(0)">Need help with this order?</a>
+                    </div>
+                </div>
+                
+            </div>
+            `;
+          
+
+          html2 += htmlItem2; 
+
+   
+        let container2 = document.querySelector('.have-packing__content');
+        container2.innerHTML = html2;
+        let containerSub = document.querySelector('.search-packing__list-details')
+        containerSub.innerHTML = htmlSub;
+     
+    }
+    renderDetailsPacking(78409);
   
 </script>
 
@@ -1970,24 +2128,29 @@
 </script>
 
 <script>
+    
+    function openPacking(id) {
+        
 
-    function openPacking() {
-       let postUrl = "http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_order&order_id=78403";
-     fetch(postUrl, {
-        method: "post",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        let postUrl = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_order&order_id={literal}${id}{/literal}`;
+            fetch(postUrl, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
 
-        //make sure to serialize your JSON body
-        body: JSON.stringify({
-            status: 'CB'
-        })
-        })
-        .then( (response) => { 
-        //do something awesome that makes the world a better place
-        });
+            //make sure to serialize your JSON body
+            body: JSON.stringify({
+                order_id: id,
+                status: "ABC"
+            })
+            })
+            .then( (response) => { 
+                return response.json()
+            //do something awesome that makes the world a better place
+            })
+            .then(data => console.log("put data: ",data))
+            .catch(error => console.log("error: ", error))
        
 
        

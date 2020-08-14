@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-08-13 13:27:18
+<?php /* Smarty version Smarty-3.1.21, created on 2020-08-14 12:43:00
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1597314437,
+      1 => 1597398177,
       2 => 'tygh',
     ),
   ),
@@ -354,267 +354,7 @@ if (!empty($_capture_buffer)) {
             </ul>
         </div>
         <div class="have-packing__content">
-            <div class="have-packing__mid">
-                <div class="have-packing__mid--rel" data-order="order9161">
-                    <div class="search-packing__box search-packing__box--mid">
-                        <div class="search-packing__left">
-                            <h3 class="search-packing__id search-packing__id--bold search-packing__id--packing">
-                                #78395909161<span class="search-packing__new search-packing__new--packing">Packing</span>
-                            </h3>
-                            <p class="search-packing__desc search-packing__desc--gray">1 items for #127</p>
-                            
-                        </div>
-                        <div class="search-packing__right">
-                            
-                            <img class="search-packing__print" src="https://i.imgur.com/q6OYhBH.png" />
-                            
-                            <p class="search-packing__date">21 Jul 2020 02:08 PM</p>
-                        </div>
-                    </div>
-                    <ul class="search-packing__list-details">
-                        <li class="search-packing__details">
-                            <div class="search-packing__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-packing__dish">
-                                    <p class="search-packing__title">Chicken Biryani</p>
-                                    <p class="search-packing__type">Biryani</p>
-                                    <p class="search-packing__price">$150</p>
-                                </div>
-                            </div>
-                            <div class="search-packing__details--right">
-                                <p class="search-packing__amount">X1</p>
-                            </div>
-                        </li>
-                        <li class="search-packing__details">
-                            <div class="search-packing__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-packing__dish">
-                                    <p class="search-packing__title">Chicken Biryani</p>
-                                    <p class="search-packing__type">Biryani</p>
-                                    <p class="search-packing__price">$150</p>
-                                </div>
-                            </div>
-                            <div class="search-packing__details--right">
-                                <p class="search-packing__amount">X1</p>
-                            </div>
-                        </li>
-                        <li class="search-packing__details">
-                            <div class="search-packing__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-packing__dish">
-                                    <p class="search-packing__title">Chicken Biryani</p>
-                                    <p class="search-packing__type">Biryani</p>
-                                    <p class="search-packing__price">$150</p>
-                                </div>
-                            </div>
-                            <div class="search-packing__details--right">
-                                <p class="search-packing__amount">X1</p>
-                            </div>
-                        </li>
-                        
-                    </ul>
-
-                
-                    <div class="search-packing__buttons">
-                        <input type="button" class="search-packing__buttons--btn search-packing__buttons--packing" value="Mark order packed" onclick="openReady()"/>
-                    </div>
-                </div>
-                <div class="have-packing__mid--rel" data-order="order9162">
-                    <div class="search-packing__box search-packing__box--mid">
-                        <div class="search-packing__left">
-                            <h3 class="search-packing__id search-packing__id--bold search-packing__id--packing">
-                                #78395909162<span class="search-packing__new search-packing__new--packing">Packing</span>
-                            </h3>
-                            <p class="search-packing__desc search-packing__desc--gray">1 items for #127</p>
-                            
-                        </div>
-                        <div class="search-packing__right">
-                            
-                            <img class="search-packing__print" src="https://i.imgur.com/q6OYhBH.png" />
-                            
-                            <p class="search-packing__date">21 Jul 2020 02:08 PM</p>
-                        </div>
-                    </div>
-                    <ul class="search-packing__list-details">
-                        <li class="search-packing__details">
-                            <div class="search-packing__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-packing__dish">
-                                    <p class="search-packing__title">Chicken Biryani</p>
-                                    <p class="search-packing__type">Biryani</p>
-                                    <p class="search-packing__price">$120</p>
-                                </div>
-                            </div>
-                            <div class="search-packing__details--right">
-                                <p class="search-packing__amount">X1</p>
-                            </div>
-                        </li>
-                        <li class="search-packing__details">
-                            <div class="search-packing__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-packing__dish">
-                                    <p class="search-packing__title">Chicken Biryani</p>
-                                    <p class="search-packing__type">Biryani</p>
-                                    <p class="search-packing__price">$120</p>
-                                </div>
-                            </div>
-                            <div class="search-packing__details--right">
-                                <p class="search-packing__amount">X2</p>
-                            </div>
-                        </li>
-                        <li class="search-packing__details">
-                            <div class="search-packing__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-packing__dish">
-                                    <p class="search-packing__title">Chicken Biryani</p>
-                                    <p class="search-packing__type">Biryani</p>
-                                    <p class="search-packing__price">$180</p>
-                                </div>
-                            </div>
-                            <div class="search-packing__details--right">
-                                <p class="search-packing__amount">X1</p>
-                            </div>
-                        </li>
-                        
-                    </ul>
-
-                
-                    <div class="search-packing__buttons">
-                        <input type="button" class="search-packing__buttons--btn search-packing__buttons--packing" value="Mark order packed" onclick="openReady()"/>
-                    </div>
-                </div>
             
-            </div>
-            <div class="have-packing__right">
-                <div class="search-packing__right-top" data-order="order9161">
-                    <div class="search-packing__right-box">
-                        <div class="search-packing__img-box search-packing__img-box--big">
-                            <img src="https://i.imgur.com/CYDfvhi.png" />
-                        </div>
-                        <div class="search-packing__right-content">
-                            <h4 class="search-packing__right-title">
-                                Packing Time
-                            </h4>
-                            <p class="search-packing__right-time">
-                                10 mins remaning
-                            </p>
-                            <p class="search-packing__right-status">
-                                Packin started
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="search-packing__right-box">
-                        <div class="search-packing__img-box search-packing__img-box--big">
-                            <img src="https://i.imgur.com/UKWKNWg.png" />
-                        </div>
-                        <div class="search-packing__right-content">
-                            <h4 class="search-packing__right-title">
-                                Delivery Executive
-                            </h4>
-                            <p class="search-packing__right-assign">
-                                Pending assignent...
-                            </p>
-                            
-                        </div>
-                    </div>
-
-                    <div class="search-packing__right-box">
-                        <div class="search-packing__img-box search-packing__img-box--big">
-                            <img src="https://i.imgur.com/OFK8M5L.png" />
-                        </div>
-                        <div class="search-packing__right-content">
-                            <h4 class="search-packing__right-title">
-                                Grand Total
-                            </h4>
-                            <p class="search-packing__right-price">
-                                $122
-                            </p>
-                            <div class="search-packing__right-info">
-                                <div class="search-packing__right-row">
-                                    <p class="search-packing__right-label">Item total</p>
-                                    <p class="search-packing__right-money">$122</p>
-                                </div>
-                                <div class="search-packing__right-row">
-                                    <p class="search-packing__right-label">GST</p>
-                                    <p class="search-packing__right-money">$0</p>
-                                </div>
-                                <div class="search-packing__right-row">
-                                    <p class="search-packing__right-label">Discount</p>
-                                    <p class="search-packing__right-money">$30</p>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>
-                    <div class="search-packing__right-box">
-                        <a class="search-packing__link" href="javascript:void(0)">Need help with this order?</a>
-                    </div>
-                </div>
-                <div class="search-packing__right-top" data-order="order9162">
-                    <div class="search-packing__right-box">
-                        <div class="search-packing__img-box search-packing__img-box--big">
-                            <img src="https://i.imgur.com/CYDfvhi.png" />
-                        </div>
-                        <div class="search-packing__right-content">
-                            <h4 class="search-packing__right-title">
-                                Packing Time
-                            </h4>
-                            <p class="search-packing__right-time">
-                                15 mins remaning
-                            </p>
-                            <p class="search-packing__right-status">
-                                Packin started
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="search-packing__right-box">
-                        <div class="search-packing__img-box search-packing__img-box--big">
-                            <img src="https://i.imgur.com/UKWKNWg.png" />
-                        </div>
-                        <div class="search-packing__right-content">
-                            <h4 class="search-packing__right-title">
-                                Delivery Executive
-                            </h4>
-                            <p class="search-packing__right-assign">
-                                Pending assignent...
-                            </p>
-                            
-                        </div>
-                    </div>
-
-                    <div class="search-packing__right-box">
-                        <div class="search-packing__img-box search-packing__img-box--big">
-                            <img src="https://i.imgur.com/OFK8M5L.png" />
-                        </div>
-                        <div class="search-packing__right-content">
-                            <h4 class="search-packing__right-title">
-                                Grand Total
-                            </h4>
-                            <p class="search-packing__right-price">
-                                $188
-                            </p>
-                            <div class="search-packing__right-info">
-                                <div class="search-packing__right-row">
-                                    <p class="search-packing__right-label">Item total</p>
-                                    <p class="search-packing__right-money">$188</p>
-                                </div>
-                                <div class="search-packing__right-row">
-                                    <p class="search-packing__right-label">GST</p>
-                                    <p class="search-packing__right-money">$0</p>
-                                </div>
-                                <div class="search-packing__right-row">
-                                    <p class="search-packing__right-label">Discount</p>
-                                    <p class="search-packing__right-money">$30</p>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>
-                    <div class="search-packing__right-box">
-                        <a class="search-packing__link" href="javascript:void(0)">Need help with this order?</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     
@@ -1524,17 +1264,17 @@ if (!empty($_capture_buffer)) {
                 <span>New</span>
                 <span class="number number--order">${statusLength}</span>
             </a>` : ''} 
-         ${status === "E" ? `<a href="#packing" class="tab__link" title="Packing" >
+        ${status === "E" ? `<a href="#packing" class="tab__link" title="Packing" >
                 <span class="icon preparing-orders-icon"></span>
                 <span>Packing</span>
                 <span class="number number--packing">${statusLength}</span>
             </a>` : ''} 
-         ${status === "A" ? `  <a href="#ready" class="tab__link" title="Ready" >
+        ${status === "A" ? `  <a href="#ready" class="tab__link" title="Ready" >
                 <span class="icon ready-orders-icon"></span>
                 <span>Ready</span>
                 <span class="number number--ready">${statusLength}</span>
             </a>` : ''} 
-         ${status === "C" ? `<a href="#past" class="tab__link" title="More"  >
+        ${status === "C" ? `<a href="#past" class="tab__link" title="More"  >
                 <span class="icon more-orders-icon"></span>
                 <span>Past Orders</span>
                 <span class="number number--past">${statusLength}</span>
@@ -1556,7 +1296,7 @@ if (!empty($_capture_buffer)) {
     renderCountStatus("C", "tab4");
 
     // render status left side
-    async function renderData(status, path) {
+    async function renderLeftSide(status, path) {
         let datas = await getStatus(status);
         
         let html = "";
@@ -1581,7 +1321,7 @@ if (!empty($_capture_buffer)) {
                 </li>` : ''} 
                 
                 ${status === "E" ? 
-                `<li class="search-packing__box search-packing__box--column search-packing__box--nopd" data-order="order${data.order_id}">
+                `<li class="search-packing__box search-packing__box--column search-packing__box--nopd" data-order="order${data.order_id}" onclick="renderDetailsPacking(${data.order_id})">
                     <div class="search-packing__container">
                         <div class="search-packing__left">
                             <h3 class="search-packing__id search-packing__id--packing">
@@ -1698,10 +1438,10 @@ if (!empty($_capture_buffer)) {
         container.innerHTML = html;
     }
 
-    renderData("G", "order");
-    renderData("E", "packing");
-    renderData("A", "ready");
-    renderData("C", "past");
+    renderLeftSide("G", "order");
+    renderLeftSide("E", "packing");
+    renderLeftSide("A", "ready");
+    renderLeftSide("C", "past");
 
    /* setInterval(async function() {
             let abb = await getStatus();
@@ -1814,7 +1554,7 @@ if (!empty($_capture_buffer)) {
                         <div class="search-order__buttons">
                             <input type="button" class="search-order__buttons--btn search-order__buttons--mark"  data-toggle="modal" data-target="#showStork" value="Mark out of stork" />
 
-                            <input type="button" class="search-order__buttons--btn search-order__buttons--confirm" onclick="openPacking()" value="Confirm order" />
+                            <input type="button" class="search-order__buttons--btn search-order__buttons--confirm" onclick="openPacking(${details.order_id})" value="Confirm order" />
                         </div>
                     </div>
 
@@ -1907,6 +1647,164 @@ if (!empty($_capture_buffer)) {
      
     }
     renderDetails(78398);
+
+    async function renderDetailsPacking(ids) {
+        let details = await getDataProduct(ids);
+        console.log("details: ----- ", details);
+
+      /*  let abc = Object.keys(details.products).forEach(key => {
+            console.log("obj: ",key, details.products[key].product);
+            return details.products[key].product;
+        });
+        console.log("aaa: ", abc); 
+
+        Object.keys(details.product_groups).forEach(key => {
+            console.log("key: ",key, "obj: ",details.product_groups[key].products.amount);
+           
+        });*/
+       
+
+
+
+        let html2 = "";
+        let htmlSub = "";
+
+        for(let a in details.products ) {
+            console.log("a: ", a, "det: ", details.products[a].product)
+            let pName = details.products[a];
+            console.log("z: ", pName)
+            let htmlItem0 = `
+                            <li class="search-packing__details">
+                                <div class="search-packing__details--left">
+                                    <img src="https://i.imgur.com/76y9dFM.png" />
+                                    <div class="search-packing__dish">
+                                        <p class="search-packing__title">${pName.product}</p>
+                                        <p class="search-packing__type">Biryani</p>
+                                        <p class="search-packing__price">${pName.price}</p>
+                                    </div>
+                                </div>
+                                <div class="search-packing__details--right">
+                                    <p class="search-packing__amount">X  ${pName.amount}</p>
+                                </div>
+                            </li>
+                            
+            `
+            htmlSub += htmlItem0;
+        }
+    
+
+            let htmlItem2 = `
+               
+
+            <div class="have-packing__mid">
+                <div class="have-packing__mid--rel active" data-order="order${details.order_id}">
+                    <div class="search-packing__box search-packing__box--mid">
+                        <div class="search-packing__left">
+                            <h3 class="search-packing__id search-packing__id--bold search-packing__id--packing">
+                                Order #${details.order_id}<span class="search-packing__new search-packing__new--packing">Packing</span>
+                            </h3>
+                            <p class="search-packing__desc search-packing__desc--gray">1 items for #127</p>
+                            
+                        </div>
+                        <div class="search-packing__right">
+                            
+                            <img class="search-packing__print" src="https://i.imgur.com/q6OYhBH.png" />
+                            
+                            <p class="search-packing__date">21 Jul 2020 02:08 PM</p>
+                        </div>
+                    </div>
+                    <ul class="search-packing__list-details">
+                        
+                        
+                    </ul>
+
+                
+                    <div class="search-packing__buttons">
+                        <input type="button" class="search-packing__buttons--btn search-packing__buttons--packing" value="Mark order packed" onclick="openReady()"/>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="have-packing__right">
+                <div class="search-packing__right-top active" data-order="order${details.order_id}>
+                    <div class="search-packing__right-box">
+                        <div class="search-packing__img-box search-packing__img-box--big">
+                            <img src="https://i.imgur.com/CYDfvhi.png" />
+                        </div>
+                        <div class="search-packing__right-content">
+                            <h4 class="search-packing__right-title">
+                                Packing Time
+                            </h4>
+                            <p class="search-packing__right-time">
+                                10 mins remaning
+                            </p>
+                            <p class="search-packing__right-status">
+                                Packin started
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="search-packing__right-box">
+                        <div class="search-packing__img-box search-packing__img-box--big">
+                            <img src="https://i.imgur.com/UKWKNWg.png" />
+                        </div>
+                        <div class="search-packing__right-content">
+                            <h4 class="search-packing__right-title">
+                                Delivery Executive
+                            </h4>
+                            <p class="search-packing__right-assign">
+                                Pending assignent...
+                            </p>
+                            
+                        </div>
+                    </div>
+
+                    <div class="search-packing__right-box">
+                        <div class="search-packing__img-box search-packing__img-box--big">
+                            <img src="https://i.imgur.com/OFK8M5L.png" />
+                        </div>
+                        <div class="search-packing__right-content">
+                            <h4 class="search-packing__right-title">
+                                Grand Total
+                            </h4>
+                            <p class="search-packing__right-price">
+                                ${details.total}
+                            </p>
+                            <div class="search-packing__right-info">
+                                <div class="search-packing__right-row">
+                                    <p class="search-packing__right-label">Item total</p>
+                                    <p class="search-packing__right-money">$122</p>
+                                </div>
+                                <div class="search-packing__right-row">
+                                    <p class="search-packing__right-label">GST</p>
+                                    <p class="search-packing__right-money">$0</p>
+                                </div>
+                                <div class="search-packing__right-row">
+                                    <p class="search-packing__right-label">Discount</p>
+                                    <p class="search-packing__right-money">$30</p>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="search-packing__right-box">
+                        <a class="search-packing__link" href="javascript:void(0)">Need help with this order?</a>
+                    </div>
+                </div>
+                
+            </div>
+            `;
+          
+
+          html2 += htmlItem2; 
+
+   
+        let container2 = document.querySelector('.have-packing__content');
+        container2.innerHTML = html2;
+        let containerSub = document.querySelector('.search-packing__list-details')
+        containerSub.innerHTML = htmlSub;
+     
+    }
+    renderDetailsPacking(78409);
   
 <?php echo '</script'; ?>
 ><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
@@ -2099,24 +1997,29 @@ if (!empty($_capture_buffer)) {
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
 <?php echo '<script'; ?>
 >
+    
+    function openPacking(id) {
+        
 
-    function openPacking() {
-       let postUrl = "http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_order&order_id=78403";
-     fetch(postUrl, {
-        method: "post",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        let postUrl = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_order&order_id=${id}`;
+            fetch(postUrl, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
 
-        //make sure to serialize your JSON body
-        body: JSON.stringify({
-            status: 'CB'
-        })
-        })
-        .then( (response) => { 
-        //do something awesome that makes the world a better place
-        });
+            //make sure to serialize your JSON body
+            body: JSON.stringify({
+                order_id: id,
+                status: "ABC"
+            })
+            })
+            .then( (response) => { 
+                return response.json()
+            //do something awesome that makes the world a better place
+            })
+            .then(data => console.log("put data: ",data))
+            .catch(error => console.log("error: ", error))
        
 
        

@@ -1,5 +1,5 @@
 <?php $snapshot = array (
-  'time' => 1597224101,
+  'time' => 1597375371,
   'files' => 
   array (
     '12a5350b4ec83ef86b6951b308a4cb00' => '/api.php',
@@ -9234,7 +9234,7 @@
     'e7bfb08b0f6bec11ff1debce0a5bdce2' => '/design/backend/css/tygh/pages/exim.less',
     '27f8a908f64533441d5378287b02e098' => '/design/backend/css/tygh/pages/file_changes_detector.less',
     'c731e1c8d5cc2833fee1a48e5d3f9169' => '/design/backend/css/tygh/pages/invoice_editor.less',
-    '43a89318957d1a1709d49df88fca9ecd' => '/design/backend/css/tygh/pages/orders.less',
+    'e26b5be67bfbd0c5dac76743f7c4de86' => '/design/backend/css/tygh/pages/orders.less',
     '5c1cab1b32317ee5dd777784833af675' => '/design/backend/css/tygh/pages/payments.less',
     '2f297a35321c43658a681ab375f0ec2f' => '/design/backend/css/tygh/pages/products.less',
     '70caac2bd8183b6c2cf2feeaa0d96ce2' => '/design/backend/css/tygh/pages/product_features.less',
@@ -9751,7 +9751,7 @@
     'dc8961b2526bb03072d7ec34bf6af6b0' => '/design/backend/templates/addons/newsletters/views/newsletters/update.tpl',
     '8ebbca23e363ffe8837efcbce28e9966' => '/design/backend/templates/addons/newsletters/views/subscribers/components/subscribers_search_form.tpl',
     'b5b094af329e9772ee8ca1734e1e7ac1' => '/design/backend/templates/addons/newsletters/views/subscribers/manage.tpl',
-    '5a967d965d65888e4856f5e5d0954859' => '/design/backend/templates/addons/new_ui/views/new_orders/manage.tpl',
+    '4bda622555ff501702d789b39eca74b7' => '/design/backend/templates/addons/new_ui/views/new_orders/manage.tpl',
     '2754cc181d8e439d43019d618d7a35d7' => '/design/backend/templates/addons/onekpay/views/payments/components/cc_processors/onekpay.tpl',
     'a6306d06603b2f061fef43856ae15fd8' => '/design/backend/templates/addons/payment_dependencies/hooks/shippings/update.post.tpl',
     'b218e6b13687f98e7cc473c6aac910e3' => '/design/backend/templates/addons/paypal/common/connect_to_paypal.tpl',
