@@ -12,3 +12,19 @@ msgctxt "Addons::description::new_ui"
 msgid "new_ui_description"
 msgstr "Adds new UI for vendors Orders"
 
+msgctxt "SettingsOptions::new_ui::vendor_penalty_grant_period"
+msgid "vendor_penalty_grant_period"
+msgstr "Penalty grant period (days)"
+
+msgctxt "SettingsOptions::new_ui::vendor_penalty_percent"
+msgid "vendor_penalty_percent"
+msgstr "Penalty for Out of stock orders for Vendors (in percents)"
+
+msgctxt "SettingsOptions::new_ui::vendor_penalty_ivr"
+msgid "vendor_penalty_ivr"
+msgstr "Penalty per IVR call (in INR)"
+
+msgctxt "SettingsOptions::new_ui::vendor_order_timeout"
+msgid "vendor_order_timeout"
+msgstr "Timeout of order confirmations before IVR call (in minutes)"
+

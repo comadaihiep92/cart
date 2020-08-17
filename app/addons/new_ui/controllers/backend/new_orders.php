@@ -14,11 +14,11 @@ if (!defined('BOOTSTRAP') || ACCOUNT_TYPE!='vendor') { die('Access denied'); }
 //define('NEW_UI_STATUS_VCONFIRMED', 'M'); // Vendor Confirmed
 //define('NEW_UI_STATUS_PACKED', 'G');
 //define('NEW_UI_STATUS_COMPLETE', 'C');
-
+//
 //define('NEW_UI_STATUS_CANCELED', 'I'); // Canceled
-
+//
 //define('NEW_UI_STATUS_DISPATCHED', 'H');
-
+//
 //define('NEW_UI_STATUS_PICKEDUP', 'P'); // Picked up (shipment)
 //define('NEW_UI_STATUS_OFD', 'B'); // Out for delivery (shipment)
 
@@ -226,7 +226,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         return array(CONTROLLER_STATUS_REDIRECT, 'orders.details?order_id=' . $order_id);
     }
+    
+    if($mode == 'stock'){
+        
+        // array structure:
+        //$array['order_id']=115;
+        //$array['products'][1434]=0;
+        
+        //die(json_encode($array, JSON_PRETTY_PRINT));
 
+        $array = json_decode(file_get_contents('php://input'), true);
+        
+        // mark out of stock
+        $result=fn_new_ui_set_order_stock($array);
+        
+        die($result);
+        
+    }
+    
     return array(CONTROLLER_STATUS_OK, 'orders' . $suffix);
     
 }else{
@@ -300,10 +317,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if($order_value['status']==NEW_UI_STATUS_DISPATCHED){
                         $need_to_unset=true;
                         // get shipment status
-                        $shipments=db_get_array("SELECT shipment_id FROM ?shipment_items WHERE order_id=?i", $order_value['order_id']);
+                        $shipments=db_get_array("SELECT shipment_id FROM ?:shipment_items WHERE order_id=?i", $order_value['order_id']);
                         if($shipments!==false && is_array($shipments) && count($shipments)>0){
                             foreach($shipments as $shipment){
-                                $shipment_row=db_get_row("SELECT status FROM ?shipments WHERE shipment_id=?s", $shipment['shipment_id']);
+                                $shipment_row=db_get_row("SELECT status FROM ?:shipments WHERE shipment_id=?s", $shipment['shipment_id']);
                                 if($shipment_row!==false && is_array($shipment_row) && count($shipment_row)>0){
                                     if($shipment_row['status']==NEW_UI_STATUS_PICKEDUP || $shipment_row['status']==NEW_UI_STATUS_OFD){
                                         $need_to_unset=false;
@@ -317,12 +334,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             unset($orders[$order_key]);
                         }
                     }    
+                
+                    $orders[$order_key]['product_count']=fn_new_ui_get_product_count($order_value['order_id']);    
                 }
                 echo json_encode($orders, JSON_PRETTY_PRINT);
                 die();
 
              }else{ // Rest of the tabs
                 $orders=db_get_array("SELECT ?:orders.order_id, ?:orders.issuer_id, ?:orders.user_id, ?:orders.is_parent_order, ?:orders.parent_order_id, ?:orders.company_id, ?:orders.company, ?:orders.timestamp, ?:orders.firstname, ?:orders.lastname, ?:orders.email, ?:orders.company, ?:orders.phone, ?:orders.status, ?:orders.total, CONCAT(issuers.firstname, ' ', issuers.lastname) as issuer_name, invoice_docs.doc_id as invoice_id, memo_docs.doc_id as credit_memo_id, ?:companies.company as company_name FROM ?:orders LEFT JOIN ?:users as issuers ON issuers.user_id = ?:orders.issuer_id LEFT JOIN ?:order_docs as invoice_docs ON invoice_docs.order_id = ?:orders.order_id AND invoice_docs.type = 'I' LEFT JOIN ?:order_docs as memo_docs ON memo_docs.order_id = ?:orders.order_id AND memo_docs.type = 'C' LEFT JOIN ?:companies ON ?:companies.company_id = ?:orders.company_id WHERE 1 AND ?:orders.is_parent_order != 'Y' AND ?:orders.company_id = ".fn_get_runtime_company_id()." AND ?:orders.status='".$_REQUEST['status']."' ORDER BY ?:orders.timestamp desc, ?:orders.order_id desc");
+                foreach($orders as $order_key=>$order_value){
+                    $orders[$order_key]['product_count']=fn_new_ui_get_product_count($order_value['order_id']);    
+                }
                 echo json_encode($orders, JSON_PRETTY_PRINT);
                 die();
              }
@@ -429,6 +451,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 //            }
             echo json_encode($order_info, JSON_PRETTY_PRINT);
             die();
+        }
+    }elseif($mode=='change_status'){
+        if(!is_numeric($_REQUEST['order_id'])){
+            die('wrong order id');
+        }else{
+            if(!isset($_REQUEST['status']) || (
+               $_REQUEST['status']!=NEW_UI_STATUS_VCONFIRMED &&
+               $_REQUEST['status']!=NEW_UI_STATUS_PACKED)){
+                die('empty or wron status');
+            }else{
+                
+                $order_info = fn_get_order_info($_REQUEST['order_id'], false, true, true, false);
+                
+                if($order_info['company_id']!=fn_get_runtime_company_id())
+                    die('can not change status');
+                
+                if(fn_change_order_status($_REQUEST['order_id'], $_REQUEST['status'])){
+                    die();
+                }else{
+                    die('can not change status');    
+                }
+            }
+                
         }
     }
 }
@@ -604,5 +649,10 @@ function fn_update_order_details(array $params)
      * @param array $force_notification Notification rules
      */
     fn_set_hook('update_order_details_post', $params, $order_info, $edp_data, $force_notification);
+}
+
+function fn_new_ui_get_product_count($order_id){
+    $product_count=db_get_field("SELECT COUNT(product_id) AS num FROM ?:order_details WHERE order_id=?i", $order_id);
+    return $product_count;
 }
 

@@ -771,6 +771,16 @@
 
 
 .order-modal {
+    &__conme {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    &__conmeno {
+        display: flex;
+        background: white;
+        width: 100%;
+    }
     &__top {
         font-size: 14px;
         color: #000;
@@ -790,11 +800,13 @@
     &__box {
         display: flex;
         width: 100%;
+        flex-direction: column;
     }
     &__index {
         font-size: 14px;
         color: #000;
         margin-right: 25px;
+        line-height: 13px;
     }
     &__details--left {
         display: flex;
@@ -837,12 +849,15 @@
     &__input {
         width: 100px;
         text-align: center;
+        margin-left: auto;
     }
     &__quantity {
         width: 50px;
         min-height: 22px!important;
         text-align: center;
         border: 1px solid #ededed!important;
+        margin-left: 50px;
+        margin-right: 25px;
         &--noedit {
             border: none!important;
             color: red!important;
@@ -919,10 +934,22 @@ input[type=number] {
     width: 50%;
     display: none;
     border-radius: unset;
+
     &__content {
         // height: 500px;
         // display: none;
         // position: relative;
+    }
+    &__listProduct {
+        width: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    &__itemProduct {
+        display: flex;
+        align-items: center;
+        width: 100%;
     }
     &__margin {
         margin-bottom: 100px;
@@ -936,3 +963,42 @@ input[type=number] {
     }
 
 }
+
+.modal-showStork__listQ {
+    width: 100%;
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#spinner:not([hidden]) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #spinner::after {
+    content: "";
+    width: 80px;
+    height: 80px;
+    border: 2px solid #f3f3f3;
+    border-top: 3px solid #f25a41;
+    border-radius: 100%;
+    will-change: transform;
+    animation: spin 1s infinite linear
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }

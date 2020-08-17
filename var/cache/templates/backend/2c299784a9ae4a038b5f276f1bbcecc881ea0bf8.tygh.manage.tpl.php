@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-08-14 12:43:00
+<?php /* Smarty version Smarty-3.1.21, created on 2020-08-17 13:27:49
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1597398177,
+      1 => 1597660048,
       2 => 'tygh',
     ),
   ),
@@ -24,32 +24,15 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'config' => 0,
     'search' => 0,
     'orders' => 0,
-    'order_status_descr' => 0,
-    'c_url' => 0,
-    'rev' => 0,
-    'c_icon' => 0,
-    'c_dummy' => 0,
-    'account_type' => 0,
-    'o' => 0,
-    'order_statuses' => 0,
-    'notify_vendor' => 0,
-    'extra_status' => 0,
-    'settings' => 0,
-    'oi' => 0,
-    'order_info' => 0,
-    'total_pages' => 0,
-    'display_totals' => 0,
-    'totals' => 0,
     'page_title' => 0,
     'selected_storefront_id' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5f32a36e7a9146_11375651')) {function content_5f32a36e7a9146_11375651($_smarty_tpl) {?><?php if (!is_callable('smarty_block_hook')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\block.hook.php';
-if (!is_callable('smarty_modifier_date_format')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\modifier.date_format.php';
 if (!is_callable('smarty_block_inline_script')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\block.inline_script.php';
 ?><?php
-\Tygh\Languages\Helper::preloadLangVars(array('text_admin_new_orders','orders','id','status','date','customer','phone','total','id','order','invoice','credit_memo','status','date','customer','phone','tools','view','total','product','for_this_page_orders','gross_total','totally_paid','for_all_found_orders','gross_total','totally_paid','add_order','bulk_print_invoice','bulk_print_pdf','bulk_print_packing_slip','view_purchased_products','export_selected'));
+\Tygh\Languages\Helper::preloadLangVars(array('text_admin_new_orders','orders'));
 ?>
 <?php $_smarty_tpl->_capture_stack[0][] = array("mainbox", null, null); ob_start(); ?>
 
@@ -135,174 +118,7 @@ if (!empty($_capture_buffer)) {
 <?php $_smarty_tpl->tpl_vars["extra_status"] = new Smarty_variable(rawurlencode($_smarty_tpl->tpl_vars['config']->value['current_url']), null, 0);?>
 
 <?php if ($_smarty_tpl->tpl_vars['orders']->value) {?>
-<div class="table-responsive-wrapper">
-    <table width="100%" class="table table-middle table--relative table-responsive">
-    <thead>
-        <th width="50" class="left mobile-hide">
-        <?php echo $_smarty_tpl->getSubTemplate ("common/check_items.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('check_statuses'=>$_smarty_tpl->tpl_vars['order_status_descr']->value), 0);?>
 
-        </th>
-        <th><a class="cm-ajax" href="<?php echo htmlspecialchars(fn_url(((string)$_smarty_tpl->tpl_vars['c_url']->value)."&sort_by=order_id&sort_order=".((string)$_smarty_tpl->tpl_vars['search']->value['sort_order_rev'])), ENT_QUOTES, 'UTF-8');?>
-" data-ca-target-id=<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['rev']->value, ENT_QUOTES, 'UTF-8');?>
-><?php echo $_smarty_tpl->__("id");
-if ($_smarty_tpl->tpl_vars['search']->value['sort_by']=="order_id") {
-echo $_smarty_tpl->tpl_vars['c_icon']->value;
-} else {
-echo $_smarty_tpl->tpl_vars['c_dummy']->value;
-}?></a></th>
-        <th><a class="cm-ajax" href="<?php echo htmlspecialchars(fn_url(((string)$_smarty_tpl->tpl_vars['c_url']->value)."&sort_by=status&sort_order=".((string)$_smarty_tpl->tpl_vars['search']->value['sort_order_rev'])), ENT_QUOTES, 'UTF-8');?>
-" data-ca-target-id=<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['rev']->value, ENT_QUOTES, 'UTF-8');?>
-><?php echo $_smarty_tpl->__("status");
-if ($_smarty_tpl->tpl_vars['search']->value['sort_by']=="status") {
-echo $_smarty_tpl->tpl_vars['c_icon']->value;
-} else {
-echo $_smarty_tpl->tpl_vars['c_dummy']->value;
-}?></a></th>
-        <th><a class="cm-ajax" href="<?php echo htmlspecialchars(fn_url(((string)$_smarty_tpl->tpl_vars['c_url']->value)."&sort_by=date&sort_order=".((string)$_smarty_tpl->tpl_vars['search']->value['sort_order_rev'])), ENT_QUOTES, 'UTF-8');?>
-" data-ca-target-id=<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['rev']->value, ENT_QUOTES, 'UTF-8');?>
-><?php echo $_smarty_tpl->__("date");
-if ($_smarty_tpl->tpl_vars['search']->value['sort_by']=="date") {
-echo $_smarty_tpl->tpl_vars['c_icon']->value;
-} else {
-echo $_smarty_tpl->tpl_vars['c_dummy']->value;
-}?></a></th>
-
-
-
-
-<?php if ($_smarty_tpl->tpl_vars['account_type']->value!='vendor') {?>        
-        <th><a class="cm-ajax" href="<?php echo htmlspecialchars(fn_url(((string)$_smarty_tpl->tpl_vars['c_url']->value)."&sort_by=customer&sort_order=".((string)$_smarty_tpl->tpl_vars['search']->value['sort_order_rev'])), ENT_QUOTES, 'UTF-8');?>
-" data-ca-target-id=<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['rev']->value, ENT_QUOTES, 'UTF-8');?>
-><?php echo $_smarty_tpl->__("customer");
-if ($_smarty_tpl->tpl_vars['search']->value['sort_by']=="customer") {
-echo $_smarty_tpl->tpl_vars['c_icon']->value;
-}?></a></th>
-        <th><a class="cm-ajax" href="<?php echo htmlspecialchars(fn_url(((string)$_smarty_tpl->tpl_vars['c_url']->value)."&sort_by=phone&sort_order=".((string)$_smarty_tpl->tpl_vars['search']->value['sort_order_rev'])), ENT_QUOTES, 'UTF-8');?>
-" data-ca-target-id=<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['rev']->value, ENT_QUOTES, 'UTF-8');?>
-><?php echo $_smarty_tpl->__("phone");
-if ($_smarty_tpl->tpl_vars['search']->value['sort_by']=="phone") {
-echo $_smarty_tpl->tpl_vars['c_icon']->value;
-}?></a></th>
-<?php }?>
-        <?php $_smarty_tpl->smarty->_tag_stack[] = array('hook', array('name'=>"orders:manage_header")); $_block_repeat=true; echo smarty_block_hook(array('name'=>"orders:manage_header"), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();
-$_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"orders:manage_header"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-
-        <th class="mobile-hide">&nbsp;</th>
-        <th class="right"><a class="cm-ajax<?php if ($_smarty_tpl->tpl_vars['search']->value['sort_by']=="total") {?> sort-link-<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['search']->value['sort_order_rev'], ENT_QUOTES, 'UTF-8');
-}?>" href="<?php echo htmlspecialchars(fn_url(((string)$_smarty_tpl->tpl_vars['c_url']->value)."&sort_by=total&sort_order=".((string)$_smarty_tpl->tpl_vars['search']->value['sort_order_rev'])), ENT_QUOTES, 'UTF-8');?>
-" data-ca-target-id=<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['rev']->value, ENT_QUOTES, 'UTF-8');?>
-><?php echo $_smarty_tpl->__("total");?>
-</a></th>
-
-    </tr>
-    </thead>
-
-    
-
-    <?php  $_smarty_tpl->tpl_vars["o"] = new Smarty_Variable; $_smarty_tpl->tpl_vars["o"]->_loop = false;
- $_from = $_smarty_tpl->tpl_vars['orders']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
-foreach ($_from as $_smarty_tpl->tpl_vars["o"]->key => $_smarty_tpl->tpl_vars["o"]->value) {
-$_smarty_tpl->tpl_vars["o"]->_loop = true;
-?>
-    <?php $_smarty_tpl->smarty->_tag_stack[] = array('hook', array('name'=>"orders:order_row")); $_block_repeat=true; echo smarty_block_hook(array('name'=>"orders:order_row"), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-; 
-    <tr>
-        <td class="left mobile-hide">
-            <input type="checkbox" name="order_ids[]" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['o']->value['order_id'], ENT_QUOTES, 'UTF-8');?>
-" class="cm-item cm-item-status-<?php echo htmlspecialchars(mb_strtolower($_smarty_tpl->tpl_vars['o']->value['status'], 'UTF-8'), ENT_QUOTES, 'UTF-8');?>
-" /></td>
-        <td data-th="<?php echo $_smarty_tpl->__("id");?>
-">
-            <a href="<?php echo htmlspecialchars(fn_url("orders.details?order_id=".((string)$_smarty_tpl->tpl_vars['o']->value['order_id'])), ENT_QUOTES, 'UTF-8');?>
-" class="underlined"><?php echo $_smarty_tpl->__("order");?>
- <bdi>#<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['o']->value['order_id'], ENT_QUOTES, 'UTF-8');?>
-</bdi></a>
-            <?php if ($_smarty_tpl->tpl_vars['order_statuses']->value[$_smarty_tpl->tpl_vars['o']->value['status']]['params']['appearance_type']=="I"&&$_smarty_tpl->tpl_vars['o']->value['invoice_id']) {?>
-                <p class="muted"><?php echo $_smarty_tpl->__("invoice");?>
- #<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['o']->value['invoice_id'], ENT_QUOTES, 'UTF-8');?>
-</p>
-            <?php } elseif ($_smarty_tpl->tpl_vars['order_statuses']->value[$_smarty_tpl->tpl_vars['o']->value['status']]['params']['appearance_type']=="C"&&$_smarty_tpl->tpl_vars['o']->value['credit_memo_id']) {?>
-                <p class="muted"><?php echo $_smarty_tpl->__("credit_memo");?>
- #<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['o']->value['credit_memo_id'], ENT_QUOTES, 'UTF-8');?>
-</p>
-            <?php }?>
-            <?php echo $_smarty_tpl->getSubTemplate ("views/companies/components/company_name.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('object'=>$_smarty_tpl->tpl_vars['o']->value), 0);?>
-
-        </td>
-        <td data-th="<?php echo $_smarty_tpl->__("status");?>
-">
-            <?php if (fn_allowed_for("MULTIVENDOR")) {?>
-                <?php $_smarty_tpl->tpl_vars["notify_vendor"] = new Smarty_variable(true, null, 0);?>
-            <?php } else { ?>
-                <?php $_smarty_tpl->tpl_vars["notify_vendor"] = new Smarty_variable(false, null, 0);?>
-            <?php }?>
-<?php if ($_smarty_tpl->tpl_vars['account_type']->value!='vendor') {?>
-            <?php echo $_smarty_tpl->getSubTemplate ("common/select_popup.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('suffix'=>"o",'order_info'=>$_smarty_tpl->tpl_vars['o']->value,'id'=>$_smarty_tpl->tpl_vars['o']->value['order_id'],'status'=>$_smarty_tpl->tpl_vars['o']->value['status'],'items_status'=>$_smarty_tpl->tpl_vars['order_status_descr']->value,'update_controller'=>"orders",'notify'=>true,'notify_department'=>true,'notify_vendor'=>$_smarty_tpl->tpl_vars['notify_vendor']->value,'status_target_id'=>"orders_total,".((string)$_smarty_tpl->tpl_vars['rev']->value),'extra'=>"&return_url=".((string)$_smarty_tpl->tpl_vars['extra_status']->value),'statuses'=>$_smarty_tpl->tpl_vars['order_statuses']->value,'btn_meta'=>mb_strtolower("btn btn-info o-status-".((string)$_smarty_tpl->tpl_vars['o']->value['status'])." btn-small", 'UTF-8'),'text_wrap'=>true), 0);?>
-
-<?php } else { ?>
-<?php echo $_smarty_tpl->getSubTemplate ("views/orders/components/select_popup.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('suffix'=>"o",'order_info'=>$_smarty_tpl->tpl_vars['o']->value,'id'=>$_smarty_tpl->tpl_vars['o']->value['order_id'],'status'=>$_smarty_tpl->tpl_vars['o']->value['status'],'items_status'=>$_smarty_tpl->tpl_vars['order_status_descr']->value,'update_controller'=>"orders",'notify'=>true,'notify_department'=>true,'notify_vendor'=>$_smarty_tpl->tpl_vars['notify_vendor']->value,'status_target_id'=>"orders_total,".((string)$_smarty_tpl->tpl_vars['rev']->value),'extra'=>"&return_url=".((string)$_smarty_tpl->tpl_vars['extra_status']->value),'statuses'=>$_smarty_tpl->tpl_vars['order_statuses']->value,'btn_meta'=>mb_strtolower("btn btn-info o-status-".((string)$_smarty_tpl->tpl_vars['o']->value['status'])." btn-small", 'UTF-8'),'text_wrap'=>true), 0);?>
-
-<?php }?>
-            <?php if ($_smarty_tpl->tpl_vars['o']->value['issuer_name']) {?>
-            <p class="muted shift-left"><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['o']->value['issuer_name'], ENT_QUOTES, 'UTF-8');?>
-</p>
-            <?php }?>
-        </td>
-        <td class="nowrap" data-th="<?php echo $_smarty_tpl->__("date");?>
-"><?php echo htmlspecialchars(smarty_modifier_date_format($_smarty_tpl->tpl_vars['o']->value['timestamp'],((string)$_smarty_tpl->tpl_vars['settings']->value['Appearance']['date_format']).", ".((string)$_smarty_tpl->tpl_vars['settings']->value['Appearance']['time_format'])), ENT_QUOTES, 'UTF-8');?>
-</td>
-<?php if ($_smarty_tpl->tpl_vars['account_type']->value!='vendor') {?>        
-        <td data-th="<?php echo $_smarty_tpl->__("customer");?>
-">
-            <?php if ($_smarty_tpl->tpl_vars['o']->value['email']) {?><a href="mailto:<?php echo htmlspecialchars(rawurlencode($_smarty_tpl->tpl_vars['o']->value['email']), ENT_QUOTES, 'UTF-8');?>
-">@</a> <?php }?>
-            <?php if ($_smarty_tpl->tpl_vars['o']->value['user_id']) {?><a href="<?php echo htmlspecialchars(fn_url("profiles.update?user_id=".((string)$_smarty_tpl->tpl_vars['o']->value['user_id'])), ENT_QUOTES, 'UTF-8');?>
-"><?php }
-echo htmlspecialchars($_smarty_tpl->tpl_vars['o']->value['lastname'], ENT_QUOTES, 'UTF-8');?>
- <?php echo htmlspecialchars($_smarty_tpl->tpl_vars['o']->value['firstname'], ENT_QUOTES, 'UTF-8');
-if ($_smarty_tpl->tpl_vars['o']->value['user_id']) {?></a><?php }?>
-            <?php if ($_smarty_tpl->tpl_vars['o']->value['company']) {?><p class="muted"><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['o']->value['company'], ENT_QUOTES, 'UTF-8');?>
-</p><?php }?>
-        </td>
-        <td <?php if ($_smarty_tpl->tpl_vars['o']->value['phone']) {?>data-th="<?php echo $_smarty_tpl->__("phone");?>
-"<?php }?>><bdi><a href="tel:<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['o']->value['phone'], ENT_QUOTES, 'UTF-8');?>
-"><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['o']->value['phone'], ENT_QUOTES, 'UTF-8');?>
-</a></bdi></td>
-<?php }?>
-        <?php $_smarty_tpl->smarty->_tag_stack[] = array('hook', array('name'=>"orders:manage_data")); $_block_repeat=true; echo smarty_block_hook(array('name'=>"orders:manage_data"), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();
-$_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"orders:manage_data"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-
-        <td width="5%" class="center" data-th="<?php echo $_smarty_tpl->__("tools");?>
-">
-            <?php $_smarty_tpl->_capture_stack[0][] = array("tools_items", null, null); ob_start(); ?>
-                <li><?php ob_start();?><?php echo $_smarty_tpl->__("view");?>
-<?php $_tmp1=ob_get_clean();?><?php smarty_template_function_btn($_smarty_tpl,array('type'=>"list",'href'=>"orders.details?order_id=".((string)$_smarty_tpl->tpl_vars['o']->value['order_id']),'text'=>$_tmp1));?>
-</li>
-                
-            <?php list($_capture_buffer, $_capture_assign, $_capture_append) = array_pop($_smarty_tpl->_capture_stack[0]);
-if (!empty($_capture_buffer)) {
- if (isset($_capture_assign)) $_smarty_tpl->assign($_capture_assign, ob_get_contents());
- if (isset( $_capture_append)) $_smarty_tpl->append( $_capture_append, ob_get_contents());
- Smarty::$_smarty_vars['capture'][$_capture_buffer]=ob_get_clean();
-} else $_smarty_tpl->capture_error();?>
-            <div class="hidden-tools">
-                <?php smarty_template_function_dropdown($_smarty_tpl,array('content'=>Smarty::$_smarty_vars['capture']['tools_items']));?>
-
-            </div>
-        </td>
-        <td class="right" data-th="<?php echo $_smarty_tpl->__("total");?>
-">
-            <?php echo $_smarty_tpl->getSubTemplate ("common/price.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('value'=>$_smarty_tpl->tpl_vars['o']->value['total']), 0);?>
-
-        </td>
-    </tr>
-    <?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"orders:order_row"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-    <?php } ?>
-    </table>
-</div>
 
 
 <div class="have-content">
@@ -319,8 +135,7 @@ if (!empty($_capture_buffer)) {
             <ul class="search-order__list">
                
                 
-                    
-                    
+  
             </ul>
             
         </div>
@@ -328,16 +143,14 @@ if (!empty($_capture_buffer)) {
         <div class="have-order__content">
                 
                 
-               
-                
-            
+ 
         </div>
        
     </div>
 
     
     <!-- packing -->
-    
+
     <div class="have-tab have-packing" id="packing" data-tab="tab2">
         <div class="have-packing__left search-packing" >
             <div class="search-packing__box-input">
@@ -348,16 +161,13 @@ if (!empty($_capture_buffer)) {
             
                 
 
-                
-               
-          
             </ul>
         </div>
         <div class="have-packing__content">
             
         </div>
     </div>
-    
+
 
     <!-- ready -->
     <div class="have-tab have-ready" id="ready" data-tab="tab3">
@@ -370,262 +180,11 @@ if (!empty($_capture_buffer)) {
 
              
                 
-               
-            
             </ul>
         </div>
         <div class="have-ready__content">
-            <div class="have-ready__mid">
-                <div class="have-ready__mid--rel" data-order="order9161">
-                    <div class="search-ready__box search-ready__box--mid">
-                        <div class="search-ready__left">
-                            <h3 class="search-ready__id search-ready__id--bold search-ready__id--packing">
-                                #78395909162<span class="search-ready__new search-ready__new--packing">Ready</span>
-                            </h3>
-                            <p class="search-ready__desc search-ready__desc--gray">1 items for #127</p>
-                            <td data-th="<?php echo $_smarty_tpl->__("product");?>
-">
-                        <div class="order-product-image">
-                            <?php echo $_smarty_tpl->getSubTemplate ("common/image.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('image'=>(($tmp = @$_smarty_tpl->tpl_vars['oi']->value['main_pair']['icon'])===null||$tmp==='' ? $_smarty_tpl->tpl_vars['oi']->value['main_pair']['detailed'] : $tmp),'image_id'=>$_smarty_tpl->tpl_vars['oi']->value['main_pair']['image_id'],'image_width'=>$_smarty_tpl->tpl_vars['settings']->value['Thumbnails']['product_admin_mini_icon_width'],'image_height'=>$_smarty_tpl->tpl_vars['settings']->value['Thumbnails']['product_admin_mini_icon_height'],'href'=>fn_url("products.update?product_id=".((string)$_smarty_tpl->tpl_vars['oi']->value['product_id']))), 0);?>
-
-                        </div>
-                      <?php echo $_smarty_tpl->getSubTemplate ("common/price.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('value'=>$_smarty_tpl->tpl_vars['order_info']->value['total']), 0);?>
-
-                       
-                    </td>
-                        </div>
-                        <div class="search-ready__right">
-                            
-                            <img class="search-ready__print" src="https://i.imgur.com/q6OYhBH.png" />
-                            
-                            <p class="search-ready__date">21 Jul 2020 02:08 PM</p>
-                        </div>
-                    </div>
-                    <ul class="search-ready__list-details">
-                        <li class="search-ready__details">
-                            <div class="search-ready__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-ready__dish">
-                                    <p class="search-ready__title">Chicken Biryani</p>
-                                    <p class="search-ready__type">Biryani</p>
-                                    <p class="search-ready__price">$150</p>
-                                </div>
-                            </div>
-                            <div class="search-ready__details--right">
-                                <p class="search-ready__amount">X1</p>
-                            </div>
-                        </li>
-                        <li class="search-ready__details">
-                            <div class="search-ready__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-ready__dish">
-                                    <p class="search-ready__title">Chicken Biryani</p>
-                                    <p class="search-ready__type">Biryani</p>
-                                    <p class="search-ready__price">$150</p>
-                                </div>
-                            </div>
-                            <div class="search-ready__details--right">
-                                <p class="search-ready__amount">X1</p>
-                            </div>
-                        </li>
-                        <li class="search-ready__details">
-                            <div class="search-ready__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-ready__dish">
-                                    <p class="search-ready__title">Chicken Biryani</p>
-                                    <p class="search-ready__type">Biryani</p>
-                                    <p class="search-ready__price">$150</p>
-                                </div>
-                            </div>
-                            <div class="search-ready__details--right">
-                                <p class="search-ready__amount">X1</p>
-                            </div>
-                        </li>
-                        
-                    </ul>
-
-                
-                    
-                </div>
-                <div class="have-ready__mid--rel" data-order="order9162">
-                    <div class="search-ready__box search-ready__box--mid">
-                        <div class="search-ready__left">
-                            <h3 class="search-ready__id search-ready__id--bold search-ready__id--packing">
-                                #78395909162<span class="search-ready__new search-ready__new--packing">Ready</span>
-                            </h3>
-                            <p class="search-ready__desc search-ready__desc--gray">1 items for #127</p>
-                            
-                        </div>
-                        <div class="search-ready__right">
-                            
-                            <img class="search-ready__print" src="https://i.imgur.com/q6OYhBH.png" />
-                            
-                            <p class="search-ready__date">21 Jul 2020 02:08 PM</p>
-                        </div>
-                    </div>
-                    <ul class="search-ready__list-details">
-                        <li class="search-ready__details">
-                            <div class="search-ready__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-ready__dish">
-                                    <p class="search-ready__title">Chicken Biryani</p>
-                                    <p class="search-ready__type">Biryani</p>
-                                    <p class="search-ready__price">$120</p>
-                                </div>
-                            </div>
-                            <div class="search-ready__details--right">
-                                <p class="search-ready__amount">X1</p>
-                            </div>
-                        </li>
-                        <li class="search-ready__details">
-                            <div class="search-ready__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-ready__dish">
-                                    <p class="search-ready__title">Chicken Biryani</p>
-                                    <p class="search-ready__type">Biryani</p>
-                                    <p class="search-ready__price">$120</p>
-                                </div>
-                            </div>
-                            <div class="search-ready__details--right">
-                                <p class="search-ready__amount">X2</p>
-                            </div>
-                        </li>
-                        <li class="search-ready__details">
-                            <div class="search-ready__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-ready__dish">
-                                    <p class="search-ready__title">Chicken Biryani</p>
-                                    <p class="search-ready__type">Biryani</p>
-                                    <p class="search-ready__price">$180</p>
-                                </div>
-                            </div>
-                            <div class="search-ready__details--right">
-                                <p class="search-ready__amount">X1</p>
-                            </div>
-                        </li>
-                        
-                    </ul>
-
-                
-                    
-                </div>
-            
-            </div>
-            <div class="have-ready__right">
-                <div class="search-ready__right-top" data-order="order9161">
-                    
-                    
-                    <div class="search-ready__right-box">
-                        <div class="search-ready__img-box search-ready__img-box--big">
-                            <img src="https://i.imgur.com/UKWKNWg.png" />
-                        </div>
-                        <div class="search-ready__right-content">
-                            <h4 class="search-ready__right-title">
-                                Delivery Executive
-                            </h4>
-                            
-                            <p class="search-ready__right-person">
-                                Utpal Choudhury
-                            </p>
-                            <p class="search-ready__right-phone">
-                                <img src="https://i.imgur.com/xbHY2sf.png"><span class="search-ready__right-first-num">+91</span><span>5647867875</span>
-                            </p>
-                            <div class="search-ready__right-pickup">
-                                <p class="search-ready__right-pickup-text">Pick up arriving in</p>
-                                <div>Spin</div>
-                            </div>
-                            
-                        </div>
-                    </div>
-
-                    <div class="search-ready__right-box">
-                        <div class="search-ready__img-box search-ready__img-box--big">
-                            <img src="https://i.imgur.com/OFK8M5L.png" />
-                        </div>
-                        <div class="search-ready__right-content">
-                            <h4 class="search-ready__right-title">
-                                Grand Total
-                            </h4>
-                            <p class="search-ready__right-price">
-                                $122
-                            </p>
-                            <div class="search-ready__right-info">
-                                <div class="search-ready__right-row">
-                                    <p class="search-ready__right-label">Item total</p>
-                                    <p class="search-ready__right-money">$122</p>
-                                </div>
-                                <div class="search-ready__right-row">
-                                    <p class="search-ready__right-label">GST</p>
-                                    <p class="search-ready__right-money">$0</p>
-                                </div>
-                                <div class="search-ready__right-row">
-                                    <p class="search-ready__right-label">Discount</p>
-                                    <p class="search-ready__right-money">$30</p>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>
-                    <div class="search-ready__right-box">
-                        <a class="search-ready__link" href="javascript:void(0)">Need help with this order?</a>
-                    </div>
-                </div>
-                <div class="search-ready__right-top" data-order="order9162">
-                    
-                    
-                    <div class="search-ready__right-box">
-                        <div class="search-ready__img-box search-ready__img-box--big">
-                            <img src="https://i.imgur.com/UKWKNWg.png" />
-                        </div>
-                        <div class="search-ready__right-content">
-                            <h4 class="search-ready__right-title">
-                                Delivery Executive
-                            </h4>
-                            <p class="search-ready__right-person">
-                                Utpal Choudhury
-                            </p>
-                            <p class="search-ready__right-phone">
-                                <img src="https://i.imgur.com/xbHY2sf.png"><span class="search-ready__right-first-num">+91</span><span>5647867875</span>
-                            </p>
-                            <div class="search-ready__right-pickup">
-                                <p class="search-ready__right-pickup-text">Pick up arriving in</p>
-                                <div>Spin</div>
-                            </div>
-                            
-                        </div>
-                    </div>
-
-                    <div class="search-ready__right-box">
-                        <div class="search-ready__img-box search-ready__img-box--big">
-                            <img src="https://i.imgur.com/OFK8M5L.png" />
-                        </div>
-                        <div class="search-ready__right-content">
-                            <h4 class="search-ready__right-title">
-                                Grand Total
-                            </h4>
-                            <p class="search-ready__right-price">
-                                $188
-                            </p>
-                            <div class="search-ready__right-info">
-                                <div class="search-ready__right-row">
-                                    <p class="search-ready__right-label">Item total</p>
-                                    <p class="search-ready__right-money">$188</p>
-                                </div>
-                                <div class="search-ready__right-row">
-                                    <p class="search-ready__right-label">GST</p>
-                                    <p class="search-ready__right-money">$0</p>
-                                </div>
-                                <div class="search-ready__right-row">
-                                    <p class="search-ready__right-label">Discount</p>
-                                    <p class="search-ready__right-money">$30</p>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>
-                    <div class="search-ready__right-box">
-                        <a class="search-ready__link" href="javascript:void(0)">Need help with this order?</a>
-                    </div>
-                </div>
-            </div>
+             
+           
         </div>
     </div>
 
@@ -640,366 +199,17 @@ if (!empty($_capture_buffer)) {
 
             
  
-            
             </ul>
         </div>
         <div class="have-past__content">
-            <div class="have-past__mid">
-                <div class="have-past__mid--rel" data-order="order9161">
-                    <div class="search-past__box search-past__box--mid search-past__box--nomg">
-                        <div class="search-past__left">
-                            <h3 class="search-past__id search-past__id--bold search-past__id--packing">
-                                #78395909161<span class="search-past__new search-past__new--packing">Delivered</span>
-                            </h3>
-                            <p class="search-past__desc search-past__desc--gray">1 items for #127</p>
-                            
-                        </div>
-                        <div class="search-past__right">
-                            
-                            <img class="search-past__print" src="https://i.imgur.com/q6OYhBH.png" />
-                            
-                            <p class="search-past__date">21 Jul 2020 02:08 PM</p>
-                        </div>
-                    </div>
-                    <div class="search-past__box-time">
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p class="search-past__box-time-h">02:08 PM</p>
-                                <p class="search-past__box-time-p">Placed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Confirmed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Packed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Delivered</p>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="search-past__list-details">
-                        <li class="search-past__details">
-                            <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-past__dish">
-                                    <p class="search-past__title">Chicken Biryani</p>
-                                    <p class="search-past__type">Biryani</p>
-                                    <p class="search-past__price">$150</p>
-                                </div>
-                            </div>
-                            <div class="search-past__details--right">
-                                <p class="search-past__amount">X1</p>
-                            </div>
-                        </li>
-                        <li class="search-past__details">
-                            <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-past__dish">
-                                    <p class="search-past__title">Chicken Biryani</p>
-                                    <p class="search-past__type">Biryani</p>
-                                    <p class="search-past__price">$150</p>
-                                </div>
-                            </div>
-                            <div class="search-past__details--right">
-                                <p class="search-past__amount">X1</p>
-                            </div>
-                        </li>
-                        <li class="search-past__details">
-                            <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-past__dish">
-                                    <p class="search-past__title">Chicken Biryani</p>
-                                    <p class="search-past__type">Biryani</p>
-                                    <p class="search-past__price">$150</p>
-                                </div>
-                            </div>
-                            <div class="search-past__details--right">
-                                <p class="search-past__amount">X1</p>
-                            </div>
-                        </li>
-                        
-                    </ul>
-                </div>
-                <div class="have-past__mid--rel" data-order="order9162">
-                    <div class="search-past__box search-past__box--mid search-past__box--nomg">
-                        <div class="search-past__left">
-                            <h3 class="search-past__id search-past__id--bold search-past__id--delevered">
-                                #78395909162<span class="search-past__new search-past__new--delevered">Out for delivery</span>
-                            </h3>
-                            <p class="search-past__desc search-past__desc--gray">1 items for #127</p>
-                            
-                        </div>
-                        <div class="search-past__right">
-                            
-                            <img class="search-past__print" src="https://i.imgur.com/q6OYhBH.png" />
-                            
-                            <p class="search-past__date">21 Jul 2020 02:08 PM</p>
-                        </div>
-                    </div>
-                    <div class="search-past__box-time">
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:08 PM</p>
-                                <p class="search-past__box-time-p">Placed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Confirmed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Packed</p>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <ul class="search-past__list-details">
-                        <li class="search-past__details">
-                            <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-past__dish">
-                                    <p class="search-past__title">Chicken Biryani</p>
-                                    <p class="search-past__type">Biryani</p>
-                                    <p class="search-past__price">$120</p>
-                                </div>
-                            </div>
-                            <div class="search-past__details--right">
-                                <p class="search-past__amount">X1</p>
-                            </div>
-                        </li>
-                        <li class="search-past__details">
-                            <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-past__dish">
-                                    <p class="search-past__title">Chicken Biryani</p>
-                                    <p class="search-past__type">Biryani</p>
-                                    <p class="search-past__price">$120</p>
-                                </div>
-                            </div>
-                            <div class="search-past__details--right">
-                                <p class="search-past__amount">X2</p>
-                            </div>
-                        </li>
-                        <li class="search-past__details">
-                            <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-past__dish">
-                                    <p class="search-past__title">Chicken Biryani</p>
-                                    <p class="search-past__type">Biryani</p>
-                                    <p class="search-past__price">$180</p>
-                                </div>
-                            </div>
-                            <div class="search-past__details--right">
-                                <p class="search-past__amount">X1</p>
-                            </div>
-                        </li>
-                        
-                    </ul>
-
-                </div>
-
-                 <div class="have-past__mid--rel" data-order="order9163">
-                    <div class="search-past__box search-past__box--mid search-past__box--nomg">
-                        <div class="search-past__left">
-                            <h3 class="search-past__id search-past__id--bold search-past__id--delevered">
-                                #78395909163<span class="search-past__new search-past__new--delevered">Cancelled</span>
-                            </h3>
-                            <p class="search-past__desc search-past__desc--gray">1 items for #127</p>
-                            
-                        </div>
-                        <div class="search-past__right">
-                            
-                            <img class="search-past__print" src="https://i.imgur.com/q6OYhBH.png" />
-                            
-                            <p class="search-past__date">21 Jul 2020 02:08 PM</p>
-                        </div>
-                    </div>
-                    <div class="search-past__box-time">
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:08 PM</p>
-                                <p class="search-past__box-time-p">Placed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Canceled</p>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                    <ul class="search-past__list-details">
-                        <li class="search-past__details">
-                            <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-past__dish">
-                                    <p class="search-past__title">Chicken Biryani</p>
-                                    <p class="search-past__type">Biryani</p>
-                                    <p class="search-past__price">$120</p>
-                                </div>
-                            </div>
-                            <div class="search-past__details--right">
-                                <p class="search-past__amount">X1</p>
-                            </div>
-                        </li>
-                        <li class="search-past__details">
-                            <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-past__dish">
-                                    <p class="search-past__title">Chicken Biryani</p>
-                                    <p class="search-past__type">Biryani</p>
-                                    <p class="search-past__price">$120</p>
-                                </div>
-                            </div>
-                            <div class="search-past__details--right">
-                                <p class="search-past__amount">X2</p>
-                            </div>
-                        </li>
-                        <li class="search-past__details">
-                            <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="search-past__dish">
-                                    <p class="search-past__title">Chicken Biryani</p>
-                                    <p class="search-past__type">Biryani</p>
-                                    <p class="search-past__price">$180</p>
-                                </div>
-                            </div>
-                            <div class="search-past__details--right">
-                                <p class="search-past__amount">X1</p>
-                            </div>
-                        </li>
-                        
-                    </ul>
-
-                </div>
             
-            </div>
-            <div class="have-past__right">
-                <div class="search-past__right-top" data-order="order9161">
-
-                    <div class="search-past__right-box">
-                        <div class="search-past__img-box search-past__img-box--big">
-                            <img src="https://i.imgur.com/OFK8M5L.png" />
-                        </div>
-                        <div class="search-past__right-content">
-                            <h4 class="search-past__right-title">
-                                Grand Total
-                            </h4>
-                            <p class="search-past__right-price">
-                                $122
-                            </p>
-                            <div class="search-past__right-info">
-                                <div class="search-past__right-row">
-                                    <p class="search-past__right-label">Item total</p>
-                                    <p class="search-past__right-money">$122</p>
-                                </div>
-                                <div class="search-past__right-row">
-                                    <p class="search-past__right-label">GST</p>
-                                    <p class="search-past__right-money">$0</p>
-                                </div>
-                                <div class="search-past__right-row">
-                                    <p class="search-past__right-label">Discount</p>
-                                    <p class="search-past__right-money">$30</p>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>
-                   
-                </div>
-                <div class="search-past__right-top" data-order="order9162">
-                    <div class="search-past__right-box">
-                        <div class="search-past__img-box search-past__img-box--big">
-                            <img src="https://i.imgur.com/OFK8M5L.png" />
-                        </div>
-                        <div class="search-past__right-content">
-                            <h4 class="search-past__right-title">
-                                Grand Total
-                            </h4>
-                            <p class="search-past__right-price">
-                                $158
-                            </p>
-                            <div class="search-past__right-info">
-                                <div class="search-past__right-row">
-                                    <p class="search-past__right-label">Item total</p>
-                                    <p class="search-past__right-money">$158</p>
-                                </div>
-                                <div class="search-past__right-row">
-                                    <p class="search-past__right-label">GST</p>
-                                    <p class="search-past__right-money">$0</p>
-                                </div>
-                                <div class="search-past__right-row">
-                                    <p class="search-past__right-label">Discount</p>
-                                    <p class="search-past__right-money">$30</p>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>
-                   
-                </div>
-
-                 <div class="search-past__right-top" data-order="order9163">
-
-                    <div class="search-past__right-box">
-                        <div class="search-past__img-box search-past__img-box--big">
-                            <img src="https://i.imgur.com/OFK8M5L.png" />
-                        </div>
-                        <div class="search-past__right-content">
-                            <h4 class="search-past__right-title">
-                                Grand Total
-                            </h4>
-                            <p class="search-past__right-price">
-                                $111
-                            </p>
-                            <div class="search-past__right-info">
-                                <div class="search-past__right-row">
-                                    <p class="search-past__right-label">Item total</p>
-                                    <p class="search-past__right-money">$111</p>
-                                </div>
-                                <div class="search-past__right-row">
-                                    <p class="search-past__right-label">GST</p>
-                                    <p class="search-past__right-money">$0</p>
-                                </div>
-                                <div class="search-past__right-row">
-                                    <p class="search-past__right-label">Discount</p>
-                                    <p class="search-past__right-money">$11</p>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>
-                   
-                </div>
-            </div>
+            
         </div>
     </div>
     
 </div>
 
-
+<div hidden id="spinner"></div>
 <!-- Modal -->
 <div class="modal modal-showStork fade" id="showStork" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -1010,19 +220,40 @@ if (!empty($_capture_buffer)) {
             <div class="order-modal__list">
                 <p class="order-modal__label">Enter Quantity</p>
                 <div class="order-modal__box"> 
-                    <span class="order-modal__index">1</span>
-                    <div class="order-modal__details--left">
-                        <img src="https://i.imgur.com/76y9dFM.png" />
-                        <div class="order-modal__dish">
-                            <p class="order-modal__title">Chicken Biryani</p>
-                            <p class="order-modal__type">Biryani</p>
+                    
+                    <div class="order-modal__conme">
+                        <div class="order-modal__conmeno">
+                            <span class="order-modal__index">1</span>
+                            <div class="order-modal__details--left">
+                                <img src="https://i.imgur.com/76y9dFM.png" />
+                                <div class="order-modal__dish">
+                                    <p class="order-modal__title">Chicken Biryani</p>
+                                    <p class="order-modal__type">Biryani</p>
+                                </div>
+                            </div>
+                            <div class="order-modal__details--right">
+                                <p class="order-modal__amount">$127</p>
+                            </div>
+                            <input class="order-modal__quantity" value="1" type="number" />
+                        </div>
+                         <div class="order-modal__conmeno">
+                            <span class="order-modal__index">1</span>
+                            <div class="order-modal__details--left">
+                                <img src="https://i.imgur.com/76y9dFM.png" />
+                                <div class="order-modal__dish">
+                                    <p class="order-modal__title">Chicken Biryani</p>
+                                    <p class="order-modal__type">Biryani</p>
+                                </div>
+                            </div>
+                            <div class="order-modal__details--right">
+                                <p class="order-modal__amount">$127</p>
+                            </div>
+                            <input class="order-modal__quantity" value="1" type="number" />
                         </div>
                     </div>
-                    <div class="order-modal__details--right">
-                        <p class="order-modal__amount">$127</p>
-                    </div>
+                    
                     <div class="order-modal__input">
-                        <input class="order-modal__quantity" value="1" type="number" />
+                       
                         <div class="order-modal__grand-total">
                             <p class="order-modal__grand">Grand total</p>
                             <p class="order-modal__amount order-modal__amount--big">$127</p>
@@ -1100,76 +331,11 @@ if (!empty($_capture_buffer)) {
     
 <?php }?>
 
-<?php if ($_smarty_tpl->tpl_vars['orders']->value) {?>
-    <div class="statistic clearfix" id="orders_total">
-        <?php $_smarty_tpl->smarty->_tag_stack[] = array('hook', array('name'=>"orders:statistic_list")); $_block_repeat=true; echo smarty_block_hook(array('name'=>"orders:statistic_list"), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-
-        <div class="table-wrapper">
-            <table class="pull-right ">
-                <?php if ($_smarty_tpl->tpl_vars['total_pages']->value>1&&$_smarty_tpl->tpl_vars['search']->value['page']!="full_list") {?>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td width="100px"><?php echo $_smarty_tpl->__("for_this_page_orders");?>
-:</td>
-                    </tr>
-                    <tr>
-                        <td><?php echo $_smarty_tpl->__("gross_total");?>
-:</td>
-                        <td><?php echo $_smarty_tpl->getSubTemplate ("common/price.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('value'=>$_smarty_tpl->tpl_vars['display_totals']->value['gross_total']), 0);?>
-</td>
-                    </tr>
-                    <tr>
-                        <td><?php echo $_smarty_tpl->__("totally_paid");?>
-:</td>
-                        <td><?php echo $_smarty_tpl->getSubTemplate ("common/price.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('value'=>$_smarty_tpl->tpl_vars['display_totals']->value['totally_paid']), 0);?>
-</td>
-                    </tr>
-                    <hr />
-                    <tr>
-                        <td><?php echo $_smarty_tpl->__("for_all_found_orders");?>
-:</td>
-                    </tr>
-                <?php }?>
-                <tr>
-                    <td class="shift-right"><?php echo $_smarty_tpl->__("gross_total");?>
-:</td>
-                    <td><?php echo $_smarty_tpl->getSubTemplate ("common/price.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('value'=>$_smarty_tpl->tpl_vars['totals']->value['gross_total']), 0);?>
-</td>
-                </tr>
-                <?php $_smarty_tpl->smarty->_tag_stack[] = array('hook', array('name'=>"orders:totals_stats")); $_block_repeat=true; echo smarty_block_hook(array('name'=>"orders:totals_stats"), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-
-                <tr>
-                    <td class="shift-right"><h4><?php echo $_smarty_tpl->__("totally_paid");?>
-:</h4></td>
-                    <td class="price"><?php echo $_smarty_tpl->getSubTemplate ("common/price.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('value'=>$_smarty_tpl->tpl_vars['totals']->value['totally_paid']), 0);?>
-</td>
-                </tr>
-                <?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"orders:totals_stats"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-            </table>
-        </div>
-        <?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"orders:statistic_list"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-    <!--orders_total--></div>
-<?php }?>
 
 <?php echo $_smarty_tpl->getSubTemplate ("common/pagination.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('div_id'=>$_REQUEST['content_id']), 0);?>
 
 
 
-<?php $_smarty_tpl->_capture_stack[0][] = array("adv_buttons", null, null); ob_start(); ?>
-    <?php $_smarty_tpl->smarty->_tag_stack[] = array('hook', array('name'=>"orders:manage_tools")); $_block_repeat=true; echo smarty_block_hook(array('name'=>"orders:manage_tools"), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-
-        <?php echo $_smarty_tpl->getSubTemplate ("common/tools.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('tool_href'=>"order_management.new",'prefix'=>"bottom",'hide_tools'=>"true",'title'=>$_smarty_tpl->__("add_order"),'icon'=>"icon-plus"), 0);?>
-
-    <?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"orders:manage_tools"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-<?php list($_capture_buffer, $_capture_assign, $_capture_append) = array_pop($_smarty_tpl->_capture_stack[0]);
-if (!empty($_capture_buffer)) {
- if (isset($_capture_assign)) $_smarty_tpl->assign($_capture_assign, ob_get_contents());
- if (isset( $_capture_append)) $_smarty_tpl->append( $_capture_append, ob_get_contents());
- Smarty::$_smarty_vars['capture'][$_capture_buffer]=ob_get_clean();
-} else $_smarty_tpl->capture_error();?>
 
 </form>
 <?php list($_capture_buffer, $_capture_assign, $_capture_append) = array_pop($_smarty_tpl->_capture_stack[0]);
@@ -1179,51 +345,7 @@ if (!empty($_capture_buffer)) {
  Smarty::$_smarty_vars['capture'][$_capture_buffer]=ob_get_clean();
 } else $_smarty_tpl->capture_error();?>
 
-<?php $_smarty_tpl->_capture_stack[0][] = array("buttons", null, null); ob_start(); ?>
-    <?php $_smarty_tpl->_capture_stack[0][] = array("tools_list", null, null); ob_start(); ?>
-        <?php if ($_smarty_tpl->tpl_vars['orders']->value) {?>
-            <li><?php ob_start();?><?php echo $_smarty_tpl->__("bulk_print_invoice");?>
-<?php $_tmp2=ob_get_clean();?><?php smarty_template_function_btn($_smarty_tpl,array('type'=>"list",'text'=>$_tmp2,'dispatch'=>"dispatch[orders.bulk_print]",'form'=>"orders_list_form",'class'=>"cm-new-window"));?>
-</li>
-            <li><?php ob_start();?><?php echo $_smarty_tpl->__("bulk_print_pdf");?>
-<?php $_tmp3=ob_get_clean();?><?php smarty_template_function_btn($_smarty_tpl,array('type'=>"list",'text'=>$_tmp3,'dispatch'=>"dispatch[orders.bulk_print..pdf]",'form'=>"orders_list_form"));?>
-</li>
-            <li><?php ob_start();?><?php echo $_smarty_tpl->__("bulk_print_packing_slip");?>
-<?php $_tmp4=ob_get_clean();?><?php smarty_template_function_btn($_smarty_tpl,array('type'=>"list",'text'=>$_tmp4,'dispatch'=>"dispatch[orders.packing_slip]",'form'=>"orders_list_form",'class'=>"cm-new-window"));?>
-</li>
-            <li><?php ob_start();?><?php echo $_smarty_tpl->__("view_purchased_products");?>
-<?php $_tmp5=ob_get_clean();?><?php smarty_template_function_btn($_smarty_tpl,array('type'=>"list",'text'=>$_tmp5,'dispatch'=>"dispatch[orders.products_range]",'form'=>"orders_list_form"));?>
-</li>
 
-            <li class="divider"></li>
-            <li class="mobile-hide"><?php ob_start();?><?php echo $_smarty_tpl->__("export_selected");?>
-<?php $_tmp6=ob_get_clean();?><?php smarty_template_function_btn($_smarty_tpl,array('type'=>"list",'text'=>$_tmp6,'dispatch'=>"dispatch[orders.export_range]",'form'=>"orders_list_form"));?>
-</li>
-
-            <?php if ($_smarty_tpl->tpl_vars['orders']->value&&!$_smarty_tpl->tpl_vars['runtime']->value['company_id']) {?>
-                <li class="divider mobile-hide"></li>
-                <li class="mobile-hide"><?php smarty_template_function_btn($_smarty_tpl,array('type'=>"delete_selected",'dispatch'=>"dispatch[orders.m_delete]",'form'=>"orders_list_form"));?>
-</li>
-            <?php }?>
-        <?php }?>
-        <?php $_smarty_tpl->smarty->_tag_stack[] = array('hook', array('name'=>"orders:list_tools")); $_block_repeat=true; echo smarty_block_hook(array('name'=>"orders:list_tools"), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-
-        <?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"orders:list_tools"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-    <?php list($_capture_buffer, $_capture_assign, $_capture_append) = array_pop($_smarty_tpl->_capture_stack[0]);
-if (!empty($_capture_buffer)) {
- if (isset($_capture_assign)) $_smarty_tpl->assign($_capture_assign, ob_get_contents());
- if (isset( $_capture_append)) $_smarty_tpl->append( $_capture_append, ob_get_contents());
- Smarty::$_smarty_vars['capture'][$_capture_buffer]=ob_get_clean();
-} else $_smarty_tpl->capture_error();?>
-    <?php smarty_template_function_dropdown($_smarty_tpl,array('content'=>Smarty::$_smarty_vars['capture']['tools_list']));?>
-
-<?php list($_capture_buffer, $_capture_assign, $_capture_append) = array_pop($_smarty_tpl->_capture_stack[0]);
-if (!empty($_capture_buffer)) {
- if (isset($_capture_assign)) $_smarty_tpl->assign($_capture_assign, ob_get_contents());
- if (isset( $_capture_append)) $_smarty_tpl->append( $_capture_append, ob_get_contents());
- Smarty::$_smarty_vars['capture'][$_capture_buffer]=ob_get_clean();
-} else $_smarty_tpl->capture_error();?>
 
 <?php echo $_smarty_tpl->getSubTemplate ("common/mainbox.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('title'=>$_smarty_tpl->tpl_vars['page_title']->value,'sidebar'=>Smarty::$_smarty_vars['capture']['sidebar'],'content'=>Smarty::$_smarty_vars['capture']['mainbox'],'buttons'=>Smarty::$_smarty_vars['capture']['buttons'],'adv_buttons'=>Smarty::$_smarty_vars['capture']['adv_buttons'],'content_id'=>"manage_orders",'select_storefront'=>true,'storefront_switcher_param_name'=>"storefront_id",'selected_storefront_id'=>$_smarty_tpl->tpl_vars['selected_storefront_id']->value), 0);?>
 
@@ -1235,10 +357,10 @@ if (!empty($_capture_buffer)) {
 
     // fetch status with status
     async function getStatus(status) {
+        
         let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_orders&status=${status}`;
         try {
             let res = await fetch(url);
-            
             return await res.json();
 
         }
@@ -1253,6 +375,7 @@ if (!empty($_capture_buffer)) {
 
         console.log("data: ----- ", datas);
         console.log("length: ----- ", datas.length);
+
 
         // count length of status
         let statusLength = datas.length;
@@ -1295,10 +418,18 @@ if (!empty($_capture_buffer)) {
     renderCountStatus("A", "tab3");
     renderCountStatus("C", "tab4");
 
+    let totalProducts = 0;
+
     // render status left side
     async function renderLeftSide(status, path) {
         let datas = await getStatus(status);
         
+        var seconds_now = new Date().getTime() / 1000;
+
+        //let received_sec_ago=seconds_now-datas.timestamp;
+
+        console.log("received_sec_ago: ", Math.floor((seconds_now - 1597635814) / 60 ));
+
         let html = "";
 
         datas.map(data => {
@@ -1309,8 +440,8 @@ if (!empty($_capture_buffer)) {
                         <h3 class="search-order__id">
                             Order #${data.order_id}
                         </h3>
-                        <p class="search-order__desc">1 items for #127</p>
-                        <p class="search-order__time">Received a minute ago</p>
+                        <p class="search-order__desc">${data.product_count} items for $${data.total}</p>
+                        <p class="search-order__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago </p>
                     </div>
                     <div class="search-order__right">
                         <div class="search-order__img-box">
@@ -1327,8 +458,8 @@ if (!empty($_capture_buffer)) {
                             <h3 class="search-packing__id search-packing__id--packing">
                                 Order #${data.order_id}
                             </h3>
-                            <p class="search-packing__desc">1 items for #127</p>
-                            <p class="search-packing__time">Received a minute ago</p>
+                            <p class="search-packing__desc">${data.product_count} items for $${data.total}</p>
+                            <p class="search-packing__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago</p>
                         </div>
                         <div class="search-packing__right">
                             <div class="search-packing__img-box">
@@ -1344,14 +475,14 @@ if (!empty($_capture_buffer)) {
                 </li>` : '' }
 
                 ${status === "A" ? `
-                <li class="search-ready__box search-ready__box--column search-ready__box--nopd" data-order="order${data.order_id}">
+                <li class="search-ready__box search-ready__box--column search-ready__box--nopd" data-order="order${data.order_id}" onclick="renderDetailsReady(${data.order_id})">
                     <div class="search-ready__container">
                         <div class="search-ready__left">
                             <h3 class="search-ready__id search-ready__id--packing">
                                 Order #${data.order_id}
                             </h3>
-                            <p class="search-ready__desc">1 items for #127</p>
-                            <p class="search-ready__time">Received a minute ago</p>
+                            <p class="search-ready__desc">${data.product_count} items for $${data.total}</p>
+                            <p class="search-ready__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago</p>
                         </div>
                         <div class="search-ready__right">
                             <div class="search-ready__img-box">
@@ -1364,70 +495,76 @@ if (!empty($_capture_buffer)) {
                 </li>` : '' }
                 
 
-                ${status === "C" ? `
-                <li class="search-past__box search-past__box--column search-past__box--nopd" data-order="order${data.order_id}">
-                    <div class="search-past__container">
-                        <div class="search-past__left">
-                            <h3 class="search-past__id search-past__id--delevered">
-                                Order #${data.order_id}
-                            </h3>
-                            <p class="search-past__desc">1 items for #127</p>
-                            <p class="search-past__time">Received a minute ago</p>
-                        </div>
-                        <div class="search-past__right">
-                            <div class="search-past__img-box">
-                                <img src="https://i.imgur.com/tOnmHoj.png" />
+                ${status === "C" ? ` 
+                    ${data.status === "C" ? `
+                    <li class="search-past__box search-past__box--column search-past__box--nopd" data-order="order${data.order_id}" onclick="renderDetailsPast(${data.order_id})">
+                        <div class="search-past__container">
+                            <div class="search-past__left">
+                                <h3 class="search-past__id search-past__id--delevered">
+                                    Order #${data.order_id}
+                                </h3>
+                                <p class="search-past__desc">${data.product_count} items for $${data.total}</p>
+                                <p class="search-past__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago</p>
                             </div>
-                            <p class="search-past__assign">Delevered</p>
-                        </div>
-                    </div>
-                    <div class="search-past__notcf">
-                        <img src="https://i.imgur.com/tYGS0xL.png" />
-                        <span class="search-past__notcf--past">Order packing correct</span>
-                    </div>
-                </li>
-                <li class="search-past__box search-past__box--column search-past__box--nopd" data-order="order${data.order_id}">
-                    <div class="search-past__container">
-                        <div class="search-past__left">
-                            <h3 class="search-past__id search-past__id--delevered">
-                                Order #${data.order_id}
-                            </h3>
-                            <p class="search-past__desc">1 items for #127</p>
-                            <p class="search-past__time">Received a minute ago</p>
-                        </div>
-                        <div class="search-past__right">
-                            <div class="search-past__img-box">
-                                <img src="https://i.imgur.com/UKWKNWg.png" />
+                            <div class="search-past__right">
+                                <div class="search-past__img-box">
+                                    <img src="https://i.imgur.com/tOnmHoj.png" />
+                                </div>
+                                <p class="search-past__assign">Delevered</p>
                             </div>
-                            <p class="search-past__assign">Out for delivery</p>
                         </div>
-                    </div>
-                    <div class="search-past__notcf">
-                        <img src="https://i.imgur.com/tYGS0xL.png" />
-                        <span class="search-past__notcf--past">Order packing correct</span>
-                    </div>
-                </li>
-                <li class="search-past__box search-past__box--column search-past__box--nopd" data-order="order${data.order_id}">
-                    <div class="search-past__container">
-                        <div class="search-past__left">
-                            <h3 class="search-past__id search-past__id--delevered">
-                                Order #${data.order_id}
-                            </h3>
-                            <p class="search-past__desc">1 items for #127</p>
-                            <p class="search-past__time">Received a minute ago</p>
+                        <div class="search-past__notcf">
+                            <img src="https://i.imgur.com/tYGS0xL.png" />
+                            <span class="search-past__notcf--past">Order packing correct</span>
                         </div>
-                        <div class="search-past__right">
-                            <div class="search-past__img-box">
-                                <img src="https://i.imgur.com/KtN88Ni.png" />
+                    </li>` : 
+                    `${data.status === "I" ? `
+                    <li class="search-past__box search-past__box--column search-past__box--nopd" data-order="order${data.order_id}" onclick="renderDetailsPast(${data.order_id})">
+                        <div class="search-past__container">
+                            <div class="search-past__left">
+                                <h3 class="search-past__id search-past__id--delevered">
+                                    Order #${data.order_id}
+                                </h3>
+                                <p class="search-past__desc">${data.product_count} items for $${data.total}</p>
+                                <p class="search-past__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago</p>
                             </div>
-                            <p class="search-past__assign">Cancelled</p>
+                            <div class="search-past__right">
+                                <div class="search-past__img-box">
+                                    <img src="https://i.imgur.com/KtN88Ni.png" />
+                                </div>
+                                <p class="search-past__assign">Cancelled</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="search-past__notcf">
-                        <img src="https://i.imgur.com/QBVp9RA.png" />
-                        <span>Food ready not pressed</span>
-                    </div>
-                </li>` : '' }
+                        <div class="search-past__notcf">
+                            <img src="https://i.imgur.com/QBVp9RA.png" />
+                            <span>Food ready not pressed</span>
+                        </div>
+                    </li>` 
+                    : `
+                    <li class="search-past__box search-past__box--column search-past__box--nopd" data-order="order${data.order_id}" onclick="renderDetailsPast(${data.order_id})">
+                        <div class="search-past__container">
+                            <div class="search-past__left">
+                                <h3 class="search-past__id search-past__id--delevered">
+                                    Order #${data.order_id}
+                                </h3>
+                                <p class="search-past__desc">${data.product_count} items for $${data.total}</p>
+                                <p class="search-past__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago</p>
+                            </div>
+                            <div class="search-past__right">
+                                <div class="search-past__img-box">
+                                    <img src="https://i.imgur.com/UKWKNWg.png" />
+                                </div>
+                                <p class="search-past__assign">Out for delivery</p>
+                            </div>
+                        </div>
+                        <div class="search-past__notcf">
+                            <img src="https://i.imgur.com/tYGS0xL.png" />
+                            <span class="search-past__notcf--past">Order packing correct</span>
+                        </div>
+                    </li>
+                    `}`}
+                    
+               ` : '' }
             `;
 
             html +=htmlItem;
@@ -1460,6 +597,7 @@ if (!empty($_capture_buffer)) {
         }
     }
 
+    // new
     async function renderDetails(ids) {
         let details = await getDataProduct(ids);
         console.log("details: ----- ", details);
@@ -1480,10 +618,13 @@ if (!empty($_capture_buffer)) {
 
         let html2 = "";
         let htmlSub = "";
+      
 
         for(let a in details.products ) {
             console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
+            totalProducts = Object.keys(details.products).length;
+            console.log('total product:', Object.keys(details.products).length)
             console.log("z: ", pName)
             let htmlItem0 = `
                             <li class="search-order__details">
@@ -1494,7 +635,7 @@ if (!empty($_capture_buffer)) {
                                             ${pName.product}
                                         </p> 
                                         
-                                        <p class="search-order__type">Biryani</<?php echo '?>'; ?>
+                                        <p class="search-order__type">${pName.product_code}</<?php echo '?>'; ?>
 
                                         <p class="search-order__price">
                                             ${pName.price}
@@ -1520,8 +661,7 @@ if (!empty($_capture_buffer)) {
                                 <h3 class="search-order__id search-order__id--bold">
                                     Order #${details.order_id}  <span class="search-order__new">New</span>
                                 </h3>
-                                <p class="search-order__desc search-order__desc--gray">1 items for #127 <?php echo $_smarty_tpl->getSubTemplate ("common/options_info.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('product_options'=>$_smarty_tpl->tpl_vars['oi']->value['product_options']), 0);?>
-</p>
+                                <p class="search-order__desc search-order__desc--gray">${totalProducts} items for $${details.total}</p>
                                 
                             </div>
                             <div class="search-order__right">
@@ -1552,9 +692,10 @@ if (!empty($_capture_buffer)) {
                         </ul>
 
                         <div class="search-order__buttons">
+                        
                             <input type="button" class="search-order__buttons--btn search-order__buttons--mark"  data-toggle="modal" data-target="#showStork" value="Mark out of stork" />
 
-                            <input type="button" class="search-order__buttons--btn search-order__buttons--confirm" onclick="openPacking(${details.order_id})" value="Confirm order" />
+                            <input type="button" class="search-order__buttons--btn search-order__buttons--confirm" onclick="getChange(${details.order_id})" value="Confirm order" ></input>
                         </div>
                     </div>
 
@@ -1648,23 +789,11 @@ if (!empty($_capture_buffer)) {
     }
     renderDetails(78398);
 
+    // packing
     async function renderDetailsPacking(ids) {
         let details = await getDataProduct(ids);
         console.log("details: ----- ", details);
-
-      /*  let abc = Object.keys(details.products).forEach(key => {
-            console.log("obj: ",key, details.products[key].product);
-            return details.products[key].product;
-        });
-        console.log("aaa: ", abc); 
-
-        Object.keys(details.product_groups).forEach(key => {
-            console.log("key: ",key, "obj: ",details.product_groups[key].products.amount);
-           
-        });*/
-       
-
-
+        
 
         let html2 = "";
         let htmlSub = "";
@@ -1672,6 +801,7 @@ if (!empty($_capture_buffer)) {
         for(let a in details.products ) {
             console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
+            totalProducts = Object.keys(details.products).length;
             console.log("z: ", pName)
             let htmlItem0 = `
                             <li class="search-packing__details">
@@ -1679,7 +809,7 @@ if (!empty($_capture_buffer)) {
                                     <img src="https://i.imgur.com/76y9dFM.png" />
                                     <div class="search-packing__dish">
                                         <p class="search-packing__title">${pName.product}</p>
-                                        <p class="search-packing__type">Biryani</p>
+                                        <p class="search-packing__type">${pName.product_code}</p>
                                         <p class="search-packing__price">${pName.price}</p>
                                     </div>
                                 </div>
@@ -1703,14 +833,27 @@ if (!empty($_capture_buffer)) {
                             <h3 class="search-packing__id search-packing__id--bold search-packing__id--packing">
                                 Order #${details.order_id}<span class="search-packing__new search-packing__new--packing">Packing</span>
                             </h3>
-                            <p class="search-packing__desc search-packing__desc--gray">1 items for #127</p>
+                            <p class="search-packing__desc search-packing__desc--gray">${totalProducts} items for ${details.total}</p>
                             
                         </div>
-                        <div class="search-packing__right">
-                            
-                            <img class="search-packing__print" src="https://i.imgur.com/q6OYhBH.png" />
-                            
-                            <p class="search-packing__date">21 Jul 2020 02:08 PM</p>
+                        <div class="search-order__right">
+                            <div class="search-order__right-print dropdown show">
+                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="search-order__print" src="https://i.imgur.com/q6OYhBH.png" />
+                                </a>
+                                <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li>
+                                        <a href="#">Invoice</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Invoice (PDF)</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Packing slip</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="search-order__date">21 Jul 2020 02:08 PM</p>
                         </div>
                     </div>
                     <ul class="search-packing__list-details">
@@ -1720,13 +863,13 @@ if (!empty($_capture_buffer)) {
 
                 
                     <div class="search-packing__buttons">
-                        <input type="button" class="search-packing__buttons--btn search-packing__buttons--packing" value="Mark order packed" onclick="openReady()"/>
+                        <input type="button" class="search-packing__buttons--btn search-packing__buttons--packing" value="Mark order packed" onclick="getPacked(${details.order_id})"/>
                     </div>
                 </div>
                 
             </div>
             <div class="have-packing__right">
-                <div class="search-packing__right-top active" data-order="order${details.order_id}>
+                <div class="search-packing__right-top active" data-order="order${details.order_id}">
                     <div class="search-packing__right-box">
                         <div class="search-packing__img-box search-packing__img-box--big">
                             <img src="https://i.imgur.com/CYDfvhi.png" />
@@ -1773,15 +916,19 @@ if (!empty($_capture_buffer)) {
                             <div class="search-packing__right-info">
                                 <div class="search-packing__right-row">
                                     <p class="search-packing__right-label">Item total</p>
-                                    <p class="search-packing__right-money">$122</p>
+                                    <p class="search-packing__right-money">$${details.subtotal}</p>
                                 </div>
                                 <div class="search-packing__right-row">
+                                        <p class="search-packing__right-label">Shipping cost</p>
+                                        <p class="search-packing__right-money">$${details.shipping_cost}</p>
+                                    </div>
+                                <div class="search-packing__right-row">
                                     <p class="search-packing__right-label">GST</p>
-                                    <p class="search-packing__right-money">$0</p>
+                                    <p class="search-packing__right-money">$${details.taxes["6"].tax_subtotal}</p>
                                 </div>
                                 <div class="search-packing__right-row">
                                     <p class="search-packing__right-label">Discount</p>
-                                    <p class="search-packing__right-money">$30</p>
+                                    <p class="search-packing__right-money">$${details.subtotal_discount}</p>
                                 </div>
                             </div> 
                         </div>
@@ -1805,6 +952,348 @@ if (!empty($_capture_buffer)) {
      
     }
     renderDetailsPacking(78409);
+
+    // ready
+    async function renderDetailsReady(ids) {
+        let details = await getDataProduct(ids);
+        console.log("details: ----- ", details);
+
+        let html2 = "";
+        let htmlSub = "";
+      
+
+        for(let a in details.products ) {
+            console.log("a: ", a, "det: ", details.products[a].product)
+            let pName = details.products[a];
+            totalProducts = Object.keys(details.products).length;
+            console.log('total product:', Object.keys(details.products).length)
+            console.log("z: ", pName)
+            let htmlItem0 = `
+                        <li class="search-ready__details">
+                            <div class="search-ready__details--left">
+                                <img src="https://i.imgur.com/76y9dFM.png" />
+                                <div class="search-ready__dish">
+                                    <p class="search-ready__title">${pName.product}</p>
+                                    <p class="search-ready__type">${pName.product_code}</p>
+                                    <p class="search-ready__price">${pName.price}</p>
+                                </div>
+                            </div>
+                            <div class="search-ready__details--right">
+                                <p class="search-ready__amount">X${pName.amount}</p>
+                            </div>
+                        </li>
+            `
+            htmlSub += htmlItem0;
+        }
+    
+
+            let htmlItem2 = `
+            <div class="have-ready__mid">
+                <div class="have-ready__mid--rel active" data-order="order${details.order_id}">
+                    <div class="search-ready__box search-ready__box--mid">
+                        <div class="search-ready__left">
+                            <h3 class="search-ready__id search-ready__id--bold search-ready__id--packing">
+                                Order #${details.order_id}<span class="search-ready__new search-ready__new--packing">Ready</span>
+                            </h3>
+                            <p class="search-ready__desc search-ready__desc--gray">${totalProducts} items for ${details.total}</p>
+                    
+                        </div>
+                        <div class="search-order__right">
+                            <div class="search-order__right-print dropdown show">
+                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="search-order__print" src="https://i.imgur.com/q6OYhBH.png" />
+                                </a>
+                                <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li>
+                                        <a href="#">Invoice</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Invoice (PDF)</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Packing slip</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="search-order__date">21 Jul 2020 02:08 PM</p>
+                        </div>
+                    </div>
+                    <ul class="search-ready__list-details">
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="have-ready__right">
+                <div class="search-ready__right-top active" data-order="order${details.order_id}">
+                    <div class="search-ready__right-box">
+                        <div class="search-ready__img-box search-ready__img-box--big">
+                            <img src="https://i.imgur.com/UKWKNWg.png" />
+                        </div>
+                        <div class="search-ready__right-content">
+                            <h4 class="search-ready__right-title">
+                                Delivery Executive
+                            </h4>
+                            
+                            <p class="search-ready__right-person">
+                                Utpal Choudhury
+                            </p>
+                            <p class="search-ready__right-phone">
+                                <img src="https://i.imgur.com/xbHY2sf.png"><span class="search-ready__right-first-num">+91</span><span>5647867875</span>
+                            </p>
+                            <div class="search-ready__right-pickup">
+                                <p class="search-ready__right-pickup-text">Pick up arriving in</p>
+                                <div>Spin</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="search-ready__right-box">
+                        <div class="search-ready__img-box search-ready__img-box--big">
+                            <img src="https://i.imgur.com/OFK8M5L.png" />
+                        </div>
+                        <div class="search-ready__right-content">
+                            <h4 class="search-ready__right-title">
+                                Grand Total
+                            </h4>
+                            <p class="search-ready__right-price">
+                               ${details.total}
+                            </p>
+                            <div class="search-ready__right-info">
+                                <div class="search-ready__right-row">
+                                    <p class="search-ready__right-label">Item total</p>
+                                    <p class="search-ready__right-money">$${details.subtotal}</p>
+                                </div>
+                                <div class="search-ready__right-row">
+                                    <p class="search-ready__right-label">Shipping cost</p>
+                                    <p class="search-ready__right-money">$${details.shipping_cost}</p>
+                                </div>
+                                <div class="search-ready__right-row">
+                                    <p class="search-ready__right-label">GST</p>
+                                    <p class="search-ready__right-money">$${details.taxes["6"].tax_subtotal}</p>
+                                </div>
+                                <div class="search-ready__right-row">
+                                    <p class="search-ready__right-label">Discount</p>
+                                    <p class="search-ready__right-money">$${details.subtotal_discount}</p>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="search-ready__right-box">
+                        <a class="search-ready__link" href="javascript:void(0)">Need help with this order?</a>
+                    </div>
+                </div>
+            </div>
+            `;
+          
+
+          html2 += htmlItem2; 
+
+   
+        let container2 = document.querySelector('.have-ready__content');
+        container2.innerHTML = html2;
+        let containerSub = document.querySelector('.search-ready__list-details')
+        containerSub.innerHTML = htmlSub;
+     
+    }
+    renderDetailsReady(78404);
+
+    // past
+   async function renderDetailsPast(ids) {
+        let details = await getDataProduct(ids);
+        console.log("details: ----- ", details);
+
+        let html2 = "";
+        let htmlSub = "";
+        
+
+        let timeCompleted = `<div class="search-past__box-time-list">
+                            <img src="https://i.imgur.com/1Tyk2hG.png" />
+                            <div class="search-past__box-time-hour">
+                                <p class="search-past__box-time-h">02:08 PM</p>
+                                <p class="search-past__box-time-p">Placed</p>
+                            </div>
+                        </div>
+                        <div class="search-past__box-time-list">
+                            <img src="https://i.imgur.com/1Tyk2hG.png" />
+                            <div class="search-past__box-time-hour">
+                                <p  class="search-past__box-time-h">02:20 PM</p>
+                                <p class="search-past__box-time-p">Confirmed</p>
+                            </div>
+                        </div>
+                        <div class="search-past__box-time-list">
+                            <img src="https://i.imgur.com/1Tyk2hG.png" />
+                            <div class="search-past__box-time-hour">
+                                <p  class="search-past__box-time-h">02:20 PM</p>
+                                <p class="search-past__box-time-p">Packed</p>
+                            </div>
+                        </div>
+                        <div class="search-past__box-time-list">
+                            <img src="https://i.imgur.com/1Tyk2hG.png" />
+                            <div class="search-past__box-time-hour">
+                                <p  class="search-past__box-time-h">02:20 PM</p>
+                                <p class="search-past__box-time-p">Delivered</p>
+                            </div>
+                        </div>`
+
+        let timeOutFor = `<div class="search-past__box-time-list">
+                            <img src="https://i.imgur.com/1Tyk2hG.png" />
+                            <div class="search-past__box-time-hour">
+                                <p  class="search-past__box-time-h">02:08 PM</p>
+                                <p class="search-past__box-time-p">Placed</p>
+                            </div>
+                        </div>
+                        <div class="search-past__box-time-list">
+                            <img src="https://i.imgur.com/1Tyk2hG.png" />
+                            <div class="search-past__box-time-hour">
+                                <p  class="search-past__box-time-h">02:20 PM</p>
+                                <p class="search-past__box-time-p">Confirmed</p>
+                            </div>
+                        </div>
+                        <div class="search-past__box-time-list">
+                            <img src="https://i.imgur.com/1Tyk2hG.png" />
+                            <div class="search-past__box-time-hour">
+                                <p  class="search-past__box-time-h">02:20 PM</p>
+                                <p class="search-past__box-time-p">Packed</p>
+                            </div>
+                        </div>`
+        let timeCancel = `<div class="search-past__box-time-list">
+                            <img src="https://i.imgur.com/1Tyk2hG.png" />
+                            <div class="search-past__box-time-hour">
+                                <p  class="search-past__box-time-h">02:08 PM</p>
+                                <p class="search-past__box-time-p">Placed</p>
+                            </div>
+                        </div>
+                        <div class="search-past__box-time-list">
+                            <img src="https://i.imgur.com/1Tyk2hG.png" />
+                            <div class="search-past__box-time-hour">
+                                <p  class="search-past__box-time-h">02:20 PM</p>
+                                <p class="search-past__box-time-p">Canceled</p>
+                            </div>
+                        </div>`
+        
+
+        let htmlTime = `
+            ${details.status === "C" ? `${timeCompleted}` : `${details.status === "I" ? `${timeCancel}` : `${timeOutFor}` }` }
+        `
+ 
+
+        for(let a in details.products ) {
+            //console.log("a: ", a, "det: ", details.products[a].product)
+            let pName = details.products[a];
+            totalProducts = Object.keys(details.products).length;
+            //console.log('total product:', Object.keys(details.products).length)
+            //console.log("z: ", pName)
+            let htmlItem0 = `
+                        <li class="search-past__details">
+                            <div class="search-past__details--left">
+                                <img src="https://i.imgur.com/76y9dFM.png" />
+                                <div class="search-past__dish">
+                                    <p class="search-past__title">${pName.product}</p>
+                                    <p class="search-past__type">${pName.product_code}</p>
+                                    <p class="search-past__price">${pName.price}</p>
+                                </div>
+                            </div>
+                            <div class="search-past__details--right">
+                                <p class="search-past__amount">X${pName.amount}</p>
+                            </div>
+                        </li>
+            `
+            htmlSub += htmlItem0;
+        }
+    
+
+            let htmlItem2 = `
+            <div class="have-past__mid">
+                <div class="have-past__mid--rel active" data-order="order${details.order_id}">
+                    <div class="search-past__box search-past__box--mid search-past__box--nomg">
+                        <div class="search-past__left">
+                            ${details.status === "C"  ? ` 
+                                <h3 class="search-past__id search-past__id--bold search-past__id--packing">
+                                    Order #${details.order_id}<span class="search-past__new search-past__new--packing">Delivered</span>
+                                </h3>` : `${details.status === "I"  ? `
+                                <h3 class="search-past__id search-past__id--bold search-past__id--delevered">
+                                    Order #${details.order_id}<span class="search-past__new search-past__new--delevered">Cancelled</span>
+                                </h3>` : `
+                                <h3 class="search-past__id search-past__id--bold search-past__id--delevered">
+                                    Order #${details.order_id}<span class="search-past__new search-past__new--delevered">Out for delivery</span>
+                                </h3>
+                            `}`} 
+                            <p class="search-past__desc search-past__desc--gray">${totalProducts} items for ${details.total}</p>
+  
+                        </div>
+                        <div class="search-past__right">
+                            
+                            <img class="search-past__print" src="https://i.imgur.com/q6OYhBH.png" />
+                            
+                            <p class="search-past__date">21 Jul 2020 02:08 PM</p>
+                        </div>
+                    </div>
+                    <div class="search-past__box-time">
+                        
+                    </div>
+                    <ul class="search-past__list-details">
+                        
+                        
+                        
+                    </ul>
+                </div>
+
+            
+            
+            </div>
+            <div class="have-past__right">
+                <div class="search-past__right-top active" data-order="order${details.order_id}">
+                    <div class="search-past__right-box">
+                        <div class="search-past__img-box search-past__img-box--big">
+                            <img src="https://i.imgur.com/OFK8M5L.png" />
+                        </div>
+                        <div class="search-past__right-content">
+                            <h4 class="search-past__right-title">
+                                Grand Total
+                            </h4>
+                            <p class="search-past__right-price">
+                                ${details.total}
+                            </p>
+                            <div class="search-past__right-info">
+                                <div class="search-past__right-row">
+                                    <p class="search-past__right-label">Item total</p>
+                                    <p class="search-past__right-money">$${details.subtotal}</p>
+                                </div>
+                                <div class="search-past__right-row">
+                                    <p class="search-past__right-label">Shipping cost</p>
+                                    <p class="search-past__right-money">$${details.shipping_cost}</p>
+                                </div>
+                                <div class="search-past__right-row">
+                                    <p class="search-past__right-label">GST</p>
+                                    <p class="search-past__right-money">$${details.taxes["6"].tax_subtotal}</p>
+                                </div>
+                                <div class="search-past__right-row">
+                                    <p class="search-past__right-label">Discount</p>
+                                    <p class="search-past__right-money">$${details.subtotal_discount}</p>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            `;
+          
+
+          html2 += htmlItem2; 
+
+   
+        let container2 = document.querySelector('.have-past__content');
+        container2.innerHTML = html2;
+        let containerSub = document.querySelector('.search-past__list-details')
+        containerSub.innerHTML = htmlSub;
+        let containerTime = document.querySelector('.search-past__box-time')
+        containerTime.innerHTML = htmlTime;
+     
+    }
+    renderDetailsPast(78409);
   
 <?php echo '</script'; ?>
 ><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
@@ -1901,10 +1390,10 @@ if (!empty($_capture_buffer)) {
             order: null,
         }
 
-        console.log("list: ",orders.list, "all: ",orders.all);
+        /*console.log("list: ",orders.list, "all: ",orders.all);
         console.log("ordersContent: ",ordersContent.container, "current: ",ordersContent.current, "order: ",ordersContent.order);
         console.log("detailContent: ",detailContent.container, "current: ",detailContent.current, "order: ",detailContent.order);
-
+        */
         orders.all.forEach(f => {
         f.addEventListener('mousedown', () => {
             
@@ -1997,49 +1486,67 @@ if (!empty($_capture_buffer)) {
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
 <?php echo '<script'; ?>
 >
-    
-    function openPacking(id) {
-        
 
-        let postUrl = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_order&order_id=${id}`;
-            fetch(postUrl, {
-            method: "PUT",
-            headers: {
-                'Content-Type': 'application/json'
-            },
+    const spinner = document.getElementById("spinner");
 
-            //make sure to serialize your JSON body
-            body: JSON.stringify({
-                order_id: id,
-                status: "ABC"
-            })
-            })
-            .then( (response) => { 
-                return response.json()
-            //do something awesome that makes the world a better place
-            })
-            .then(data => console.log("put data: ",data))
-            .catch(error => console.log("error: ", error))
-       
+    async function getChange(id) {
+        spinner.removeAttribute('hidden');
+        let url2 = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.change_status&order_id=${id}&status=E`;
+        try {
+            let res = await fetch(url2);
+            spinner.setAttribute('hidden', '');
+            return await res.json();
+        }
+        catch (error2) {
+            console.log(error2)
+        }
 
-       
+        renderCountStatus("G", "tab1");
+        renderLeftSide("G", "order");
 
-        
-        
-        console.log('open packing')
-        /*document.getElementById("new").style.display="none";
-        document.getElementById("packing").style.display="flex";*/
+        renderCountStatus("E", "tab2");
+        renderLeftSide("E", "packing");
 
         document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
         document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
 
-         document.querySelector('.tab__li[data-tab=tab3]').classList.remove('active');
+        document.querySelector('.tab__li[data-tab=tab3]').classList.remove('active');
         document.querySelector('.have-tab[data-tab=tab3]').classList.remove('activeTab');
 
         document.querySelector('.tab__li[data-tab=tab2]').classList.add('active');
         document.querySelector('.have-tab[data-tab=tab2]').classList.add('activeTab');
-    
     }
+
+    async function getPacked(id) {
+        spinner.removeAttribute('hidden');
+        let url2 = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.change_status&order_id=${id}&status=A`;
+        try {
+            let res = await fetch(url2);
+            spinner.setAttribute('hidden', '');
+            return await res.json();
+        }
+        catch (error2) {
+            console.log(error2)
+        }
+
+        renderCountStatus("E", "tab2");
+        renderLeftSide("E", "packing");
+
+        renderCountStatus("A", "tab3");
+        renderLeftSide("A", "ready");
+
+        document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
+        document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
+
+        document.querySelector('.tab__li[data-tab=tab2]').classList.remove('active');
+        document.querySelector('.have-tab[data-tab=tab2]').classList.remove('activeTab');
+
+        document.querySelector('.tab__li[data-tab=tab3]').classList.add('active');
+        document.querySelector('.have-tab[data-tab=tab3]').classList.add('activeTab');
+        
+    }
+    
+   
 <?php echo '</script'; ?>
 ><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
 
@@ -2048,10 +1555,10 @@ if (!empty($_capture_buffer)) {
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
 <?php echo '<script'; ?>
 >
-    document.querySelector('.search-ready__box[data-order=order9161]').classList.add('active')
+   /* document.querySelector('.search-ready__box[data-order=order9161]').classList.add('active')
     document.querySelector('.have-ready__mid--rel[data-order=order9161]').classList.add('active')
     document.querySelector('.search-ready__right-top[data-order=order9161]').classList.add('active')
-
+*/
     let readys = {
     list: document.querySelector('ul.search-ready__list'),
     all: document.querySelectorAll('.search-ready .search-ready__box'),
@@ -2127,10 +1634,10 @@ if (!empty($_capture_buffer)) {
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
 <?php echo '<script'; ?>
 >
-    document.querySelector('.search-past__box[data-order=order9161]').classList.add('active')
+   /* document.querySelector('.search-past__box[data-order=order9161]').classList.add('active')
     document.querySelector('.have-past__mid--rel[data-order=order9161]').classList.add('active')
     document.querySelector('.search-past__right-top[data-order=order9161]').classList.add('active')
-
+*/
     let pasts = {
     list: document.querySelector('ul.search-past__list'),
     all: document.querySelectorAll('.search-past .search-past__box'),

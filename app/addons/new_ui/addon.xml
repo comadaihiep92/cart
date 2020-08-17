@@ -5,4 +5,49 @@
     <priority>1500</priority>
     <status>active</status>
     <default_language>en</default_language>
+    <settings>
+        <sections>
+            <section id="settings">
+                <items>
+                    <item id="vendor_penalty_grant_period">
+                        <type>input</type>
+                        <default_value>0</default_value>
+                    </item>
+                    <item id="vendor_penalty_percent">
+                        <type>input</type>
+                        <default_value>0</default_value>
+                    </item>
+                    <item id="vendor_penalty_ivr">
+                        <type>input</type>
+                        <default_value>0</default_value>
+                    </item>
+                    <item id="vendor_order_timeout">
+                        <type>input</type>
+                        <default_value>0</default_value>
+                    </item>
+                </items>
+            </section>
+        </sections>
+    </settings>
+    <queries>
+        <item for="install">
+            CREATE TABLE IF NOT EXISTS `?:order_vendor_ivr` (
+              `order_id` mediumint(8) NOT NULL,
+              `phone` varchar(20) NOT NULL,
+              `created` int(11) UNSIGNED NOT NULL,
+              `owner` char(1) NOT NULL,
+              KEY `order_id` (`order_id`)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+        </item>
+        <item for="install">
+            CREATE TABLE IF NOT EXISTS `?:order_vendor_stock` (
+              `order_id` mediumint(8) NOT NULL,
+              `product_id` mediumint(8) NOT NULL,
+              `amount` mediumint(8) NOT NULL,
+              PRIMARY KEY (`order_id`,`product_id`)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+        </item>
+    </queries>
 </addon>
+
+
