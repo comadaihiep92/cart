@@ -6,13 +6,13 @@
 
 {$order_status_descr = $smarty.const.STATUSES_ORDER|fn_get_simple_statuses:true:true}
 {$order_statuses = $smarty.const.STATUSES_ORDER|fn_get_statuses:$statuses:true:true}
-
+{* 
 {capture name="sidebar"}
     {hook name="orders:manage_sidebar"}
     {include file="common/saved_search.tpl" dispatch="orders.manage" view_type="orders"}
     {include file="views/orders/components/orders_search_form.tpl" dispatch="orders.manage"}
     {/hook}
-{/capture}
+{/capture} *}
 
 <div class="orders__header">
     <div class="row">
@@ -71,7 +71,7 @@
 {* <form action="{""|fn_url}" method="post" target="_self" name="orders_list_form"> *}
 <form action="{""|fn_url}" method="post" target="_self" name="orders_list_form">
 
-{include file="common/pagination.tpl" save_current_page=true save_current_url=true div_id=$smarty.request.content_id}
+{* {include file="common/pagination.tpl" save_current_page=true save_current_url=true div_id=$smarty.request.content_id} *}
 
 {assign var="c_url" value=$config.current_url|fn_query_remove:"sort_by":"sort_order"}
 {assign var="c_icon" value="<i class=\"icon-`$search.sort_order_rev`\"></i>"}
@@ -452,7 +452,7 @@
     <!--orders_total--></div>
 {/if} *}
 
-{include file="common/pagination.tpl" div_id=$smarty.request.content_id}
+{* {include file="common/pagination.tpl" div_id=$smarty.request.content_id} *}
 
 {* 
 {capture name="adv_buttons"}
@@ -570,6 +570,7 @@
     async function renderLeftSide(status, path) {
         let datas = await getStatus(status);
         
+        console.log("-----------datas----------:", datas[0].order_id)
         var seconds_now = new Date().getTime() / 1000;
 
         //let received_sec_ago=seconds_now-datas.timestamp;
@@ -719,6 +720,10 @@
         let container = document.querySelector(`.search-{literal}${path}{/literal}__list`);
 
         container.innerHTML = html;
+
+        // call render details follow first id
+
+        `{literal}${status === "G"{/literal} ? renderDetails(datas[0].order_id) : `{literal}${status === "E"{/literal} ? renderDetailsPacking(datas[0].order_id) : `{literal}${status === "A"{/literal} ? renderDetailsReady(datas[0].order_id) : renderDetailsPast(datas[0].order_id)}`}`}`
     }
 
     renderLeftSide("G", "order");
@@ -748,6 +753,10 @@
         let details = await getDataProduct(ids);
         console.log("details: ----- ", details);
 
+       /* document.querySelector(`.search-order__box[data-order=order{literal}${details.order_id}{/literal}]`).classList.add('active')
+        document.querySelector(`.have-order__mid--rel[data-order=order{literal}${details.order_id}{/literal}]`).classList.add('active')
+        document.querySelector(`.search-order__right-top[data-order=order{literal}${details.order_id}{/literal}]`).classList.add('active') */
+
       /*  let abc = Object.keys(details.products).forEach(key => {
             console.log("obj: ",key, details.products[key].product);
             return details.products[key].product;
@@ -759,9 +768,6 @@
            
         });*/
        
-
-
-
         let html2 = "";
         let htmlSub = "";
       
@@ -932,7 +938,7 @@
         containerSub.innerHTML = htmlSub;
      
     }
-    renderDetails(78398);
+    
 
     // packing
     async function renderDetailsPacking(ids) {
@@ -1096,7 +1102,6 @@
         containerSub.innerHTML = htmlSub;
      
     }
-    renderDetailsPacking(78409);
 
     // ready
     async function renderDetailsReady(ids) {
@@ -1244,10 +1249,9 @@
         containerSub.innerHTML = htmlSub;
      
     }
-    renderDetailsReady(78404);
-
+   
     // past
-   async function renderDetailsPast(ids) {
+    async function renderDetailsPast(ids) {
         let details = await getDataProduct(ids);
         console.log("details: ----- ", details);
 
@@ -1440,14 +1444,13 @@
         containerTime.innerHTML = htmlTime;
      
     }
-    renderDetailsPast(78409);
+    
   
 </script>
 
 
 {* make tab *}
 <script>
-   
 
     function hideModal() {
         document.getElementById("showStork").style.display="none";
@@ -1508,8 +1511,7 @@
 
 {* new order *}
 <script>
-    window.onload = function() {
-        /*document.querySelector('.search-order__box[data-order=order78398]').classList.add('active')
+       /* document.querySelector('.search-order__box[data-order=order78411]').classList.add('active')
         document.querySelector('.have-order__mid--rel[data-order=order78398]').classList.add('active')
         document.querySelector('.search-order__right-top[data-order=order78398]').classList.add('active') */
 
@@ -1537,7 +1539,10 @@
         f.addEventListener('mousedown', () => {
             
             f.classList.contains('active') || setAciveChat(f);
-    
+            console.log('-----------new---------')
+            console.log("list: ",orders.list, "all: ",orders.all);
+            console.log("ordersContent: ",ordersContent.container, "current: ",ordersContent.current, "order: ",ordersContent.order);
+            console.log("detailContent: ",detailContent.container, "current: ",detailContent.current, "order: ",detailContent.order);
         })
         });
 
@@ -1557,7 +1562,7 @@
             detailContent.container.querySelector('[data-order="' + detailContent.order + '"]').classList.add('active')
         
         }
-    };
+    
  
 
 </script>

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-08-17 13:27:49
+<?php /* Smarty version Smarty-3.1.21, created on 2020-08-18 06:03:31
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1597660048,
+      1 => 1597719808,
       2 => 'tygh',
     ),
   ),
@@ -29,8 +29,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5f32a36e7a9146_11375651')) {function content_5f32a36e7a9146_11375651($_smarty_tpl) {?><?php if (!is_callable('smarty_block_hook')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\block.hook.php';
-if (!is_callable('smarty_block_inline_script')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\block.inline_script.php';
+<?php if ($_valid && !is_callable('content_5f32a36e7a9146_11375651')) {function content_5f32a36e7a9146_11375651($_smarty_tpl) {?><?php if (!is_callable('smarty_block_inline_script')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\block.inline_script.php';
 ?><?php
 \Tygh\Languages\Helper::preloadLangVars(array('text_admin_new_orders','orders'));
 ?>
@@ -44,21 +43,6 @@ if (!is_callable('smarty_block_inline_script')) include 'C:/xampp/htdocs/cart/ap
 <?php $_smarty_tpl->tpl_vars['order_status_descr'] = new Smarty_variable(fn_get_simple_statuses(@constant('STATUSES_ORDER'),true,true), null, 0);?>
 <?php $_smarty_tpl->tpl_vars['order_statuses'] = new Smarty_variable(fn_get_statuses(@constant('STATUSES_ORDER'),$_smarty_tpl->tpl_vars['statuses']->value,true,true), null, 0);?>
 
-<?php $_smarty_tpl->_capture_stack[0][] = array("sidebar", null, null); ob_start(); ?>
-    <?php $_smarty_tpl->smarty->_tag_stack[] = array('hook', array('name'=>"orders:manage_sidebar")); $_block_repeat=true; echo smarty_block_hook(array('name'=>"orders:manage_sidebar"), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-
-    <?php echo $_smarty_tpl->getSubTemplate ("common/saved_search.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('dispatch'=>"orders.manage",'view_type'=>"orders"), 0);?>
-
-    <?php echo $_smarty_tpl->getSubTemplate ("views/orders/components/orders_search_form.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('dispatch'=>"orders.manage"), 0);?>
-
-    <?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"orders:manage_sidebar"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-<?php list($_capture_buffer, $_capture_assign, $_capture_append) = array_pop($_smarty_tpl->_capture_stack[0]);
-if (!empty($_capture_buffer)) {
- if (isset($_capture_assign)) $_smarty_tpl->assign($_capture_assign, ob_get_contents());
- if (isset( $_capture_append)) $_smarty_tpl->append( $_capture_append, ob_get_contents());
- Smarty::$_smarty_vars['capture'][$_capture_buffer]=ob_get_clean();
-} else $_smarty_tpl->capture_error();?>
 
 <div class="orders__header">
     <div class="row">
@@ -105,7 +89,6 @@ if (!empty($_capture_buffer)) {
 <form action="<?php echo htmlspecialchars(fn_url(''), ENT_QUOTES, 'UTF-8');?>
 " method="post" target="_self" name="orders_list_form">
 
-<?php echo $_smarty_tpl->getSubTemplate ("common/pagination.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('save_current_page'=>true,'save_current_url'=>true,'div_id'=>$_REQUEST['content_id']), 0);?>
 
 
 <?php $_smarty_tpl->tpl_vars["c_url"] = new Smarty_variable(fn_query_remove($_smarty_tpl->tpl_vars['config']->value['current_url'],"sort_by","sort_order"), null, 0);?>
@@ -220,7 +203,6 @@ if (!empty($_capture_buffer)) {
             <div class="order-modal__list">
                 <p class="order-modal__label">Enter Quantity</p>
                 <div class="order-modal__box"> 
-                    
                     <div class="order-modal__conme">
                         <div class="order-modal__conmeno">
                             <span class="order-modal__index">1</span>
@@ -332,7 +314,6 @@ if (!empty($_capture_buffer)) {
 <?php }?>
 
 
-<?php echo $_smarty_tpl->getSubTemplate ("common/pagination.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('div_id'=>$_REQUEST['content_id']), 0);?>
 
 
 
@@ -424,6 +405,7 @@ if (!empty($_capture_buffer)) {
     async function renderLeftSide(status, path) {
         let datas = await getStatus(status);
         
+        console.log("-----------datas----------:", datas[0].order_id)
         var seconds_now = new Date().getTime() / 1000;
 
         //let received_sec_ago=seconds_now-datas.timestamp;
@@ -573,6 +555,17 @@ if (!empty($_capture_buffer)) {
         let container = document.querySelector(`.search-${path}__list`);
 
         container.innerHTML = html;
+
+        // call render details follow first id
+
+        `${status === "G" ? renderDetails(datas[0].order_id) : `${status === "E" ? renderDetailsPacking(datas[0].order_id) : `${status === "A" ? renderDetailsReady(datas[0].order_id) : renderDetailsPast(datas[0].order_id)}`}`}`
+
+       // `${status === "G" ? renderDetails(datas[0].order_id) : ''}`
+      //  `${status === "E" ? renderDetailsPacking(datas[0].order_id) : ''}`
+      //  `${status === "A" ? renderDetailsReady(datas[0].order_id) : ''}`
+      //  `${status === "C" ? renderDetailsPast(datas[0].order_id) : ''}`
+        
+
     }
 
     renderLeftSide("G", "order");
@@ -601,6 +594,10 @@ if (!empty($_capture_buffer)) {
     async function renderDetails(ids) {
         let details = await getDataProduct(ids);
         console.log("details: ----- ", details);
+
+       /* document.querySelector(`.search-order__box[data-order=order${details.order_id}]`).classList.add('active')
+        document.querySelector(`.have-order__mid--rel[data-order=order${details.order_id}]`).classList.add('active')
+        document.querySelector(`.search-order__right-top[data-order=order${details.order_id}]`).classList.add('active') */
 
       /*  let abc = Object.keys(details.products).forEach(key => {
             console.log("obj: ",key, details.products[key].product);
@@ -787,7 +784,7 @@ if (!empty($_capture_buffer)) {
         containerSub.innerHTML = htmlSub;
      
     }
-    renderDetails(78398);
+    
 
     // packing
     async function renderDetailsPacking(ids) {
@@ -951,7 +948,6 @@ if (!empty($_capture_buffer)) {
         containerSub.innerHTML = htmlSub;
      
     }
-    renderDetailsPacking(78409);
 
     // ready
     async function renderDetailsReady(ids) {
@@ -1097,10 +1093,9 @@ if (!empty($_capture_buffer)) {
         containerSub.innerHTML = htmlSub;
      
     }
-    renderDetailsReady(78404);
-
+   
     // past
-   async function renderDetailsPast(ids) {
+    async function renderDetailsPast(ids) {
         let details = await getDataProduct(ids);
         console.log("details: ----- ", details);
 
@@ -1293,7 +1288,7 @@ if (!empty($_capture_buffer)) {
         containerTime.innerHTML = htmlTime;
      
     }
-    renderDetailsPast(78409);
+    
   
 <?php echo '</script'; ?>
 ><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
@@ -1304,7 +1299,6 @@ if (!empty($_capture_buffer)) {
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
 <?php echo '<script'; ?>
 >
-   
 
     function hideModal() {
         document.getElementById("showStork").style.display="none";
@@ -1369,8 +1363,7 @@ if (!empty($_capture_buffer)) {
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
 <?php echo '<script'; ?>
 >
-    window.onload = function() {
-        /*document.querySelector('.search-order__box[data-order=order78398]').classList.add('active')
+       /* document.querySelector('.search-order__box[data-order=order78411]').classList.add('active')
         document.querySelector('.have-order__mid--rel[data-order=order78398]').classList.add('active')
         document.querySelector('.search-order__right-top[data-order=order78398]').classList.add('active') */
 
@@ -1398,7 +1391,10 @@ if (!empty($_capture_buffer)) {
         f.addEventListener('mousedown', () => {
             
             f.classList.contains('active') || setAciveChat(f);
-    
+            console.log('-----------new---------')
+            console.log("list: ",orders.list, "all: ",orders.all);
+            console.log("ordersContent: ",ordersContent.container, "current: ",ordersContent.current, "order: ",ordersContent.order);
+            console.log("detailContent: ",detailContent.container, "current: ",detailContent.current, "order: ",detailContent.order);
         })
         });
 
@@ -1418,7 +1414,7 @@ if (!empty($_capture_buffer)) {
             detailContent.container.querySelector('[data-order="' + detailContent.order + '"]').classList.add('active')
         
         }
-    };
+    
  
 
 <?php echo '</script'; ?>
