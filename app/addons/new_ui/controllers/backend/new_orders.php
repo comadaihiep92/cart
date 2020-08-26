@@ -335,9 +335,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         }
                     }    
                 
-                    $orders[$order_key]['product_count']=fn_new_ui_get_product_count($order_value['order_id']);    
+                    if(!isset($need_to_unset) || !$need_to_unset) $orders[$order_key]['product_count']=fn_new_ui_get_product_count($order_value['order_id']);    
                 }
-                echo json_encode($orders, JSON_PRETTY_PRINT);
+                $result_array=array();
+                foreach($orders as $value){
+                    array_push($result_array, $value);
+                }
+                echo json_encode($result_array, JSON_PRETTY_PRINT);
                 die();
 
              }else{ // Rest of the tabs
@@ -381,6 +385,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }*/
 
             $downloads_exist = false;
+            
+            // get order status changing history with date/time
+            $i=0;
+            $status_array[$i]['status']=NEW_UI_STATUS_PLACED;
+            $status_array[$i]['timestamp']=$order_info['timestamp'];
+            $statuses_history=db_get_array("SELECT status, timestamp FROM ?:order_vendor_status WHERE order_id=?i ORDER BY timestamp", $_REQUEST['order_id']);
+            if($statuses_history!==false && is_array($statuses_history) && count($statuses_history)>0){
+                foreach($statuses_history as $status_row){
+                    $i++;
+                    $status_array[$i]['status']=$status_row['status'];
+                    $status_array[$i]['timestamp']=$status_row['timestamp'];                }                
+            }
+            $order_info['status_history']=$status_array;
+
+            // get stock for product(s) of the order?
+            $stock=db_get_array("SELECT product_id, amount FROM ?:order_vendor_stock WHERE order_id=?i", $_REQUEST['order_id']);
+            $stock_array=array();
+            if($stock!==false && is_array($stock) && count($stock)>0)
+                foreach($stock as $stock_row){
+                    $stock_array["{$stock_row['product_id']}"]=$stock_row['amount'];   
+                }
 
             foreach ($order_info['products'] as $k => $v) {
 
@@ -391,6 +416,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $order_info['products'][$k]['main_pair'] = fn_get_cart_product_icon(
                     $v['product_id'], $order_info['products'][$k]
                 );
+                
+                if(isset($stock_array["{$v['product_id']}"])){
+                    $order_info['products'][$k]['amount_stock']=$stock_array["{$v['product_id']}"];
+                }else{
+                    $order_info['products'][$k]['amount_stock']=''; 
+                }
+                
             }
 
 
@@ -459,7 +491,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if(!isset($_REQUEST['status']) || (
                $_REQUEST['status']!=NEW_UI_STATUS_VCONFIRMED &&
                $_REQUEST['status']!=NEW_UI_STATUS_PACKED)){
-                die('empty or wron status');
+                die('empty or wrong status');
             }else{
                 
                 $order_info = fn_get_order_info($_REQUEST['order_id'], false, true, true, false);
@@ -468,6 +500,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     die('can not change status');
                 
                 if(fn_change_order_status($_REQUEST['order_id'], $_REQUEST['status'])){
+                    //// record status and changing time to database table
+                    //$status_data['order_id']=$_REQUEST['order_id'];
+                    //$status_data['status']=$_REQUEST['status'];
+                    //$status_data['timestamp']=time();
+                    //db_query("REPLACE INTO ?:order_vendor_status ?e", $status_data);
                     die();
                 }else{
                     die('can not change status');    

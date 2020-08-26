@@ -332,7 +332,7 @@ function fn_delivery_get_statuses_post(&$statuses,
         &$company_id,
         &$order){
     
-    if($type=='O' && ACCOUNT_TYPE=='vendor'){
+    /*if($type=='O' && ACCOUNT_TYPE=='vendor'){
         
         $available_statuses=array(
             'Processed',            
@@ -352,7 +352,7 @@ function fn_delivery_get_statuses_post(&$statuses,
             }
         }
         $statuses=$enabled_statuses;
-    }
+    }*/
     
     //die(var_export($statuses, true));
     

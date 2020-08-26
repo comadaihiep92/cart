@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-08-18 06:03:31
+<?php /* Smarty version Smarty-3.1.21, created on 2020-08-26 11:57:06
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1597719808,
+      1 => 1598432223,
       2 => 'tygh',
     ),
   ),
@@ -111,7 +111,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <div class="have-order__left search-order" >
             <div class="search-order__box-input">
             
-            <input class="search-order__input" type="search" placeholder="Search">
+            <input class="search-order__input searchID" type="search" name="search"  onchange="searchId()" placeholder="Search"></input>
             </div>
             
             
@@ -194,13 +194,42 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 <div hidden id="spinner"></div>
 <!-- Modal -->
-<div class="modal modal-showStork fade" id="showStork" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-showStork " id="showStork" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content modal-showStork__content">
+    
+    <div class="modal-content modal-showStork__content modal-showStork__content--active step1">
       <div class="modal-body">
         <div class="order-modal modal-showStork__margin">
             <div class="order-modal__top">Enter your desired quantily and click continue</div>
-            <div class="order-modal__list">
+            <div class="order-modal__list order-modal__markout">
+                <p class="order-modal__label">Enter Quantity</p>
+                <div class="order-modal__box"> 
+                    <div class="order-modal__conme">
+                        
+                        
+                    </div>
+                    
+                    <div class="order-modal__input">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer modal-showStork__footer">
+        <div class="order-modal__buttons">
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal">Cancel</button>
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--continue" data-toggle="modal" data-target="#continue" onclick="continueModal()">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="modal-content modal-showStork__content step2">
+      <div class="modal-body">
+        <div class="order-modal modal-showStork__margin">
+            <div class="order-modal__top">Note: Order once confirmed can't be edited again.</div>
+            <div class="order-modal__list order-modal__markout">
                 <p class="order-modal__label">Enter Quantity</p>
                 <div class="order-modal__box"> 
                     <div class="order-modal__conme">
@@ -216,69 +245,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                             <div class="order-modal__details--right">
                                 <p class="order-modal__amount">$127</p>
                             </div>
-                            <input class="order-modal__quantity" value="1" type="number" />
+                            <input class="order-modal__quantity order-modal__quantity--noedit" value="1" type="number" />
                         </div>
-                         <div class="order-modal__conmeno">
-                            <span class="order-modal__index">1</span>
-                            <div class="order-modal__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="order-modal__dish">
-                                    <p class="order-modal__title">Chicken Biryani</p>
-                                    <p class="order-modal__type">Biryani</p>
-                                </div>
-                            </div>
-                            <div class="order-modal__details--right">
-                                <p class="order-modal__amount">$127</p>
-                            </div>
-                            <input class="order-modal__quantity" value="1" type="number" />
-                        </div>
+                        
                     </div>
                     
                     <div class="order-modal__input">
-                       
-                        <div class="order-modal__grand-total">
-                            <p class="order-modal__grand">Grand total</p>
-                            <p class="order-modal__amount order-modal__amount--big">$127</p>
-                        </div>  
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer modal-showStork__footer">
-        <div class="order-modal__buttons">
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal">Cancel</button>
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--continue" data-toggle="modal" data-target="#continue" onclick="hideModal()">Continue</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Continue -->
-<div class="modal modal-showStork fade" id="continue" tabindex="-1" role="dialog" aria-labelledby="continue" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content modal-showStork__content">
-      <div class="modal-body">
-        <div class="order-modal modal-showStork__margin">
-            <div class="order-modal__top">Note: Order once confirmed can't be edited again.</div>
-            <div class="order-modal__list">
-            
-                <p class="order-modal__label">Quantity</p>
-                <div class="order-modal__box"> 
-                    <span class="order-modal__index">1</span>
-                    <div class="order-modal__details--left">
-                        <img src="https://i.imgur.com/76y9dFM.png" />
-                        <div class="order-modal__dish">
-                            <p class="order-modal__title">Chicken Biryani</p>
-                            <p class="order-modal__type">Biryani</p>
-                        </div>
-                    </div>
-                    <div class="order-modal__details--right">
-                        <p class="order-modal__amount">$127</p>
-                    </div>
-                    <div class="order-modal__input">
-                        <input class="order-modal__quantity order-modal__quantity--noedit" value="1" type="number" />
                         <div class="order-modal__grand-total">
                             <p class="order-modal__grand">Grand total</p>
                             <p class="order-modal__amount order-modal__amount--big">$127</p>
@@ -291,12 +263,29 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       <div class="modal-footer modal-showStork__footer">
         <div class="order-modal__buttons">
             <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal" onclick="backModal()">Back</button>
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm">Confirm</button>
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm" data-toggle="modal" data-target="#confirm" onclick="confirmModal()">Confirm</button>
         </div>
       </div>
     </div>
+
+    
+    <div class="modal-content modal-showStork__content step3">
+      <div class="modal-body">
+        
+            <svg class="checkmark success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark_circle_success" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark_check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" stroke-linecap="round"/>
+            </svg>
+        
+      </div>
+      
+    </div>
+
   </div>
 </div>
+
+
+
 
 
 <?php } else { ?>
@@ -331,10 +320,107 @@ if (!empty($_capture_buffer)) {
 <?php echo $_smarty_tpl->getSubTemplate ("common/mainbox.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('title'=>$_smarty_tpl->tpl_vars['page_title']->value,'sidebar'=>Smarty::$_smarty_vars['capture']['sidebar'],'content'=>Smarty::$_smarty_vars['capture']['mainbox'],'buttons'=>Smarty::$_smarty_vars['capture']['buttons'],'adv_buttons'=>Smarty::$_smarty_vars['capture']['adv_buttons'],'content_id'=>"manage_orders",'select_storefront'=>true,'storefront_switcher_param_name'=>"storefront_id",'selected_storefront_id'=>$_smarty_tpl->tpl_vars['selected_storefront_id']->value), 0);?>
 
 
+<?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
+<?php echo '<script'; ?>
+ src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"><?php echo '</script'; ?>
+><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
+
 
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
 <?php echo '<script'; ?>
 >
+    Vue.component('profile-progress', { 
+    props: ['percent', 'radius'],
+    replace: true,
+    computed: {
+        // If more than 50% filled switch arc drawing mode from less than 180 deg to more than 180 deg
+        largeArc: function () {
+        return this.percent < 50 ? 0 : 1;
+        },
+        // Where to put x coordinate of center of circle
+        x: function () {
+        return 100;
+        },
+        // Where to put y coordinate of centre of circle
+        y: function () {
+        return 100 - this.radius;
+        },
+        // Calculate X coordinate of end of arc (+ 100 to move it to middle of image)
+        // add some rounding error to make arc not disappear at 100%
+        endX: function () {
+        return -Math.sin(this.radians) * this.radius + 100 - 0.0001;
+        },
+        // Calculate Y coordinate of end of arc (+ 100 to move it to middle of image)
+        endY: function () {
+        return Math.cos(this.radians) * this.radius + 100;
+        },
+        // Calculate length of arc in radians
+        radians: function () {
+        var degrees = (this.percent/100)*360
+        var value = degrees - 180; // Turn the circle 180 degrees counter clockwise
+
+        return (value*Math.PI)/180;
+        },
+        // If it reaches full circle we need to complete the circle, this ties into the rounding error in X coordinate above
+        z: function () {
+        return this.percent == 100 ? 'z' : '';
+        },
+        dBg: function () {
+        return "M "+this.x+" "+this.y+" A "+this.radius+" "+this.radius+" 0 1 1 "+(this.x-0.0001)+" "+this.y+" z";
+        },
+        d: function () {
+        return "M "+this.x+" "+this.y+" A "+this.radius+" "+this.radius+" 0 "+this.largeArc+" 1 "+this.endX+" "+this.endY+" "+this.z;
+        }
+    }
+    });
+
+    new Vue({
+    el: '#circle1'
+    });
+
+
+
+<?php echo '</script'; ?>
+><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
+
+
+<?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
+<?php echo '<script'; ?>
+>
+// --- online version:
+  /*  const NEW_UI_STATUS_PLACED = 'G'; // Placed
+    const NEW_UI_STATUS_VCONFIRMED = 'E'; // Vendor Confirmed
+    const NEW_UI_STATUS_PACKED = 'A';
+    const NEW_UI_STATUS_COMPLETE = 'C';
+
+    const NEW_UI_STATUS_CANCELED = 'I'; // Canceled
+
+    const NEW_UI_STATUS_DISPATCHED = 'H';
+
+    const NEW_UI_STATUS_PICKEDUP = 'P'; // Picked up (shipment)
+    const NEW_UI_STATUS_OFD = 'B'; // Out for delivery (shipment) */
+
+    const NEW_UI_STATUS_PLACED = '<?php echo htmlspecialchars(@constant('NEW_UI_STATUS_PLACED'), ENT_QUOTES, 'UTF-8');?>
+'; // Placed
+    const NEW_UI_STATUS_VCONFIRMED = '<?php echo htmlspecialchars(@constant('NEW_UI_STATUS_VCONFIRMED'), ENT_QUOTES, 'UTF-8');?>
+'; // Vendor Confirmed
+    const NEW_UI_STATUS_PACKED = '<?php echo htmlspecialchars(@constant('NEW_UI_STATUS_PACKED'), ENT_QUOTES, 'UTF-8');?>
+';
+    const NEW_UI_STATUS_COMPLETE = '<?php echo htmlspecialchars(@constant('NEW_UI_STATUS_COMPLETE'), ENT_QUOTES, 'UTF-8');?>
+';
+
+    const NEW_UI_STATUS_CANCELED = '<?php echo htmlspecialchars(@constant('NEW_UI_STATUS_CANCELED'), ENT_QUOTES, 'UTF-8');?>
+'; // Canceled
+
+    const NEW_UI_STATUS_DISPATCHED = '<?php echo htmlspecialchars(@constant('NEW_UI_STATUS_DISPATCHED'), ENT_QUOTES, 'UTF-8');?>
+';
+
+    const NEW_UI_STATUS_PICKEDUP = '<?php echo htmlspecialchars(@constant('NEW_UI_STATUS_PICKEDUP'), ENT_QUOTES, 'UTF-8');?>
+'; // Picked up (shipment)
+    const NEW_UI_STATUS_OFD = '<?php echo htmlspecialchars(@constant('NEW_UI_STATUS_OFD'), ENT_QUOTES, 'UTF-8');?>
+'; // Out for delivery (shipment)
+
+    const MONEY = "₹";
 
     // fetch status with status
     async function getStatus(status) {
@@ -350,6 +436,19 @@ if (!empty($_capture_buffer)) {
         }
     }
 
+    async function searchId(status) {
+        let datas = await getStatus("G");
+
+        let inputSearch = document.querySelector('.searchID').value;
+
+        console.log("inputSearch: ", inputSearch);
+
+        const result = datas.filter(data => data.order_id == inputSearch);
+        console.log("result search: ", result)
+        
+    }
+    
+
     /* render count status length */
     async function renderCountStatus(status, tab) {
         let datas = await getStatus(status);
@@ -361,24 +460,25 @@ if (!empty($_capture_buffer)) {
         // count length of status
         let statusLength = datas.length;
 
+
         // html
         let htmlStatus = `
-        ${status === "G" ? `<a href="#new" class="tab__link" title="New"  >
+        ${status === NEW_UI_STATUS_PLACED ? `<a href="#new" class="tab__link" title="New"  >
                 <span class="icon new-orders-icon"></span>
                 <span>New</span>
                 <span class="number number--order">${statusLength}</span>
             </a>` : ''} 
-        ${status === "E" ? `<a href="#packing" class="tab__link" title="Packing" >
+        ${status === NEW_UI_STATUS_VCONFIRMED ? `<a href="#packing" class="tab__link" title="Packing" >
                 <span class="icon preparing-orders-icon"></span>
                 <span>Packing</span>
                 <span class="number number--packing">${statusLength}</span>
             </a>` : ''} 
-        ${status === "A" ? `  <a href="#ready" class="tab__link" title="Ready" >
+        ${status === NEW_UI_STATUS_PACKED ? `  <a href="#ready" class="tab__link" title="Ready" >
                 <span class="icon ready-orders-icon"></span>
                 <span>Ready</span>
                 <span class="number number--ready">${statusLength}</span>
             </a>` : ''} 
-        ${status === "C" ? `<a href="#past" class="tab__link" title="More"  >
+        ${status === NEW_UI_STATUS_COMPLETE ? `<a href="#past" class="tab__link" title="More"  >
                 <span class="icon more-orders-icon"></span>
                 <span>Past Orders</span>
                 <span class="number number--past">${statusLength}</span>
@@ -393,37 +493,62 @@ if (!empty($_capture_buffer)) {
         containerStatus.innerHTML = htmlStatus;
 
     }
+
     // set 4 status for 4 tab
-    renderCountStatus("G", "tab1");
-    renderCountStatus("E", "tab2");
-    renderCountStatus("A", "tab3");
-    renderCountStatus("C", "tab4");
+    renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
+    renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
+    renderCountStatus(NEW_UI_STATUS_PACKED, "tab3");
+    renderCountStatus(NEW_UI_STATUS_COMPLETE, "tab4");
 
     let totalProducts = 0;
+
+    function timestampConvert(time) {
+        var seconds_now = new Date().getTime() / 1000;
+        let received_sec_ago = Math.floor((seconds_now - time))
+        console.log("received_sec_ago: ", received_sec_ago)
+
+        let minutes = Math.floor((seconds_now - time) / 60 ) ;
+        let hours = Math.floor((seconds_now - time) / 60 / 60) ;
+        let days = Math.floor((seconds_now - time) / 60 / 60 / 24);
+
+        if(received_sec_ago < 59) {
+            return `Received a minute ago`
+        }
+        else if(received_sec_ago < 3599) {
+            received_sec_ago = minutes
+            return `Received ${received_sec_ago} minute ago`
+        } else if(received_sec_ago > 3600 && received_sec_ago < 86400) {
+            received_sec_ago = hours
+            return `Received ${received_sec_ago} hours ago`
+        } else {
+            received_sec_ago = days
+            return `Received ${received_sec_ago} days ago`
+        }
+
+    }
 
     // render status left side
     async function renderLeftSide(status, path) {
         let datas = await getStatus(status);
         
-        console.log("-----------datas----------:", datas[0].order_id)
-        var seconds_now = new Date().getTime() / 1000;
-
+        //console.log("-----------datas----------:", datas[0].order_id)
+        //var seconds_now = new Date().getTime() / 1000;
         //let received_sec_ago=seconds_now-datas.timestamp;
-
-        console.log("received_sec_ago: ", Math.floor((seconds_now - 1597635814) / 60 ));
+        // console.log("received_sec_ago: ", Math.floor((seconds_now - 1597635814) / 60 ));
 
         let html = "";
 
+
         datas.map(data => {
             let htmlItem = `
-                ${status === "G" ?
+                ${status === NEW_UI_STATUS_PLACED ?
                 `<li class="search-order__box" data-order="order${data.order_id}" onclick="renderDetails(${data.order_id})" >
                     <div class="search-order__left">
                         <h3 class="search-order__id">
                             Order #${data.order_id}
                         </h3>
-                        <p class="search-order__desc">${data.product_count} items for $${data.total}</p>
-                        <p class="search-order__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago </p>
+                        <p class="search-order__desc">${data.product_count} items for ${MONEY}${data.total}</p>
+                        <p class="search-order__time">${timestampConvert(data.timestamp)}</p>
                     </div>
                     <div class="search-order__right">
                         <div class="search-order__img-box">
@@ -433,15 +558,15 @@ if (!empty($_capture_buffer)) {
                     </div>
                 </li>` : ''} 
                 
-                ${status === "E" ? 
+                ${status === NEW_UI_STATUS_VCONFIRMED ? 
                 `<li class="search-packing__box search-packing__box--column search-packing__box--nopd" data-order="order${data.order_id}" onclick="renderDetailsPacking(${data.order_id})">
                     <div class="search-packing__container">
                         <div class="search-packing__left">
                             <h3 class="search-packing__id search-packing__id--packing">
                                 Order #${data.order_id}
                             </h3>
-                            <p class="search-packing__desc">${data.product_count} items for $${data.total}</p>
-                            <p class="search-packing__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago</p>
+                            <p class="search-packing__desc">${data.product_count} items for ${MONEY}${data.total}</p>
+                            <p class="search-packing__time">${timestampConvert(data.timestamp)}</p>
                         </div>
                         <div class="search-packing__right">
                             <div class="search-packing__img-box">
@@ -456,15 +581,15 @@ if (!empty($_capture_buffer)) {
                     </div>
                 </li>` : '' }
 
-                ${status === "A" ? `
+                ${status === NEW_UI_STATUS_PACKED ? `
                 <li class="search-ready__box search-ready__box--column search-ready__box--nopd" data-order="order${data.order_id}" onclick="renderDetailsReady(${data.order_id})">
                     <div class="search-ready__container">
                         <div class="search-ready__left">
                             <h3 class="search-ready__id search-ready__id--packing">
                                 Order #${data.order_id}
                             </h3>
-                            <p class="search-ready__desc">${data.product_count} items for $${data.total}</p>
-                            <p class="search-ready__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago</p>
+                            <p class="search-ready__desc">${data.product_count} items for ${MONEY}${data.total}</p>
+                            <p class="search-ready__time">${timestampConvert(data.timestamp)}</p>
                         </div>
                         <div class="search-ready__right">
                             <div class="search-ready__img-box">
@@ -477,16 +602,16 @@ if (!empty($_capture_buffer)) {
                 </li>` : '' }
                 
 
-                ${status === "C" ? ` 
-                    ${data.status === "C" ? `
+                ${status === NEW_UI_STATUS_COMPLETE ? ` 
+                    ${data.status === NEW_UI_STATUS_COMPLETE ? `
                     <li class="search-past__box search-past__box--column search-past__box--nopd" data-order="order${data.order_id}" onclick="renderDetailsPast(${data.order_id})">
                         <div class="search-past__container">
                             <div class="search-past__left">
                                 <h3 class="search-past__id search-past__id--delevered">
                                     Order #${data.order_id}
                                 </h3>
-                                <p class="search-past__desc">${data.product_count} items for $${data.total}</p>
-                                <p class="search-past__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago</p>
+                                <p class="search-past__desc">${data.product_count} items for ${MONEY}${data.total}</p>
+                                <p class="search-past__time">${timestampConvert(data.timestamp)}</p>
                             </div>
                             <div class="search-past__right">
                                 <div class="search-past__img-box">
@@ -500,15 +625,15 @@ if (!empty($_capture_buffer)) {
                             <span class="search-past__notcf--past">Order packing correct</span>
                         </div>
                     </li>` : 
-                    `${data.status === "I" ? `
+                    `${data.status === NEW_UI_STATUS_CANCELED ? `
                     <li class="search-past__box search-past__box--column search-past__box--nopd" data-order="order${data.order_id}" onclick="renderDetailsPast(${data.order_id})">
                         <div class="search-past__container">
                             <div class="search-past__left">
                                 <h3 class="search-past__id search-past__id--delevered">
                                     Order #${data.order_id}
                                 </h3>
-                                <p class="search-past__desc">${data.product_count} items for $${data.total}</p>
-                                <p class="search-past__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago</p>
+                                <p class="search-past__desc">${data.product_count} items for ${MONEY}${data.total}</p>
+                                <p class="search-past__time">${timestampConvert(data.timestamp)}</p>
                             </div>
                             <div class="search-past__right">
                                 <div class="search-past__img-box">
@@ -529,8 +654,8 @@ if (!empty($_capture_buffer)) {
                                 <h3 class="search-past__id search-past__id--delevered">
                                     Order #${data.order_id}
                                 </h3>
-                                <p class="search-past__desc">${data.product_count} items for $${data.total}</p>
-                                <p class="search-past__time">Received ${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )} minute ago</p>
+                                <p class="search-past__desc">${data.product_count} items for ${MONEY}${data.total}</p>
+                                <p class="search-past__time">${timestampConvert(data.timestamp)}</p>
                             </div>
                             <div class="search-past__right">
                                 <div class="search-past__img-box">
@@ -556,22 +681,38 @@ if (!empty($_capture_buffer)) {
 
         container.innerHTML = html;
 
-        // call render details follow first id
+        // render details content with first id
 
-        `${status === "G" ? renderDetails(datas[0].order_id) : `${status === "E" ? renderDetailsPacking(datas[0].order_id) : `${status === "A" ? renderDetailsReady(datas[0].order_id) : renderDetailsPast(datas[0].order_id)}`}`}`
+        `${status === NEW_UI_STATUS_PLACED ? renderDetails(datas[0].order_id) : `${status === NEW_UI_STATUS_VCONFIRMED ? renderDetailsPacking(datas[0].order_id) : `${status === NEW_UI_STATUS_PACKED ? renderDetailsReady(datas[0].order_id) : renderDetailsPast(datas[0].order_id)}`}`}`;
 
-       // `${status === "G" ? renderDetails(datas[0].order_id) : ''}`
-      //  `${status === "E" ? renderDetailsPacking(datas[0].order_id) : ''}`
-      //  `${status === "A" ? renderDetailsReady(datas[0].order_id) : ''}`
-      //  `${status === "C" ? renderDetailsPast(datas[0].order_id) : ''}`
-        
-
+        // active css with first id
+        `${status === NEW_UI_STATUS_PLACED ? activeOrder("order", datas[0].order_id) : `${status === NEW_UI_STATUS_VCONFIRMED ? activeOrder("packing", datas[0].order_id) : `${status === NEW_UI_STATUS_PACKED ?  activeOrder("ready", datas[0].order_id) : activeOrder("past", datas[0].order_id)}`}`}`;
     }
 
-    renderLeftSide("G", "order");
-    renderLeftSide("E", "packing");
-    renderLeftSide("A", "ready");
-    renderLeftSide("C", "past");
+    renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+    renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
+    renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
+    renderLeftSide(NEW_UI_STATUS_COMPLETE, "past");
+
+    function activeOrder(path, id) {
+        document.querySelector(`.search-${path}__box[data-order=order${id}]`).classList.add('active')
+       
+        let orders = {
+            list: document.querySelector(`ul.search-${path}__list`),
+            all: document.querySelectorAll(`.search-${path} .search-${path}__box`),
+        }
+        orders.all.forEach(f => {
+        f.addEventListener('mousedown', () => {
+            f.classList.contains('active') || setAciveChat(f);
+            //console.log("list: ",orders.list, "all: ",orders.all);
+        })
+        });
+
+        function setAciveChat(f) {
+            orders.list.querySelector('.active').classList.remove('active')
+            f.classList.add('active')
+        }
+    }
 
    /* setInterval(async function() {
             let abb = await getStatus();
@@ -580,14 +721,104 @@ if (!empty($_capture_buffer)) {
         }, 2000); */
 
     async function getDataProduct(id) {
+        spinner.removeAttribute('hidden');
         let url2 = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_order&order_id=${id}`;
         try {
             let res = await fetch(url2);
+            spinner.setAttribute('hidden', '');
             return await res.json();
         }
         catch (error2) {
             console.log(error2)
         }
+    }
+
+    // get curent day
+
+    function getCurentDays() {
+        
+        var datetime = new Date().toLocaleString();
+        console.log("datetime: ", datetime)
+        return datetime;
+    }
+    getCurentDays()
+
+    function sum(ids) {
+       
+
+        let quantity = document.querySelectorAll(`input[name="quantity"]`);
+        console.log("quantity: ", quantity.length)
+        console.log("price: ", price)
+        let sumTotal = 0;
+        for(let i = 0; i <= quantity.length - 1; i++) {
+            console.log("value: ", quantity[i].value , "price: ", price)
+            let sums = quantity[i].value * price;
+            console.log("sums: ", sums)
+            sumTotal += sums;
+            console.log("sumTotal: ", sumTotal)
+        }
+
+        
+       
+        let total = `
+            <div class="order-modal__grand-total">
+                <p class="order-modal__grand">Grand total</p>
+                <p class="order-modal__amount order-modal__amount--big">${MONEY}${sumTotal}</p>
+            </div>  
+        `
+        let containerInput = document.querySelector('.order-modal__input');
+        containerInput.innerHTML = total;
+    }
+
+    async function getModals(ids) {
+        
+        document.querySelector(".step1").style.display="block";
+        document.querySelector(".step2").style.display="none";
+        document.querySelector(".step3").style.display="none";
+        
+        let details = await getDataProduct(ids);
+        console.log("details: ----- ", details);
+
+        let dataModal = '';
+        let count = 1;
+        for(let a in details.products ) {
+            console.log("a: ", a, "det: ", details.products[a].product)
+            let pName = details.products[a];
+            totalProducts = Object.keys(details.products).length;
+            console.log('total product:', Object.keys(details.products).length)
+            console.log("z: ", pName)
+            let htmlItem0 = `
+                <div class="order-modal__conme">
+                    <div class="order-modal__conmeno">
+                        <span class="order-modal__index">${count++}</span>
+                        <div class="order-modal__details--left">
+                            <img src="https://i.imgur.com/76y9dFM.png" />
+                            <div class="order-modal__dish">
+                                <p class="order-modal__title">${pName.product}</p>
+                                <p class="order-modal__type">${pName.product_code}</p>
+                            </div>
+                        </div>
+                        <div class="order-modal__details--right">
+                            <p class="order-modal__amount">${pName.price}</p>
+                        </div>
+                        <input class="order-modal__quantity quantity" onchange="sum(${details.order_id})"   name="quantity" value="${pName.amount}" type="number" />
+                    </div>
+                </div>
+            `
+            dataModal += htmlItem0;
+        }
+        
+        let total = `
+            <div class="order-modal__grand-total">
+                <p class="order-modal__grand">Grand total</p>
+                <p class="order-modal__amount order-modal__amount--big">${MONEY}${details.total}</p>
+            </div>  
+        `
+
+        let containerModal = document.querySelector('.order-modal__conme');
+        containerModal.innerHTML = dataModal;
+        let containerInput = document.querySelector('.order-modal__input');
+        containerInput.innerHTML = total;
     }
 
     // new
@@ -610,13 +841,10 @@ if (!empty($_capture_buffer)) {
            
         });*/
        
-
-
-
         let html2 = "";
         let htmlSub = "";
-      
-
+        
+        let stt = 1;
         for(let a in details.products ) {
             console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
@@ -626,7 +854,7 @@ if (!empty($_capture_buffer)) {
             let htmlItem0 = `
                             <li class="search-order__details">
                                 <div class="search-order__details--left">
-                                    <img src="https://i.imgur.com/76y9dFM.png" />
+                                    <span class="search-order__title">${stt++}</span>
                                     <div class="search-order__dish">
                                         <p class="search-order__title">
                                             ${pName.product}
@@ -648,6 +876,31 @@ if (!empty($_capture_buffer)) {
             `
             htmlSub += htmlItem0;
         }
+
+        let htmlTaxes = "";
+        for(let a in details.taxes ) {
+            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+            let tName = details.taxes[a];
+           
+            let htmlTax = `
+                        ${MONEY}${tName.tax_subtotal}
+            `
+            htmlTaxes += htmlTax;
+        }
+
+        let timeArray = details.status_history;
+        let timePrint = '';
+        for(let a in timeArray) {
+            console.log("time history: ", timeArray[a])
+            let index = timeArray[a];
+
+            if(index.status === "G") {
+                console.log("GGGGG")
+                timePrint = `
+                ${countTimeHistory(index.timestamp)}</p>
+                `
+            }
+        }
     
 
             let htmlItem2 = `
@@ -658,7 +911,7 @@ if (!empty($_capture_buffer)) {
                                 <h3 class="search-order__id search-order__id--bold">
                                     Order #${details.order_id}  <span class="search-order__new">New</span>
                                 </h3>
-                                <p class="search-order__desc search-order__desc--gray">${totalProducts} items for $${details.total}</p>
+                                <p class="search-order__desc search-order__desc--gray">${totalProducts} items for ${MONEY}${details.total}</p>
                                 
                             </div>
                             <div class="search-order__right">
@@ -668,17 +921,17 @@ if (!empty($_capture_buffer)) {
                                     </a>
                                     <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <li>
-                                            <a href="#">Invoice</a>
+                                            <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
                                         </li>
                                         <li>
-                                            <a href="#">Invoice (PDF)</a>
+                                            <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
                                         </li>
                                         <li>
-                                            <a href="#">Packing slip</a>
+                                            <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
                                         </li>
                                     </ul>
                                 </div>
-                                <p class="search-order__date">21 Jul 2020 02:08 PM</p>
+                                <p class="search-order__date">${timePrint}</p>
                             </div>
                         </div>
                         <ul class="search-order__list-details">
@@ -690,7 +943,7 @@ if (!empty($_capture_buffer)) {
 
                         <div class="search-order__buttons">
                         
-                            <input type="button" class="search-order__buttons--btn search-order__buttons--mark"  data-toggle="modal" data-target="#showStork" value="Mark out of stork" />
+                            <input type="button" class="search-order__buttons--btn search-order__buttons--mark"  data-toggle="modal" data-target="#showStork" value="Mark out of stock"  onclick="getModals(${details.order_id})"/>
 
                             <input type="button" class="search-order__buttons--btn search-order__buttons--confirm" onclick="getChange(${details.order_id})" value="Confirm order" ></input>
                         </div>
@@ -743,25 +996,27 @@ if (!empty($_capture_buffer)) {
                                 </h4>
                  
                                     <p class="search-order__right-price">
-                                        ${details.total}
+                                        ${MONEY}${details.total}
                                     </p>
                               
                                 <div class="search-order__right-info">
                                     <div class="search-order__right-row">
                                         <p class="search-order__right-label">Item total</p>
-                                        <p class="search-order__right-money">$${details.subtotal}</p>
+                                        <p class="search-order__right-money">${MONEY}${details.subtotal}</p>
                                     </div>
                                     <div class="search-order__right-row">
                                         <p class="search-order__right-label">Shipping cost</p>
-                                        <p class="search-order__right-money">$${details.shipping_cost}</p>
+                                        <p class="search-order__right-money">${MONEY}${details.shipping_cost}</p>
                                     </div>
                                     <div class="search-order__right-row">
                                         <p class="search-order__right-label">GST</p>
-                                        <p class="search-order__right-money">$${details.taxes["6"].tax_subtotal}</p>
+                                        <p class="search-order__right-money search-order__right-taxes">
+                                            
+                                        </p>
                                     </div>
                                     <div class="search-order__right-row">
                                         <p class="search-order__right-label">Discount</p>
-                                        <p class="search-order__right-money">$${details.subtotal_discount}</p>
+                                        <p class="search-order__right-money">${MONEY}${details.subtotal_discount}</p>
                                     </div>
                                 </div> 
                             </div>
@@ -775,13 +1030,15 @@ if (!empty($_capture_buffer)) {
             `;
           
 
-          html2 += htmlItem2; 
+            html2 += htmlItem2; 
 
    
         let container2 = document.querySelector('.have-order__content');
         container2.innerHTML = html2;
         let containerSub = document.querySelector('.search-order__list-details')
         containerSub.innerHTML = htmlSub;
+        let containerTaxes = document.querySelector('.search-order__right-taxes')
+        containerTaxes.innerHTML = htmlTaxes;
      
     }
     
@@ -794,7 +1051,7 @@ if (!empty($_capture_buffer)) {
 
         let html2 = "";
         let htmlSub = "";
-
+        let stt = 1;
         for(let a in details.products ) {
             console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
@@ -803,7 +1060,7 @@ if (!empty($_capture_buffer)) {
             let htmlItem0 = `
                             <li class="search-packing__details">
                                 <div class="search-packing__details--left">
-                                    <img src="https://i.imgur.com/76y9dFM.png" />
+                                    <span class="search-packing__title">${stt++}</span>
                                     <div class="search-packing__dish">
                                         <p class="search-packing__title">${pName.product}</p>
                                         <p class="search-packing__type">${pName.product_code}</p>
@@ -818,11 +1075,32 @@ if (!empty($_capture_buffer)) {
             `
             htmlSub += htmlItem0;
         }
-    
+        let htmlTaxes = "";
+        for(let a in details.taxes ) {
+            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+            let tName = details.taxes[a];
+           
+            let htmlTax = `
+                        ${MONEY}${tName.tax_subtotal}
+            `
+            htmlTaxes += htmlTax;
+        }
 
-            let htmlItem2 = `
-               
+        let timeArray = details.status_history;
+        let timePrint = '';
+        for(let a in timeArray) {
+            console.log("time history: ", timeArray[a])
+            let index = timeArray[a];
 
+            if(index.status === "G") {
+                console.log("GGGGG")
+                timePrint = `
+                ${countTimeHistory(index.timestamp)}</p>
+                `
+            }
+        }
+
+        let htmlItem2 = `
             <div class="have-packing__mid">
                 <div class="have-packing__mid--rel active" data-order="order${details.order_id}">
                     <div class="search-packing__box search-packing__box--mid">
@@ -830,7 +1108,7 @@ if (!empty($_capture_buffer)) {
                             <h3 class="search-packing__id search-packing__id--bold search-packing__id--packing">
                                 Order #${details.order_id}<span class="search-packing__new search-packing__new--packing">Packing</span>
                             </h3>
-                            <p class="search-packing__desc search-packing__desc--gray">${totalProducts} items for ${details.total}</p>
+                            <p class="search-packing__desc search-packing__desc--gray">${totalProducts} items for ${MONEY}${details.total}</p>
                             
                         </div>
                         <div class="search-order__right">
@@ -840,17 +1118,17 @@ if (!empty($_capture_buffer)) {
                                 </a>
                                 <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <a href="#">Invoice</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
                                     </li>
                                     <li>
-                                        <a href="#">Invoice (PDF)</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
                                     </li>
                                     <li>
-                                        <a href="#">Packing slip</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
                                     </li>
                                 </ul>
                             </div>
-                            <p class="search-order__date">21 Jul 2020 02:08 PM</p>
+                            <p class="search-order__date">${timePrint}</p>
                         </div>
                     </div>
                     <ul class="search-packing__list-details">
@@ -908,24 +1186,25 @@ if (!empty($_capture_buffer)) {
                                 Grand Total
                             </h4>
                             <p class="search-packing__right-price">
-                                ${details.total}
+                                ${MONEY}${details.total}
                             </p>
                             <div class="search-packing__right-info">
                                 <div class="search-packing__right-row">
                                     <p class="search-packing__right-label">Item total</p>
-                                    <p class="search-packing__right-money">$${details.subtotal}</p>
+                                    <p class="search-packing__right-money">${MONEY}${details.subtotal}</p>
                                 </div>
                                 <div class="search-packing__right-row">
                                         <p class="search-packing__right-label">Shipping cost</p>
-                                        <p class="search-packing__right-money">$${details.shipping_cost}</p>
+                                        <p class="search-packing__right-money">${MONEY}${details.shipping_cost}</p>
                                     </div>
                                 <div class="search-packing__right-row">
                                     <p class="search-packing__right-label">GST</p>
-                                    <p class="search-packing__right-money">$${details.taxes["6"].tax_subtotal}</p>
+                                    <p class="search-packing__right-money search-packing__right-taxes">
+                                            </p>
                                 </div>
                                 <div class="search-packing__right-row">
                                     <p class="search-packing__right-label">Discount</p>
-                                    <p class="search-packing__right-money">$${details.subtotal_discount}</p>
+                                    <p class="search-packing__right-money">${MONEY}${details.subtotal_discount}</p>
                                 </div>
                             </div> 
                         </div>
@@ -936,16 +1215,18 @@ if (!empty($_capture_buffer)) {
                 </div>
                 
             </div>
-            `;
+        `;
           
 
-          html2 += htmlItem2; 
+        html2 += htmlItem2; 
 
    
         let container2 = document.querySelector('.have-packing__content');
         container2.innerHTML = html2;
         let containerSub = document.querySelector('.search-packing__list-details')
         containerSub.innerHTML = htmlSub;
+        let containerTaxes = document.querySelector('.search-packing__right-taxes')
+        containerTaxes.innerHTML = htmlTaxes;
      
     }
 
@@ -957,7 +1238,7 @@ if (!empty($_capture_buffer)) {
         let html2 = "";
         let htmlSub = "";
       
-
+        let stt = 1;
         for(let a in details.products ) {
             console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
@@ -967,7 +1248,7 @@ if (!empty($_capture_buffer)) {
             let htmlItem0 = `
                         <li class="search-ready__details">
                             <div class="search-ready__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
+                                <span class="search-ready__title">${stt++}</span>
                                 <div class="search-ready__dish">
                                     <p class="search-ready__title">${pName.product}</p>
                                     <p class="search-ready__type">${pName.product_code}</p>
@@ -981,9 +1262,34 @@ if (!empty($_capture_buffer)) {
             `
             htmlSub += htmlItem0;
         }
-    
+        let htmlTaxes = "";
+        for(let a in details.taxes ) {
+            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+            let tName = details.taxes[a];
+           
+            let htmlTax = `
+                        ${MONEY}${tName.tax_subtotal}
+            `
+            htmlTaxes += htmlTax;
+        }
 
-            let htmlItem2 = `
+        
+
+        let timeArray = details.status_history;
+        let timePrint = '';
+        for(let a in timeArray) {
+            console.log("time history: ", timeArray[a])
+            let index = timeArray[a];
+
+            if(index.status === "G") {
+                console.log("GGGGG")
+                timePrint = `
+                ${countTimeHistory(index.timestamp)}</p>
+                `
+            }
+        }
+
+        let htmlItem2 = `
             <div class="have-ready__mid">
                 <div class="have-ready__mid--rel active" data-order="order${details.order_id}">
                     <div class="search-ready__box search-ready__box--mid">
@@ -991,7 +1297,7 @@ if (!empty($_capture_buffer)) {
                             <h3 class="search-ready__id search-ready__id--bold search-ready__id--packing">
                                 Order #${details.order_id}<span class="search-ready__new search-ready__new--packing">Ready</span>
                             </h3>
-                            <p class="search-ready__desc search-ready__desc--gray">${totalProducts} items for ${details.total}</p>
+                            <p class="search-ready__desc search-ready__desc--gray">${totalProducts} items for ${MONEY}${details.total}</p>
                     
                         </div>
                         <div class="search-order__right">
@@ -1001,17 +1307,17 @@ if (!empty($_capture_buffer)) {
                                 </a>
                                 <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <a href="#">Invoice</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
                                     </li>
                                     <li>
-                                        <a href="#">Invoice (PDF)</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
                                     </li>
                                     <li>
-                                        <a href="#">Packing slip</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
                                     </li>
                                 </ul>
                             </div>
-                            <p class="search-order__date">21 Jul 2020 02:08 PM</p>
+                            <p class="search-order__date">${timePrint}</p>
                         </div>
                     </div>
                     <ul class="search-ready__list-details">
@@ -1039,7 +1345,14 @@ if (!empty($_capture_buffer)) {
                             </p>
                             <div class="search-ready__right-pickup">
                                 <p class="search-ready__right-pickup-text">Pick up arriving in</p>
-                                <div>Spin</div>
+                                
+                                <div id="countdown">
+                                <div id="countdown-number"></div>
+                                <svg class="countdown" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <circle r="90" cx="100" cy="100"></circle>
+                                    <circle class="countdown-circle" r="90" cx="100" cy="100"></circle>
+                                </svg>
+                                </div>
                             </div>
                             
                         </div>
@@ -1054,24 +1367,26 @@ if (!empty($_capture_buffer)) {
                                 Grand Total
                             </h4>
                             <p class="search-ready__right-price">
-                               ${details.total}
+                               ${MONEY}${details.total}
                             </p>
                             <div class="search-ready__right-info">
                                 <div class="search-ready__right-row">
                                     <p class="search-ready__right-label">Item total</p>
-                                    <p class="search-ready__right-money">$${details.subtotal}</p>
+                                    <p class="search-ready__right-money">${MONEY}${details.subtotal}</p>
                                 </div>
                                 <div class="search-ready__right-row">
                                     <p class="search-ready__right-label">Shipping cost</p>
-                                    <p class="search-ready__right-money">$${details.shipping_cost}</p>
+                                    <p class="search-ready__right-money">${MONEY}${details.shipping_cost}</p>
                                 </div>
                                 <div class="search-ready__right-row">
                                     <p class="search-ready__right-label">GST</p>
-                                    <p class="search-ready__right-money">$${details.taxes["6"].tax_subtotal}</p>
+                                    <p class="search-ready__right-money search-ready__right-taxes">
+                                            
+                                    </p>
                                 </div>
                                 <div class="search-ready__right-row">
                                     <p class="search-ready__right-label">Discount</p>
-                                    <p class="search-ready__right-money">$${details.subtotal_discount}</p>
+                                    <p class="search-ready__right-money">${MONEY}${details.subtotal_discount}</p>
                                 </div>
                             </div> 
                         </div>
@@ -1084,96 +1399,188 @@ if (!empty($_capture_buffer)) {
             `;
           
 
-          html2 += htmlItem2; 
+        html2 += htmlItem2; 
 
    
         let container2 = document.querySelector('.have-ready__content');
         container2.innerHTML = html2;
         let containerSub = document.querySelector('.search-ready__list-details')
         containerSub.innerHTML = htmlSub;
+        let containerTaxes = document.querySelector('.search-ready__right-taxes')
+        containerTaxes.innerHTML = htmlTaxes;
+
+        function fancyTimeFormat(time) {
+            // Hours, minutes and seconds
+            const hrs = ~~(time / 3600);
+            const mins = ~~((time % 3600) / 60);
+            const secs = ~~time % 60;
+
+            // Output like "1:01" or "4:03:59" or "123:03:59"
+            let ret = "";
+
+            if (hrs > 0) {
+                ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+            }
+
+            ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+            ret += "" + secs;
+            return ret;
+        }
+
+        const countdownNumberEl = document.getElementById("countdown-number");
+        const circle = document.getElementsByClassName("countdown-circle")[0];
+        const countdown = 300;
+        let newcountdown = countdown;
+        const maxoffset = 2 * Math.PI * 100;
+        let offset = 0;
+        countdownNumberEl.textContent = fancyTimeFormat(countdown);
+
+        tick = setInterval(function() {
+        newcountdown = --newcountdown <= 0 ? 0 : newcountdown;
+        if (offset - maxoffset / countdown >= -Math.abs(maxoffset)) {
+            offset = offset - maxoffset / countdown;
+        } else {
+            offset = -Math.abs(maxoffset);
+            clearInterval(tick);
+        }
+
+        countdownNumberEl.textContent = fancyTimeFormat(newcountdown);
+        circle.setAttribute("style", "stroke-dashoffset:" + offset + "px");
+        }, 1000);
+
      
     }
-   
+    
+    function countTimeHistory(time) {
+       
+        let ts = new Date(time * 1000);
+        console.log("ts: ",ts.toLocaleString());
+        return ts.toLocaleString();
+    }
+    
+
+
     // past
     async function renderDetailsPast(ids) {
         let details = await getDataProduct(ids);
         console.log("details: ----- ", details);
 
+        console.log("time history: ", details.status_history)
+
         let html2 = "";
         let htmlSub = "";
         
+        let place = '';
+        
+        let confirm = '';
 
-        let timeCompleted = `<div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p class="search-past__box-time-h">02:08 PM</p>
-                                <p class="search-past__box-time-p">Placed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Confirmed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Packed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Delivered</p>
-                            </div>
-                        </div>`
+        let packed = '';
+
+        let delivery = '';
+
+        let cancel = '';
+
+        
+        let timeArray = details.status_history;
+
+        for(let a in timeArray) {
+            console.log("time history: ", timeArray[a])
+            let index = timeArray[a];
+
+            if(index.status === "G") {
+                console.log("GGGGG")
+                place = `
+                <p class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
+                <p class="search-past__box-time-p">Placed</p>`
+            } else if (index.status === "E") {
+                console.log("EEEEE")
+                confirm = `
+                <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
+                <p class="search-past__box-time-p">Confirmed</p>`
+            } else if (index.status === "A") {
+                console.log("AAAAAAA")
+                packed = `
+                <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
+                <p class="search-past__box-time-p">Packed</p>`
+            } else if (index.status === "C") {
+                console.log("CCCCCCCCC")
+                delivery = ` 
+                <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
+                <p class="search-past__box-time-p">Delivered</p>`
+            } else if (index.status === "I") {
+                console.log("canncel IIIIIII")
+                cancel = ` 
+                <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
+                <p class="search-past__box-time-p">Canceled</p>`
+            } else {
+                console.log('nothing')
+            }
+        }
+
+        let timeCompleted = `
+                <div class="search-past__box-time-list">
+                    <img src="https://i.imgur.com/1Tyk2hG.png" />
+                    <div class="search-past__box-time-hour">
+                        ${place}
+                    </div>
+                </div>
+                <div class="search-past__box-time-list">
+                    <img src="https://i.imgur.com/1Tyk2hG.png" />
+                    <div class="search-past__box-time-hour">
+                        ${confirm}
+                    </div>
+                </div>
+                <div class="search-past__box-time-list">
+                    <img src="https://i.imgur.com/1Tyk2hG.png" />
+                    <div class="search-past__box-time-hour">
+                        ${packed}
+                    </div>
+                </div>
+                <div class="search-past__box-time-list">
+                    <img src="https://i.imgur.com/1Tyk2hG.png" />
+                    <div class="search-past__box-time-hour">
+                        ${delivery}
+                        
+                    </div>
+                </div>`
 
         let timeOutFor = `<div class="search-past__box-time-list">
                             <img src="https://i.imgur.com/1Tyk2hG.png" />
                             <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:08 PM</p>
-                                <p class="search-past__box-time-p">Placed</p>
+                                ${place}
                             </div>
                         </div>
                         <div class="search-past__box-time-list">
                             <img src="https://i.imgur.com/1Tyk2hG.png" />
                             <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Confirmed</p>
+                                ${confirm}
                             </div>
                         </div>
                         <div class="search-past__box-time-list">
                             <img src="https://i.imgur.com/1Tyk2hG.png" />
                             <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Packed</p>
+                                ${packed}
                             </div>
                         </div>`
         let timeCancel = `<div class="search-past__box-time-list">
                             <img src="https://i.imgur.com/1Tyk2hG.png" />
                             <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:08 PM</p>
-                                <p class="search-past__box-time-p">Placed</p>
+                                ${place}
                             </div>
                         </div>
                         <div class="search-past__box-time-list">
                             <img src="https://i.imgur.com/1Tyk2hG.png" />
                             <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Canceled</p>
+                                ${cancel}
+                                 
                             </div>
                         </div>`
         
-
         let htmlTime = `
-            ${details.status === "C" ? `${timeCompleted}` : `${details.status === "I" ? `${timeCancel}` : `${timeOutFor}` }` }
+            ${details.status === NEW_UI_STATUS_COMPLETE ? `${timeCompleted}` : `${details.status === NEW_UI_STATUS_CANCELED ? `${timeCancel}` : `${timeOutFor}` }` }
         `
- 
 
+        let stt = 1;
         for(let a in details.products ) {
             //console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
@@ -1183,7 +1590,7 @@ if (!empty($_capture_buffer)) {
             let htmlItem0 = `
                         <li class="search-past__details">
                             <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
+                                <span class="search-packing__title">${stt++}</span>
                                 <div class="search-past__dish">
                                     <p class="search-past__title">${pName.product}</p>
                                     <p class="search-past__type">${pName.product_code}</p>
@@ -1198,16 +1605,39 @@ if (!empty($_capture_buffer)) {
             htmlSub += htmlItem0;
         }
     
+        let htmlTaxes = "";
+        for(let a in details.taxes ) {
+            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+            let tName = details.taxes[a];
+           
+            let htmlTax = `
+                        ${MONEY}${tName.tax_subtotal}
+            `
+            htmlTaxes += htmlTax;
+        }
 
-            let htmlItem2 = `
+        let timeArray2 = details.status_history;
+        let timePrint = '';
+        for(let a in timeArray2) {
+            console.log("time history: ", timeArray2[a])
+            let index = timeArray2[a];
+
+            if(index.status === "G") {
+                console.log("GGGGG")
+                timePrint = `
+                ${countTimeHistory(index.timestamp)}</p>
+                `
+            }
+        }
+        let htmlItem2 = `
             <div class="have-past__mid">
                 <div class="have-past__mid--rel active" data-order="order${details.order_id}">
                     <div class="search-past__box search-past__box--mid search-past__box--nomg">
                         <div class="search-past__left">
-                            ${details.status === "C"  ? ` 
+                            ${details.status === NEW_UI_STATUS_COMPLETE  ? ` 
                                 <h3 class="search-past__id search-past__id--bold search-past__id--packing">
                                     Order #${details.order_id}<span class="search-past__new search-past__new--packing">Delivered</span>
-                                </h3>` : `${details.status === "I"  ? `
+                                </h3>` : `${details.status === NEW_UI_STATUS_CANCELED  ? `
                                 <h3 class="search-past__id search-past__id--bold search-past__id--delevered">
                                     Order #${details.order_id}<span class="search-past__new search-past__new--delevered">Cancelled</span>
                                 </h3>` : `
@@ -1215,14 +1645,27 @@ if (!empty($_capture_buffer)) {
                                     Order #${details.order_id}<span class="search-past__new search-past__new--delevered">Out for delivery</span>
                                 </h3>
                             `}`} 
-                            <p class="search-past__desc search-past__desc--gray">${totalProducts} items for ${details.total}</p>
+                            <p class="search-past__desc search-past__desc--gray">${totalProducts} items for ${MONEY}${details.total}</p>
   
                         </div>
-                        <div class="search-past__right">
-                            
-                            <img class="search-past__print" src="https://i.imgur.com/q6OYhBH.png" />
-                            
-                            <p class="search-past__date">21 Jul 2020 02:08 PM</p>
+                        <div class="search-order__right">
+                            <div class="search-order__right-print dropdown show">
+                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="search-order__print" src="https://i.imgur.com/q6OYhBH.png" />
+                                </a>
+                                <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
+                                    </li>
+                                    <li>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
+                                    </li>
+                                    <li>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="search-order__date">${timePrint}</p>
                         </div>
                     </div>
                     <div class="search-past__box-time">
@@ -1249,24 +1692,26 @@ if (!empty($_capture_buffer)) {
                                 Grand Total
                             </h4>
                             <p class="search-past__right-price">
-                                ${details.total}
+                                ${MONEY}${details.total}
                             </p>
                             <div class="search-past__right-info">
                                 <div class="search-past__right-row">
                                     <p class="search-past__right-label">Item total</p>
-                                    <p class="search-past__right-money">$${details.subtotal}</p>
+                                    <p class="search-past__right-money">${MONEY}${details.subtotal}</p>
                                 </div>
                                 <div class="search-past__right-row">
                                     <p class="search-past__right-label">Shipping cost</p>
-                                    <p class="search-past__right-money">$${details.shipping_cost}</p>
+                                    <p class="search-past__right-money">${MONEY}${details.shipping_cost}</p>
                                 </div>
                                 <div class="search-past__right-row">
                                     <p class="search-past__right-label">GST</p>
-                                    <p class="search-past__right-money">$${details.taxes["6"].tax_subtotal}</p>
+                                    <p class="search-past__right-money search-past__right-taxes">
+                                            
+                                    </p>
                                 </div>
                                 <div class="search-past__right-row">
                                     <p class="search-past__right-label">Discount</p>
-                                    <p class="search-past__right-money">$${details.subtotal_discount}</p>
+                                    <p class="search-past__right-money">${MONEY}${details.subtotal_discount}</p>
                                 </div>
                             </div> 
                         </div>
@@ -1277,7 +1722,7 @@ if (!empty($_capture_buffer)) {
             `;
           
 
-          html2 += htmlItem2; 
+        html2 += htmlItem2; 
 
    
         let container2 = document.querySelector('.have-past__content');
@@ -1286,7 +1731,10 @@ if (!empty($_capture_buffer)) {
         containerSub.innerHTML = htmlSub;
         let containerTime = document.querySelector('.search-past__box-time')
         containerTime.innerHTML = htmlTime;
-     
+        let containerTaxes = document.querySelector('.search-past__right-taxes')
+        containerTaxes.innerHTML = htmlTaxes;
+
+
     }
     
   
@@ -1300,17 +1748,19 @@ if (!empty($_capture_buffer)) {
 <?php echo '<script'; ?>
 >
 
-    function hideModal() {
-        document.getElementById("showStork").style.display="none";
-        document.getElementById("continue").style.display="block";
-        document.querySelector(".modal-backdrop").style.display="none";
-        console.log("hide")
+    function continueModal() {
+        document.querySelector(".step1").style.display="none";
+        document.querySelector(".step2").style.display="block";
+        
     }
     function backModal() {
-         document.getElementById("showStork").style.display="block";
-         document.getElementById("continue").style.display="none";
-         document.querySelector(".modal-backdrop").style.display="block";
-         console.log("show")
+        document.querySelector(".step1").style.display="block";
+        document.querySelector(".step2").style.display="none";
+    }
+
+    function confirmModal() {
+        document.querySelector(".step2").style.display="none";
+        document.querySelector(".step3").style.display="block";
     }
     /*document.getElementById("new").style.display="none";
         document.getElementById("packing").style.display="flex";*/
@@ -1332,17 +1782,28 @@ if (!empty($_capture_buffer)) {
     console.log("tabs list: ",tabs.list, "all: ",tabs.all);
     console.log("tabs container: ",tabsContent.container, "current: ",tabsContent.current, "tab: ",tabsContent.tab);
     
-
+    
     tabs.all.forEach(f => {
-    f.addEventListener('mousedown', () => {
-        f.classList.contains('activeTab') || setAciveTabs(f);
-        console.log("func: ",f)
-         console.log("tabs list: ",tabs.list, "all: ",tabs.all);
-        console.log("tabs container: ",tabsContent.container, "current tab: ",tabsContent.current, "tab: ",tabsContent.tab);
-    })
-    });
+            
+        f.addEventListener('mousedown', () => {
+            
+            //console.log("func: ",f)
+            //console.log("tabs list: ",tabs.list, "all: ",tabs.all);
+            //console.log("tabs container: ",tabsContent.container, "current tab: ",tabsContent.current, "tab: ",tabsContent.tab);
+                
+                // set time out for change tab
+                f.classList.contains('activeTab') || setAciveTabs(f);
+              /*  spinner.removeAttribute('hidden');
+                setTimeout(function() {
+                    spinner.setAttribute('hidden', '');
+                    f.classList.contains('activeTab') || setAciveTabs(f);
+                }, 1000) */
+            })
+        }
+    );
 
     function setAciveTabs(f) {
+        
         tabs.list.querySelector('.active').classList.remove('active')
         f.classList.add('active')
         
@@ -1363,125 +1824,6 @@ if (!empty($_capture_buffer)) {
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
 <?php echo '<script'; ?>
 >
-       /* document.querySelector('.search-order__box[data-order=order78411]').classList.add('active')
-        document.querySelector('.have-order__mid--rel[data-order=order78398]').classList.add('active')
-        document.querySelector('.search-order__right-top[data-order=order78398]').classList.add('active') */
-
-        let orders = {
-        list: document.querySelector('ul.search-order__list'),
-        all: document.querySelectorAll('.search-order .search-order__box'),
-
-        },
-        ordersContent = {
-            container: document.querySelector('.have-order .have-order__mid'),
-            current: null,
-            order: null,
-        },
-        detailContent = {
-            container: document.querySelector('.have-order .have-order__right'),
-            current: null,
-            order: null,
-        }
-
-        /*console.log("list: ",orders.list, "all: ",orders.all);
-        console.log("ordersContent: ",ordersContent.container, "current: ",ordersContent.current, "order: ",ordersContent.order);
-        console.log("detailContent: ",detailContent.container, "current: ",detailContent.current, "order: ",detailContent.order);
-        */
-        orders.all.forEach(f => {
-        f.addEventListener('mousedown', () => {
-            
-            f.classList.contains('active') || setAciveChat(f);
-            console.log('-----------new---------')
-            console.log("list: ",orders.list, "all: ",orders.all);
-            console.log("ordersContent: ",ordersContent.container, "current: ",ordersContent.current, "order: ",ordersContent.order);
-            console.log("detailContent: ",detailContent.container, "current: ",detailContent.current, "order: ",detailContent.order);
-        })
-        });
-
-        function setAciveChat(f) {
-            
-            orders.list.querySelector('.active').classList.remove('active')
-            f.classList.add('active')
-            
-            ordersContent.current = ordersContent.container.querySelector('.active')
-            ordersContent.order = f.getAttribute('data-order')
-            ordersContent.current.classList.remove('active')
-            ordersContent.container.querySelector('[data-order="' + ordersContent.order + '"]').classList.add('active')
-
-            detailContent.current = detailContent.container.querySelector('.active')
-            detailContent.order = f.getAttribute('data-order')
-            detailContent.current.classList.remove('active')
-            detailContent.container.querySelector('[data-order="' + detailContent.order + '"]').classList.add('active')
-        
-        }
-    
- 
-
-<?php echo '</script'; ?>
-><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-
-
-
-<?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-<?php echo '<script'; ?>
->
-    /*document.querySelector('.search-packing__box[data-order=order9161]').classList.add('active')
-    document.querySelector('.have-packing__mid--rel[data-order=order9161]').classList.add('active')
-    document.querySelector('.search-packing__right-top[data-order=order9161]').classList.add('active') */
-
-    let packings = {
-    list: document.querySelector('ul.search-packing__list'),
-    all: document.querySelectorAll('.search-packing .search-packing__box'),
-
-    },
-    packingsContent = {
-        container: document.querySelector('.have-packing .have-packing__mid'),
-        current: null,
-        packing: null,
-    },
-    detailPacking = {
-        container: document.querySelector('.have-packing .have-packing__right'),
-        current: null,
-        packing: null,
-    }
-
-    /*console.log("list: ",packings.list, "all: ",packings.all);
-    console.log("ordersContent: ",packingsContent.container, "current: ",packingsContent.current, "packing: ",packingsContent.packing);
-    console.log("detailContent: ",detailPacking.container, "current: ",detailPacking.current, "packing: ",detailPacking.packing);
-*/
-    packings.all.forEach(f => {
-    f.addEventListener('mousedown', () => {
-         console.log('abc')
-        f.classList.contains('active') || setAcivePacking(f);
-        console.log(f)
-        console.log('axx')
-    })
-    });
-
-    function setAcivePacking(f) {
-        packings.list.querySelector('.active').classList.remove('active')
-        f.classList.add('active')
-        
-        packingsContent.current = packingsContent.container.querySelector('.active')
-        packingsContent.packing = f.getAttribute('data-order')
-        packingsContent.current.classList.remove('active')
-        packingsContent.container.querySelector('[data-order="' + packingsContent.packing + '"]').classList.add('active')
-
-        detailPacking.current = detailPacking.container.querySelector('.active')
-        detailPacking.packing = f.getAttribute('data-order')
-        detailPacking.current.classList.remove('active')
-        detailPacking.container.querySelector('[data-order="' + detailPacking.packing + '"]').classList.add('active')
-    
-    }
-
-<?php echo '</script'; ?>
-><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-
-<?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-<?php echo '<script'; ?>
->
 
     const spinner = document.getElementById("spinner");
 
@@ -1497,11 +1839,11 @@ if (!empty($_capture_buffer)) {
             console.log(error2)
         }
 
-        renderCountStatus("G", "tab1");
-        renderLeftSide("G", "order");
+        renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
+        renderLeftSide(NEW_UI_STATUS_PLACED, "order");
 
-        renderCountStatus("E", "tab2");
-        renderLeftSide("E", "packing");
+        renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
+        renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
 
         document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
         document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
@@ -1525,11 +1867,11 @@ if (!empty($_capture_buffer)) {
             console.log(error2)
         }
 
-        renderCountStatus("E", "tab2");
-        renderLeftSide("E", "packing");
+        renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
+        renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
 
-        renderCountStatus("A", "tab3");
-        renderLeftSide("A", "ready");
+        renderCountStatus(NEW_UI_STATUS_PACKED, "tab3");
+        renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
 
         document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
         document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
@@ -1547,61 +1889,6 @@ if (!empty($_capture_buffer)) {
 ><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
 
 
-
-<?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-<?php echo '<script'; ?>
->
-   /* document.querySelector('.search-ready__box[data-order=order9161]').classList.add('active')
-    document.querySelector('.have-ready__mid--rel[data-order=order9161]').classList.add('active')
-    document.querySelector('.search-ready__right-top[data-order=order9161]').classList.add('active')
-*/
-    let readys = {
-    list: document.querySelector('ul.search-ready__list'),
-    all: document.querySelectorAll('.search-ready .search-ready__box'),
-
-    },
-    readysContent = {
-        container: document.querySelector('.have-ready .have-ready__mid'),
-        current: null,
-        ready: null,
-    },
-    detailReadys = {
-        container: document.querySelector('.have-ready .have-ready__right'),
-        current: null,
-        ready: null,
-    }
-/*
-    console.log("readys: ",readys.list, "all: ",readys.all);
-    console.log("ordersContent: ",readysContent.container, "current: ",readysContent.current, "ready: ",readysContent.ready);
-    console.log("detailContent: ",detailReadys.container, "current: ",detailReadys.current, "ready: ",detailReadys.ready);
-*/
-    readys.all.forEach(f => {
-    f.addEventListener('mousedown', () => {
-         console.log('abc')
-        f.classList.contains('active') || setAciveReady(f);
-        console.log(f)
-        console.log('axx')
-    })
-    });
-
-    function setAciveReady(f) {
-        readys.list.querySelector('.active').classList.remove('active')
-        f.classList.add('active')
-        
-        readysContent.current = readysContent.container.querySelector('.active')
-        readysContent.ready = f.getAttribute('data-order')
-        readysContent.current.classList.remove('active')
-        readysContent.container.querySelector('[data-order="' + readysContent.ready + '"]').classList.add('active')
-
-        detailReadys.current = detailReadys.container.querySelector('.active')
-        detailReadys.ready = f.getAttribute('data-order')
-        detailReadys.current.classList.remove('active')
-        detailReadys.container.querySelector('[data-order="' + detailReadys.ready + '"]').classList.add('active')
-    
-    }
-
-<?php echo '</script'; ?>
-><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
 
 
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
@@ -1627,61 +1914,6 @@ if (!empty($_capture_buffer)) {
 
 
 
-<?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-<?php echo '<script'; ?>
->
-   /* document.querySelector('.search-past__box[data-order=order9161]').classList.add('active')
-    document.querySelector('.have-past__mid--rel[data-order=order9161]').classList.add('active')
-    document.querySelector('.search-past__right-top[data-order=order9161]').classList.add('active')
-*/
-    let pasts = {
-    list: document.querySelector('ul.search-past__list'),
-    all: document.querySelectorAll('.search-past .search-past__box'),
-
-    },
-    pastsContent = {
-        container: document.querySelector('.have-past .have-past__mid'),
-        current: null,
-        past: null,
-    },
-    detailPasts = {
-        container: document.querySelector('.have-past .have-past__right'),
-        current: null,
-        past: null,
-    }
-/*
-    console.log("readys: ",readys.list, "all: ",readys.all);
-    console.log("ordersContent: ",readysContent.container, "current: ",readysContent.current, "ready: ",readysContent.ready);
-    console.log("detailContent: ",detailReadys.container, "current: ",detailReadys.current, "ready: ",detailReadys.ready);
-*/
-    pasts.all.forEach(f => {
-    f.addEventListener('mousedown', () => {
-         console.log('abc')
-        f.classList.contains('active') || setAcivePast(f);
-        console.log(f)
-        console.log('axx')
-    })
-    });
-
-    function setAcivePast(f) {
-        pasts.list.querySelector('.active').classList.remove('active')
-        f.classList.add('active')
-        
-        pastsContent.current = pastsContent.container.querySelector('.active')
-        pastsContent.past = f.getAttribute('data-order')
-        pastsContent.current.classList.remove('active')
-        pastsContent.container.querySelector('[data-order="' + pastsContent.past + '"]').classList.add('active')
-
-        detailPasts.current = detailPasts.container.querySelector('.active')
-        detailPasts.past = f.getAttribute('data-order')
-        detailPasts.current.classList.remove('active')
-        detailPasts.container.querySelector('[data-order="' + detailPasts.past + '"]').classList.add('active')
-    
-    }
-
-<?php echo '</script'; ?>
-><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
 
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
 <?php echo '<script'; ?>
@@ -1695,5 +1927,14 @@ if (!empty($_capture_buffer)) {
 <?php echo '</script'; ?>
 ><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
 
+
+<?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
+<?php echo '<script'; ?>
+>
+
+
+
+<?php echo '</script'; ?>
+><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
 
 <?php }} ?>

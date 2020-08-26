@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-08-10 09:10:27
+<?php /* Smarty version Smarty-3.1.21, created on 2020-08-18 07:13:21
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\views\orders\details.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:2309768065f2d2130ce7c76-15331386%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '897e4997f8e0062fd7b0606832b70f8e087a851d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\views\\orders\\details.tpl',
-      1 => 1597036955,
+      1 => 1597654528,
       2 => 'tygh',
     ),
   ),
@@ -986,4 +986,7 @@ if (!empty($_capture_buffer)) {
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('hook', array('name'=>"orders:detailed_after_content")); $_block_repeat=true; echo smarty_block_hook(array('name'=>"orders:detailed_after_content"), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
 
 <?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"orders:detailed_after_content"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-<?php }} ?>
+
+
+
+ <?php }} ?>

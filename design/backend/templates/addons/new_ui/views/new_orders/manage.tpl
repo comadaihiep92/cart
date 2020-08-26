@@ -117,9 +117,9 @@
                 <input type="checkbox" name="order_ids[]" value="{$o.order_id}" class="cm-item cm-item-status-{$o.status|lower}" /></td>
             <td data-th="{__("id")}">
                 <a href="{"orders.details?order_id=`$o.order_id`"|fn_url}" class="underlined">{__("order")} <bdi>#{$o.order_id}</bdi></a>
-                {if $order_statuses[$o.status].params.appearance_type == "I" && $o.invoice_id}
+                {if $order_statuses[$o.status].params.appearance_type == NEW_UI_STATUS_CANCELED && $o.invoice_id}
                     <p class="muted">{__("invoice")} #{$o.invoice_id}</p>
-                {elseif $order_statuses[$o.status].params.appearance_type == "C" && $o.credit_memo_id}
+                {elseif $order_statuses[$o.status].params.appearance_type == NEW_UI_STATUS_COMPLETE && $o.credit_memo_id}
                     <p class="muted">{__("credit_memo")} #{$o.credit_memo_id}</p>
                 {/if}
                 {include file="views/companies/components/company_name.tpl" object=$o}
@@ -211,7 +211,7 @@
         <div class="have-order__left search-order" >
             <div class="search-order__box-input">
             {* <i class="icon-search"></i> *}
-            <input class="search-order__input" type="search" placeholder="Search">
+            <input class="search-order__input searchID" type="search" name="search"  onchange="searchId()" placeholder="Search"></input>
             </div>
             {* get data *}
             
@@ -294,13 +294,58 @@
 
 <div hidden id="spinner"></div>
 <!-- Modal -->
-<div class="modal modal-showStork fade" id="showStork" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-showStork " id="showStork" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content modal-showStork__content">
+    {* step 1 *}
+    <div class="modal-content modal-showStork__content modal-showStork__content--active step1">
       <div class="modal-body">
         <div class="order-modal modal-showStork__margin">
             <div class="order-modal__top">Enter your desired quantily and click continue</div>
-            <div class="order-modal__list">
+            <div class="order-modal__list order-modal__markout">
+                <p class="order-modal__label">Enter Quantity</p>
+                <div class="order-modal__box"> 
+                    <div class="order-modal__conme">
+                        {* <div class="order-modal__conmeno">
+                            <span class="order-modal__index">1</span>
+                            <div class="order-modal__details--left">
+                                <img src="https://i.imgur.com/76y9dFM.png" />
+                                <div class="order-modal__dish">
+                                    <p class="order-modal__title">Chicken Biryani</p>
+                                    <p class="order-modal__type">Biryani</p>
+                                </div>
+                            </div>
+                            <div class="order-modal__details--right">
+                                <p class="order-modal__amount">$127</p>
+                            </div>
+                            <input class="order-modal__quantity" id="quantity" name="quantity" value="1" type="number" />
+                        </div> *}
+                        
+                    </div>
+                    
+                    <div class="order-modal__input">
+                        {* <div class="order-modal__grand-total">
+                            <p class="order-modal__grand">Grand total</p>
+                            <p class="order-modal__amount order-modal__amount--big">$127</p>
+                        </div>   *}
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer modal-showStork__footer">
+        <div class="order-modal__buttons">
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal">Cancel</button>
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--continue" data-toggle="modal" data-target="#continue" onclick="continueModal()">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    {* step 2 *}
+    <div class="modal-content modal-showStork__content step2">
+      <div class="modal-body">
+        <div class="order-modal modal-showStork__margin">
+            <div class="order-modal__top">Note: Order once confirmed can't be edited again.</div>
+            <div class="order-modal__list order-modal__markout">
                 <p class="order-modal__label">Enter Quantity</p>
                 <div class="order-modal__box"> 
                     <div class="order-modal__conme">
@@ -316,69 +361,12 @@
                             <div class="order-modal__details--right">
                                 <p class="order-modal__amount">$127</p>
                             </div>
-                            <input class="order-modal__quantity" value="1" type="number" />
+                            <input class="order-modal__quantity order-modal__quantity--noedit" value="1" type="number" />
                         </div>
-                         <div class="order-modal__conmeno">
-                            <span class="order-modal__index">1</span>
-                            <div class="order-modal__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="order-modal__dish">
-                                    <p class="order-modal__title">Chicken Biryani</p>
-                                    <p class="order-modal__type">Biryani</p>
-                                </div>
-                            </div>
-                            <div class="order-modal__details--right">
-                                <p class="order-modal__amount">$127</p>
-                            </div>
-                            <input class="order-modal__quantity" value="1" type="number" />
-                        </div>
+                        
                     </div>
                     
                     <div class="order-modal__input">
-                       
-                        <div class="order-modal__grand-total">
-                            <p class="order-modal__grand">Grand total</p>
-                            <p class="order-modal__amount order-modal__amount--big">$127</p>
-                        </div>  
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer modal-showStork__footer">
-        <div class="order-modal__buttons">
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal">Cancel</button>
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--continue" data-toggle="modal" data-target="#continue" onclick="hideModal()">Continue</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Continue -->
-<div class="modal modal-showStork fade" id="continue" tabindex="-1" role="dialog" aria-labelledby="continue" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content modal-showStork__content">
-      <div class="modal-body">
-        <div class="order-modal modal-showStork__margin">
-            <div class="order-modal__top">Note: Order once confirmed can't be edited again.</div>
-            <div class="order-modal__list">
-            
-                <p class="order-modal__label">Quantity</p>
-                <div class="order-modal__box"> 
-                    <span class="order-modal__index">1</span>
-                    <div class="order-modal__details--left">
-                        <img src="https://i.imgur.com/76y9dFM.png" />
-                        <div class="order-modal__dish">
-                            <p class="order-modal__title">Chicken Biryani</p>
-                            <p class="order-modal__type">Biryani</p>
-                        </div>
-                    </div>
-                    <div class="order-modal__details--right">
-                        <p class="order-modal__amount">$127</p>
-                    </div>
-                    <div class="order-modal__input">
-                        <input class="order-modal__quantity order-modal__quantity--noedit" value="1" type="number" />
                         <div class="order-modal__grand-total">
                             <p class="order-modal__grand">Grand total</p>
                             <p class="order-modal__amount order-modal__amount--big">$127</p>
@@ -391,12 +379,29 @@
       <div class="modal-footer modal-showStork__footer">
         <div class="order-modal__buttons">
             <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal" onclick="backModal()">Back</button>
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm">Confirm</button>
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm" data-toggle="modal" data-target="#confirm" onclick="confirmModal()">Confirm</button>
         </div>
       </div>
     </div>
+
+    {* step 3 *}
+    <div class="modal-content modal-showStork__content step3">
+      <div class="modal-body">
+        
+            <svg class="checkmark success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark_circle_success" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark_check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" stroke-linecap="round"/>
+            </svg>
+        
+      </div>
+      
+    </div>
+
   </div>
 </div>
+
+
+
 
 
 {else}
@@ -498,8 +503,89 @@
     selected_storefront_id=$selected_storefront_id
 }
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
 
 <script>
+    Vue.component('profile-progress', { 
+    props: ['percent', 'radius'],
+    replace: true,
+    computed: {
+        // If more than 50% filled switch arc drawing mode from less than 180 deg to more than 180 deg
+        largeArc: function () {
+        return this.percent < 50 ? 0 : 1;
+        },
+        // Where to put x coordinate of center of circle
+        x: function () {
+        return 100;
+        },
+        // Where to put y coordinate of centre of circle
+        y: function () {
+        return 100 - this.radius;
+        },
+        // Calculate X coordinate of end of arc (+ 100 to move it to middle of image)
+        // add some rounding error to make arc not disappear at 100%
+        endX: function () {
+        return -Math.sin(this.radians) * this.radius + 100 - 0.0001;
+        },
+        // Calculate Y coordinate of end of arc (+ 100 to move it to middle of image)
+        endY: function () {
+        return Math.cos(this.radians) * this.radius + 100;
+        },
+        // Calculate length of arc in radians
+        radians: function () {
+        var degrees = (this.percent/100)*360
+        var value = degrees - 180; // Turn the circle 180 degrees counter clockwise
+
+        return (value*Math.PI)/180;
+        },
+        // If it reaches full circle we need to complete the circle, this ties into the rounding error in X coordinate above
+        z: function () {
+        return this.percent == 100 ? 'z' : '';
+        },
+        dBg: function () {
+        return "M "+this.x+" "+this.y+" A "+this.radius+" "+this.radius+" 0 1 1 "+(this.x-0.0001)+" "+this.y+" z";
+        },
+        d: function () {
+        return "M "+this.x+" "+this.y+" A "+this.radius+" "+this.radius+" 0 "+this.largeArc+" 1 "+this.endX+" "+this.endY+" "+this.z;
+        }
+    }
+    });
+
+    new Vue({
+    el: '#circle1'
+    });
+
+
+
+</script>
+
+<script>
+// --- online version:
+  /*  const NEW_UI_STATUS_PLACED = 'G'; // Placed
+    const NEW_UI_STATUS_VCONFIRMED = 'E'; // Vendor Confirmed
+    const NEW_UI_STATUS_PACKED = 'A';
+    const NEW_UI_STATUS_COMPLETE = 'C';
+
+    const NEW_UI_STATUS_CANCELED = 'I'; // Canceled
+
+    const NEW_UI_STATUS_DISPATCHED = 'H';
+
+    const NEW_UI_STATUS_PICKEDUP = 'P'; // Picked up (shipment)
+    const NEW_UI_STATUS_OFD = 'B'; // Out for delivery (shipment) */
+
+    const NEW_UI_STATUS_PLACED = '{$smarty.const.NEW_UI_STATUS_PLACED}'; // Placed
+    const NEW_UI_STATUS_VCONFIRMED = '{$smarty.const.NEW_UI_STATUS_VCONFIRMED}'; // Vendor Confirmed
+    const NEW_UI_STATUS_PACKED = '{$smarty.const.NEW_UI_STATUS_PACKED}';
+    const NEW_UI_STATUS_COMPLETE = '{$smarty.const.NEW_UI_STATUS_COMPLETE}';
+
+    const NEW_UI_STATUS_CANCELED = '{$smarty.const.NEW_UI_STATUS_CANCELED}'; // Canceled
+
+    const NEW_UI_STATUS_DISPATCHED = '{$smarty.const.NEW_UI_STATUS_DISPATCHED}';
+
+    const NEW_UI_STATUS_PICKEDUP = '{$smarty.const.NEW_UI_STATUS_PICKEDUP}'; // Picked up (shipment)
+    const NEW_UI_STATUS_OFD = '{$smarty.const.NEW_UI_STATUS_OFD}'; // Out for delivery (shipment)
+
+    const MONEY = "₹";
 
     // fetch status with status
     async function getStatus(status) {
@@ -515,6 +601,19 @@
         }
     }
 
+    async function searchId(status) {
+        let datas = await getStatus("G");
+
+        let inputSearch = document.querySelector('.searchID').value;
+
+        console.log("inputSearch: ", inputSearch);
+
+        const result = datas.filter(data => data.order_id == inputSearch);
+        console.log("result search: ", result)
+        
+    }
+    
+
     /* render count status length */
     async function renderCountStatus(status, tab) {
         let datas = await getStatus(status);
@@ -526,24 +625,25 @@
         // count length of status
         let statusLength = datas.length;
 
+
         // html
         let htmlStatus = `
-        {literal}${status === "G"{/literal} ? `<a href="#new" class="tab__link" title="New"  >
+        {literal}${status === NEW_UI_STATUS_PLACED{/literal} ? `<a href="#new" class="tab__link" title="New"  >
                 <span class="icon new-orders-icon"></span>
                 <span>New</span>
                 <span class="number number--order">{literal}${statusLength}{/literal}</span>
             </a>` : ''} 
-        {literal}${status === "E"{/literal} ? `<a href="#packing" class="tab__link" title="Packing" >
+        {literal}${status === NEW_UI_STATUS_VCONFIRMED{/literal} ? `<a href="#packing" class="tab__link" title="Packing" >
                 <span class="icon preparing-orders-icon"></span>
                 <span>Packing</span>
                 <span class="number number--packing">{literal}${statusLength}{/literal}</span>
             </a>` : ''} 
-        {literal}${status === "A"{/literal} ? `  <a href="#ready" class="tab__link" title="Ready" >
+        {literal}${status === NEW_UI_STATUS_PACKED{/literal} ? `  <a href="#ready" class="tab__link" title="Ready" >
                 <span class="icon ready-orders-icon"></span>
                 <span>Ready</span>
                 <span class="number number--ready">{literal}${statusLength}{/literal}</span>
             </a>` : ''} 
-        {literal}${status === "C"{/literal} ? `<a href="#past" class="tab__link" title="More"  >
+        {literal}${status === NEW_UI_STATUS_COMPLETE{/literal} ? `<a href="#past" class="tab__link" title="More"  >
                 <span class="icon more-orders-icon"></span>
                 <span>Past Orders</span>
                 <span class="number number--past">{literal}${statusLength}{/literal}</span>
@@ -558,37 +658,62 @@
         containerStatus.innerHTML = htmlStatus;
 
     }
+
     // set 4 status for 4 tab
-    renderCountStatus("G", "tab1");
-    renderCountStatus("E", "tab2");
-    renderCountStatus("A", "tab3");
-    renderCountStatus("C", "tab4");
+    renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
+    renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
+    renderCountStatus(NEW_UI_STATUS_PACKED, "tab3");
+    renderCountStatus(NEW_UI_STATUS_COMPLETE, "tab4");
 
     let totalProducts = 0;
+
+    function timestampConvert(time) {
+        var seconds_now = new Date().getTime() / 1000;
+        let received_sec_ago = Math.floor((seconds_now - time))
+        console.log("received_sec_ago: ", received_sec_ago)
+
+        let minutes = Math.floor((seconds_now - time) / 60 ) ;
+        let hours = Math.floor((seconds_now - time) / 60 / 60) ;
+        let days = Math.floor((seconds_now - time) / 60 / 60 / 24);
+
+        if(received_sec_ago < 59) {
+            return `Received a minute ago`
+        }
+        else if(received_sec_ago < 3599) {
+            received_sec_ago = minutes
+            return `Received {literal}${received_sec_ago}{/literal} minute ago`
+        } else if(received_sec_ago > 3600 && received_sec_ago < 86400) {
+            received_sec_ago = hours
+            return `Received {literal}${received_sec_ago}{/literal} hours ago`
+        } else {
+            received_sec_ago = days
+            return `Received {literal}${received_sec_ago}{/literal} days ago`
+        }
+
+    }
 
     // render status left side
     async function renderLeftSide(status, path) {
         let datas = await getStatus(status);
         
-        console.log("-----------datas----------:", datas[0].order_id)
-        var seconds_now = new Date().getTime() / 1000;
-
+        //console.log("-----------datas----------:", datas[0].order_id)
+        //var seconds_now = new Date().getTime() / 1000;
         //let received_sec_ago=seconds_now-datas.timestamp;
-
-        console.log("received_sec_ago: ", Math.floor((seconds_now - 1597635814) / 60 ));
+        // console.log("received_sec_ago: ", Math.floor((seconds_now - 1597635814) / 60 ));
 
         let html = "";
 
+
         datas.map(data => {
             let htmlItem = `
-                {literal}${status === "G"{/literal} ?
+                {literal}${status === NEW_UI_STATUS_PLACED{/literal} ?
                 `<li class="search-order__box" data-order="order{literal}${data.order_id}{/literal}" onclick="renderDetails({literal}${data.order_id}{/literal})" >
                     <div class="search-order__left">
                         <h3 class="search-order__id">
                             {literal}Order #${data.order_id}{/literal}
                         </h3>
-                        <p class="search-order__desc">{literal}${data.product_count}{/literal} items for {literal}$${data.total}{/literal}</p>
-                        <p class="search-order__time">Received {literal}${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )}{/literal} minute ago </p>
+                        <p class="search-order__desc">{literal}${data.product_count}{/literal} items for {literal}${MONEY}{/literal}{literal}${data.total}{/literal}</p>
+                        <p class="search-order__time">{literal}${timestampConvert(data.timestamp)}{/literal}</p>
                     </div>
                     <div class="search-order__right">
                         <div class="search-order__img-box">
@@ -598,15 +723,15 @@
                     </div>
                 </li>` : ''} 
                 
-                {literal}${status === "E"{/literal} ? 
+                {literal}${status === NEW_UI_STATUS_VCONFIRMED{/literal} ? 
                 `<li class="search-packing__box search-packing__box--column search-packing__box--nopd" data-order="order{literal}${data.order_id}{/literal}" onclick="renderDetailsPacking({literal}${data.order_id}{/literal})">
                     <div class="search-packing__container">
                         <div class="search-packing__left">
                             <h3 class="search-packing__id search-packing__id--packing">
                                 {literal}Order #${data.order_id}{/literal}
                             </h3>
-                            <p class="search-packing__desc">{literal}${data.product_count}{/literal} items for {literal}$${data.total}{/literal}</p>
-                            <p class="search-packing__time">Received {literal}${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )}{/literal} minute ago</p>
+                            <p class="search-packing__desc">{literal}${data.product_count}{/literal} items for {literal}${MONEY}{/literal}{literal}${data.total}{/literal}</p>
+                            <p class="search-packing__time">{literal}${timestampConvert(data.timestamp)}{/literal}</p>
                         </div>
                         <div class="search-packing__right">
                             <div class="search-packing__img-box">
@@ -621,15 +746,15 @@
                     </div>
                 </li>` : '' }
 
-                {literal}${status === "A"{/literal} ? `
+                {literal}${status === NEW_UI_STATUS_PACKED{/literal} ? `
                 <li class="search-ready__box search-ready__box--column search-ready__box--nopd" data-order="order{literal}${data.order_id}{/literal}" onclick="renderDetailsReady({literal}${data.order_id}{/literal})">
                     <div class="search-ready__container">
                         <div class="search-ready__left">
                             <h3 class="search-ready__id search-ready__id--packing">
                                 {literal}Order #${data.order_id}{/literal}
                             </h3>
-                            <p class="search-ready__desc">{literal}${data.product_count}{/literal} items for {literal}$${data.total}{/literal}</p>
-                            <p class="search-ready__time">Received {literal}${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )}{/literal} minute ago</p>
+                            <p class="search-ready__desc">{literal}${data.product_count}{/literal} items for {literal}${MONEY}{/literal}{literal}${data.total}{/literal}</p>
+                            <p class="search-ready__time">{literal}${timestampConvert(data.timestamp)}{/literal}</p>
                         </div>
                         <div class="search-ready__right">
                             <div class="search-ready__img-box">
@@ -642,16 +767,16 @@
                 </li>` : '' }
                 
 
-                {literal}${status === "C"{/literal} ? ` 
-                    {literal}${data.status === "C"{/literal} ? `
+                {literal}${status === NEW_UI_STATUS_COMPLETE{/literal} ? ` 
+                    {literal}${data.status === NEW_UI_STATUS_COMPLETE{/literal} ? `
                     <li class="search-past__box search-past__box--column search-past__box--nopd" data-order="order{literal}${data.order_id}{/literal}" onclick="renderDetailsPast({literal}${data.order_id}{/literal})">
                         <div class="search-past__container">
                             <div class="search-past__left">
                                 <h3 class="search-past__id search-past__id--delevered">
                                     {literal}Order #${data.order_id}{/literal}
                                 </h3>
-                                <p class="search-past__desc">{literal}${data.product_count}{/literal} items for {literal}$${data.total}{/literal}</p>
-                                <p class="search-past__time">Received {literal}${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )}{/literal} minute ago</p>
+                                <p class="search-past__desc">{literal}${data.product_count}{/literal} items for {literal}${MONEY}{/literal}{literal}${data.total}{/literal}</p>
+                                <p class="search-past__time">{literal}${timestampConvert(data.timestamp)}{/literal}</p>
                             </div>
                             <div class="search-past__right">
                                 <div class="search-past__img-box">
@@ -665,15 +790,15 @@
                             <span class="search-past__notcf--past">Order packing correct</span>
                         </div>
                     </li>` : 
-                    `{literal}${data.status === "I"{/literal} ? `
+                    `{literal}${data.status === NEW_UI_STATUS_CANCELED{/literal} ? `
                     <li class="search-past__box search-past__box--column search-past__box--nopd" data-order="order{literal}${data.order_id}{/literal}" onclick="renderDetailsPast({literal}${data.order_id}{/literal})">
                         <div class="search-past__container">
                             <div class="search-past__left">
                                 <h3 class="search-past__id search-past__id--delevered">
                                     {literal}Order #${data.order_id}{/literal}
                                 </h3>
-                                <p class="search-past__desc">{literal}${data.product_count}{/literal} items for {literal}$${data.total}{/literal}</p>
-                                <p class="search-past__time">Received {literal}${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )}{/literal} minute ago</p>
+                                <p class="search-past__desc">{literal}${data.product_count}{/literal} items for {literal}${MONEY}{/literal}{literal}${data.total}{/literal}</p>
+                                <p class="search-past__time">{literal}${timestampConvert(data.timestamp)}{/literal}</p>
                             </div>
                             <div class="search-past__right">
                                 <div class="search-past__img-box">
@@ -694,8 +819,8 @@
                                 <h3 class="search-past__id search-past__id--delevered">
                                     {literal}Order #${data.order_id}{/literal}
                                 </h3>
-                                <p class="search-past__desc">{literal}${data.product_count}{/literal} items for {literal}$${data.total}{/literal}</p>
-                                <p class="search-past__time">Received {literal}${received_sec_ago=Math.floor((seconds_now - data.timestamp) / 60 )}{/literal} minute ago</p>
+                                <p class="search-past__desc">{literal}${data.product_count}{/literal} items for {literal}${MONEY}{/literal}{literal}${data.total}{/literal}</p>
+                                <p class="search-past__time">{literal}${timestampConvert(data.timestamp)}{/literal}</p>
                             </div>
                             <div class="search-past__right">
                                 <div class="search-past__img-box">
@@ -721,15 +846,38 @@
 
         container.innerHTML = html;
 
-        // call render details follow first id
+        // render details content with first id
 
-        `{literal}${status === "G"{/literal} ? renderDetails(datas[0].order_id) : `{literal}${status === "E"{/literal} ? renderDetailsPacking(datas[0].order_id) : `{literal}${status === "A"{/literal} ? renderDetailsReady(datas[0].order_id) : renderDetailsPast(datas[0].order_id)}`}`}`
+        `{literal}${status === NEW_UI_STATUS_PLACED{/literal} ? renderDetails(datas[0].order_id) : `{literal}${status === NEW_UI_STATUS_VCONFIRMED{/literal} ? renderDetailsPacking(datas[0].order_id) : `{literal}${status === NEW_UI_STATUS_PACKED{/literal} ? renderDetailsReady(datas[0].order_id) : renderDetailsPast(datas[0].order_id)}`}`}`;
+
+        // active css with first id
+        `{literal}${status === NEW_UI_STATUS_PLACED{/literal} ? activeOrder("order", datas[0].order_id) : `{literal}${status === NEW_UI_STATUS_VCONFIRMED{/literal} ? activeOrder("packing", datas[0].order_id) : `{literal}${status === NEW_UI_STATUS_PACKED{/literal} ?  activeOrder("ready", datas[0].order_id) : activeOrder("past", datas[0].order_id)}`}`}`;
     }
 
-    renderLeftSide("G", "order");
-    renderLeftSide("E", "packing");
-    renderLeftSide("A", "ready");
-    renderLeftSide("C", "past");
+    renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+    renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
+    renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
+    renderLeftSide(NEW_UI_STATUS_COMPLETE, "past");
+
+    function activeOrder(path, id) {
+        document.querySelector(`.search-{literal}${path}{/literal}__box[data-order=order{literal}${id}{/literal}]`).classList.add('active')
+       
+        let orders = {
+            list: document.querySelector(`ul.search-{literal}${path}{/literal}__list`),
+            all: document.querySelectorAll(`.search-{literal}${path}{/literal} .search-{literal}${path}{/literal}__box`),
+        }
+        orders.all.forEach(f => {
+        f.addEventListener('mousedown', () => {
+            f.classList.contains('active') || setAciveChat(f);
+            //console.log("list: ",orders.list, "all: ",orders.all);
+        })
+        });
+
+        function setAciveChat(f) {
+            orders.list.querySelector('.active').classList.remove('active')
+            f.classList.add('active')
+        }
+    }
 
    /* setInterval(async function() {
             let abb = await getStatus();
@@ -738,14 +886,104 @@
         }, 2000); */
 
     async function getDataProduct(id) {
+        spinner.removeAttribute('hidden');
         let url2 = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_order&order_id={literal}${id}{/literal}`;
         try {
             let res = await fetch(url2);
+            spinner.setAttribute('hidden', '');
             return await res.json();
         }
         catch (error2) {
             console.log(error2)
         }
+    }
+
+    // get curent day
+
+    function getCurentDays() {
+        
+        var datetime = new Date().toLocaleString();
+        console.log("datetime: ", datetime)
+        return datetime;
+    }
+    getCurentDays()
+
+    function sum(ids) {
+       
+
+        let quantity = document.querySelectorAll(`input[name="quantity"]`);
+        console.log("quantity: ", quantity.length)
+        console.log("price: ", price)
+        let sumTotal = 0;
+        for(let i = 0; i <= quantity.length - 1; i++) {
+            console.log("value: ", quantity[i].value , "price: ", price)
+            let sums = quantity[i].value * price;
+            console.log("sums: ", sums)
+            sumTotal += sums;
+            console.log("sumTotal: ", sumTotal)
+        }
+
+        
+       
+        let total = `
+            <div class="order-modal__grand-total">
+                <p class="order-modal__grand">Grand total</p>
+                <p class="order-modal__amount order-modal__amount--big">{literal}${MONEY}{/literal}{literal}${sumTotal}{/literal}</p>
+            </div>  
+        `
+        let containerInput = document.querySelector('.order-modal__input');
+        containerInput.innerHTML = total;
+    }
+
+    async function getModals(ids) {
+        
+        document.querySelector(".step1").style.display="block";
+        document.querySelector(".step2").style.display="none";
+        document.querySelector(".step3").style.display="none";
+        
+        let details = await getDataProduct(ids);
+        console.log("details: ----- ", details);
+
+        let dataModal = '';
+        let count = 1;
+        for(let a in details.products ) {
+            console.log("a: ", a, "det: ", details.products[a].product)
+            let pName = details.products[a];
+            totalProducts = Object.keys(details.products).length;
+            console.log('total product:', Object.keys(details.products).length)
+            console.log("z: ", pName)
+            let htmlItem0 = `
+                <div class="order-modal__conme">
+                    <div class="order-modal__conmeno">
+                        <span class="order-modal__index">{literal}${count++}{/literal}</span>
+                        <div class="order-modal__details--left">
+                            <img src="https://i.imgur.com/76y9dFM.png" />
+                            <div class="order-modal__dish">
+                                <p class="order-modal__title">{literal}${pName.product}{/literal}</p>
+                                <p class="order-modal__type">{literal}${pName.product_code}{/literal}</p>
+                            </div>
+                        </div>
+                        <div class="order-modal__details--right">
+                            <p class="order-modal__amount">{literal}${pName.price}{/literal}</p>
+                        </div>
+                        <input class="order-modal__quantity quantity" onchange="sum({literal}${details.order_id}{/literal})"   name="quantity" value="{literal}${pName.amount}{/literal}" type="number" />
+                    </div>
+                </div>
+            `
+            dataModal += htmlItem0;
+        }
+        
+        let total = `
+            <div class="order-modal__grand-total">
+                <p class="order-modal__grand">Grand total</p>
+                <p class="order-modal__amount order-modal__amount--big">{literal}${MONEY}{/literal}{literal}${details.total}{/literal}</p>
+            </div>  
+        `
+
+        let containerModal = document.querySelector('.order-modal__conme');
+        containerModal.innerHTML = dataModal;
+        let containerInput = document.querySelector('.order-modal__input');
+        containerInput.innerHTML = total;
     }
 
     // new
@@ -770,8 +1008,8 @@
        
         let html2 = "";
         let htmlSub = "";
-      
-
+        
+        let stt = 1;
         for(let a in details.products ) {
             console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
@@ -781,7 +1019,7 @@
             let htmlItem0 = `
                             <li class="search-order__details">
                                 <div class="search-order__details--left">
-                                    <img src="https://i.imgur.com/76y9dFM.png" />
+                                    <span class="search-order__title">{literal}${stt++}{/literal}</span>
                                     <div class="search-order__dish">
                                         <p class="search-order__title">
                                             {literal}${pName.product}{/literal}
@@ -802,6 +1040,31 @@
             `
             htmlSub += htmlItem0;
         }
+
+        let htmlTaxes = "";
+        for(let a in details.taxes ) {
+            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+            let tName = details.taxes[a];
+           
+            let htmlTax = `
+                        {literal}${MONEY}{/literal}{literal}${tName.tax_subtotal}{/literal}
+            `
+            htmlTaxes += htmlTax;
+        }
+
+        let timeArray = details.status_history;
+        let timePrint = '';
+        for(let a in timeArray) {
+            console.log("time history: ", timeArray[a])
+            let index = timeArray[a];
+
+            if(index.status === "G") {
+                console.log("GGGGG")
+                timePrint = `
+                {literal}${countTimeHistory(index.timestamp)}{/literal}</p>
+                `
+            }
+        }
     
 
             let htmlItem2 = `
@@ -812,7 +1075,7 @@
                                 <h3 class="search-order__id search-order__id--bold">
                                     {literal}Order #${details.order_id}{/literal}  <span class="search-order__new">New</span>
                                 </h3>
-                                <p class="search-order__desc search-order__desc--gray">{literal}${totalProducts}{/literal} items for {literal}$${details.total}{/literal}</p>
+                                <p class="search-order__desc search-order__desc--gray">{literal}${totalProducts}{/literal} items for {literal}${MONEY}{/literal}{literal}${details.total}{/literal}</p>
                                 
                             </div>
                             <div class="search-order__right">
@@ -822,17 +1085,17 @@
                                     </a>
                                     <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <li>
-                                            <a href="#">Invoice</a>
+                                            <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id={literal}${details.order_id}{/literal}">Invoice</a>
                                         </li>
                                         <li>
-                                            <a href="#">Invoice (PDF)</a>
+                                            <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id={literal}${details.order_id}{/literal}">Invoice (PDF)</a>
                                         </li>
                                         <li>
-                                            <a href="#">Packing slip</a>
+                                            <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id={literal}${details.order_id}{/literal}">Packing slip</a>
                                         </li>
                                     </ul>
                                 </div>
-                                <p class="search-order__date">21 Jul 2020 02:08 PM</p>
+                                <p class="search-order__date">{literal}${timePrint}{/literal}</p>
                             </div>
                         </div>
                         <ul class="search-order__list-details">
@@ -844,7 +1107,7 @@
 
                         <div class="search-order__buttons">
                         
-                            <input type="button" class="search-order__buttons--btn search-order__buttons--mark"  data-toggle="modal" data-target="#showStork" value="Mark out of stork" />
+                            <input type="button" class="search-order__buttons--btn search-order__buttons--mark"  data-toggle="modal" data-target="#showStork" value="Mark out of stock"  onclick="getModals({literal}${details.order_id}{/literal})"/>
 
                             <input type="button" class="search-order__buttons--btn search-order__buttons--confirm" onclick="getChange({literal}${details.order_id}{/literal})" value="Confirm order" ></input>
                         </div>
@@ -897,25 +1160,27 @@
                                 </h4>
                  
                                     <p class="search-order__right-price">
-                                        {literal}${details.total}{/literal}
+                                        {literal}${MONEY}{/literal}{literal}${details.total}{/literal}
                                     </p>
                               
                                 <div class="search-order__right-info">
                                     <div class="search-order__right-row">
                                         <p class="search-order__right-label">Item total</p>
-                                        <p class="search-order__right-money">{literal}$${details.subtotal}{/literal}</p>
+                                        <p class="search-order__right-money">{literal}${MONEY}{/literal}{literal}${details.subtotal}{/literal}</p>
                                     </div>
                                     <div class="search-order__right-row">
                                         <p class="search-order__right-label">Shipping cost</p>
-                                        <p class="search-order__right-money">{literal}$${details.shipping_cost}{/literal}</p>
+                                        <p class="search-order__right-money">{literal}${MONEY}{/literal}{literal}${details.shipping_cost}{/literal}</p>
                                     </div>
                                     <div class="search-order__right-row">
                                         <p class="search-order__right-label">GST</p>
-                                        <p class="search-order__right-money">{literal}$${details.taxes["6"].tax_subtotal}{/literal}</p>
+                                        <p class="search-order__right-money search-order__right-taxes">
+                                            {* get taxes *}
+                                        </p>
                                     </div>
                                     <div class="search-order__right-row">
                                         <p class="search-order__right-label">Discount</p>
-                                        <p class="search-order__right-money">{literal}$${details.subtotal_discount}{/literal}</p>
+                                        <p class="search-order__right-money">{literal}${MONEY}{/literal}{literal}${details.subtotal_discount}{/literal}</p>
                                     </div>
                                 </div> 
                             </div>
@@ -929,13 +1194,15 @@
             `;
           
 
-          html2 += htmlItem2; 
+            html2 += htmlItem2; 
 
    
         let container2 = document.querySelector('.have-order__content');
         container2.innerHTML = html2;
         let containerSub = document.querySelector('.search-order__list-details')
         containerSub.innerHTML = htmlSub;
+        let containerTaxes = document.querySelector('.search-order__right-taxes')
+        containerTaxes.innerHTML = htmlTaxes;
      
     }
     
@@ -948,7 +1215,7 @@
 
         let html2 = "";
         let htmlSub = "";
-
+        let stt = 1;
         for(let a in details.products ) {
             console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
@@ -957,7 +1224,7 @@
             let htmlItem0 = `
                             <li class="search-packing__details">
                                 <div class="search-packing__details--left">
-                                    <img src="https://i.imgur.com/76y9dFM.png" />
+                                    <span class="search-packing__title">{literal}${stt++}{/literal}</span>
                                     <div class="search-packing__dish">
                                         <p class="search-packing__title">{literal}${pName.product}{/literal}</p>
                                         <p class="search-packing__type">{literal}${pName.product_code}{/literal}</p>
@@ -972,11 +1239,32 @@
             `
             htmlSub += htmlItem0;
         }
-    
+        let htmlTaxes = "";
+        for(let a in details.taxes ) {
+            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+            let tName = details.taxes[a];
+           
+            let htmlTax = `
+                        {literal}${MONEY}{/literal}{literal}${tName.tax_subtotal}{/literal}
+            `
+            htmlTaxes += htmlTax;
+        }
 
-            let htmlItem2 = `
-               
+        let timeArray = details.status_history;
+        let timePrint = '';
+        for(let a in timeArray) {
+            console.log("time history: ", timeArray[a])
+            let index = timeArray[a];
 
+            if(index.status === "G") {
+                console.log("GGGGG")
+                timePrint = `
+                {literal}${countTimeHistory(index.timestamp)}{/literal}</p>
+                `
+            }
+        }
+
+        let htmlItem2 = `
             <div class="have-packing__mid">
                 <div class="have-packing__mid--rel active" data-order="order{literal}${details.order_id}{/literal}">
                     <div class="search-packing__box search-packing__box--mid">
@@ -984,7 +1272,7 @@
                             <h3 class="search-packing__id search-packing__id--bold search-packing__id--packing">
                                 {literal}Order #${details.order_id}{/literal}<span class="search-packing__new search-packing__new--packing">Packing</span>
                             </h3>
-                            <p class="search-packing__desc search-packing__desc--gray">{literal}${totalProducts}{/literal} items for {literal}${details.total}{/literal}</p>
+                            <p class="search-packing__desc search-packing__desc--gray">{literal}${totalProducts}{/literal} items for {literal}${MONEY}{/literal}{literal}${details.total}{/literal}</p>
                             
                         </div>
                         <div class="search-order__right">
@@ -994,17 +1282,17 @@
                                 </a>
                                 <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <a href="#">Invoice</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id={literal}${details.order_id}{/literal}">Invoice</a>
                                     </li>
                                     <li>
-                                        <a href="#">Invoice (PDF)</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id={literal}${details.order_id}{/literal}">Invoice (PDF)</a>
                                     </li>
                                     <li>
-                                        <a href="#">Packing slip</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id={literal}${details.order_id}{/literal}">Packing slip</a>
                                     </li>
                                 </ul>
                             </div>
-                            <p class="search-order__date">21 Jul 2020 02:08 PM</p>
+                            <p class="search-order__date">{literal}${timePrint}{/literal}</p>
                         </div>
                     </div>
                     <ul class="search-packing__list-details">
@@ -1062,24 +1350,25 @@
                                 Grand Total
                             </h4>
                             <p class="search-packing__right-price">
-                                {literal}${details.total}{/literal}
+                                {literal}${MONEY}{/literal}{literal}${details.total}{/literal}
                             </p>
                             <div class="search-packing__right-info">
                                 <div class="search-packing__right-row">
                                     <p class="search-packing__right-label">Item total</p>
-                                    <p class="search-packing__right-money">{literal}$${details.subtotal}{/literal}</p>
+                                    <p class="search-packing__right-money">{literal}${MONEY}{/literal}{literal}${details.subtotal}{/literal}</p>
                                 </div>
                                 <div class="search-packing__right-row">
                                         <p class="search-packing__right-label">Shipping cost</p>
-                                        <p class="search-packing__right-money">{literal}$${details.shipping_cost}{/literal}</p>
+                                        <p class="search-packing__right-money">{literal}${MONEY}{/literal}{literal}${details.shipping_cost}{/literal}</p>
                                     </div>
                                 <div class="search-packing__right-row">
                                     <p class="search-packing__right-label">GST</p>
-                                    <p class="search-packing__right-money">{literal}$${details.taxes["6"].tax_subtotal}{/literal}</p>
+                                    <p class="search-packing__right-money search-packing__right-taxes">
+                                            {* get taxes *}</p>
                                 </div>
                                 <div class="search-packing__right-row">
                                     <p class="search-packing__right-label">Discount</p>
-                                    <p class="search-packing__right-money">{literal}$${details.subtotal_discount}{/literal}</p>
+                                    <p class="search-packing__right-money">{literal}${MONEY}{/literal}{literal}${details.subtotal_discount}{/literal}</p>
                                 </div>
                             </div> 
                         </div>
@@ -1090,16 +1379,18 @@
                 </div>
                 
             </div>
-            `;
+        `;
           
 
-          html2 += htmlItem2; 
+        html2 += htmlItem2; 
 
    
         let container2 = document.querySelector('.have-packing__content');
         container2.innerHTML = html2;
         let containerSub = document.querySelector('.search-packing__list-details')
         containerSub.innerHTML = htmlSub;
+        let containerTaxes = document.querySelector('.search-packing__right-taxes')
+        containerTaxes.innerHTML = htmlTaxes;
      
     }
 
@@ -1111,7 +1402,7 @@
         let html2 = "";
         let htmlSub = "";
       
-
+        let stt = 1;
         for(let a in details.products ) {
             console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
@@ -1121,7 +1412,7 @@
             let htmlItem0 = `
                         <li class="search-ready__details">
                             <div class="search-ready__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
+                                <span class="search-ready__title">{literal}${stt++}{/literal}</span>
                                 <div class="search-ready__dish">
                                     <p class="search-ready__title">{literal}${pName.product}{/literal}</p>
                                     <p class="search-ready__type">{literal}${pName.product_code}{/literal}</p>
@@ -1135,9 +1426,34 @@
             `
             htmlSub += htmlItem0;
         }
-    
+        let htmlTaxes = "";
+        for(let a in details.taxes ) {
+            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+            let tName = details.taxes[a];
+           
+            let htmlTax = `
+                        {literal}${MONEY}{/literal}{literal}${tName.tax_subtotal}{/literal}
+            `
+            htmlTaxes += htmlTax;
+        }
 
-            let htmlItem2 = `
+        
+
+        let timeArray = details.status_history;
+        let timePrint = '';
+        for(let a in timeArray) {
+            console.log("time history: ", timeArray[a])
+            let index = timeArray[a];
+
+            if(index.status === "G") {
+                console.log("GGGGG")
+                timePrint = `
+                {literal}${countTimeHistory(index.timestamp)}{/literal}</p>
+                `
+            }
+        }
+
+        let htmlItem2 = `
             <div class="have-ready__mid">
                 <div class="have-ready__mid--rel active" data-order="order{literal}${details.order_id}{/literal}">
                     <div class="search-ready__box search-ready__box--mid">
@@ -1145,7 +1461,7 @@
                             <h3 class="search-ready__id search-ready__id--bold search-ready__id--packing">
                                 {literal}Order #${details.order_id}{/literal}<span class="search-ready__new search-ready__new--packing">Ready</span>
                             </h3>
-                            <p class="search-ready__desc search-ready__desc--gray">{literal}${totalProducts}{/literal} items for {literal}${details.total}{/literal}</p>
+                            <p class="search-ready__desc search-ready__desc--gray">{literal}${totalProducts}{/literal} items for {literal}${MONEY}{/literal}{literal}${details.total}{/literal}</p>
                     
                         </div>
                         <div class="search-order__right">
@@ -1155,17 +1471,17 @@
                                 </a>
                                 <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <a href="#">Invoice</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id={literal}${details.order_id}{/literal}">Invoice</a>
                                     </li>
                                     <li>
-                                        <a href="#">Invoice (PDF)</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id={literal}${details.order_id}{/literal}">Invoice (PDF)</a>
                                     </li>
                                     <li>
-                                        <a href="#">Packing slip</a>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id={literal}${details.order_id}{/literal}">Packing slip</a>
                                     </li>
                                 </ul>
                             </div>
-                            <p class="search-order__date">21 Jul 2020 02:08 PM</p>
+                            <p class="search-order__date">{literal}${timePrint}{/literal}</p>
                         </div>
                     </div>
                     <ul class="search-ready__list-details">
@@ -1195,7 +1511,14 @@
                             </p>
                             <div class="search-ready__right-pickup">
                                 <p class="search-ready__right-pickup-text">Pick up arriving in</p>
-                                <div>Spin</div>
+                                
+                                <div id="countdown">
+                                <div id="countdown-number"></div>
+                                <svg class="countdown" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <circle r="90" cx="100" cy="100"></circle>
+                                    <circle class="countdown-circle" r="90" cx="100" cy="100"></circle>
+                                </svg>
+                                </div>
                             </div>
                             
                         </div>
@@ -1210,24 +1533,26 @@
                                 Grand Total
                             </h4>
                             <p class="search-ready__right-price">
-                               {literal}${details.total}{/literal}
+                               {literal}${MONEY}{/literal}{literal}${details.total}{/literal}
                             </p>
                             <div class="search-ready__right-info">
                                 <div class="search-ready__right-row">
                                     <p class="search-ready__right-label">Item total</p>
-                                    <p class="search-ready__right-money">{literal}$${details.subtotal}{/literal}</p>
+                                    <p class="search-ready__right-money">{literal}${MONEY}{/literal}{literal}${details.subtotal}{/literal}</p>
                                 </div>
                                 <div class="search-ready__right-row">
                                     <p class="search-ready__right-label">Shipping cost</p>
-                                    <p class="search-ready__right-money">{literal}$${details.shipping_cost}{/literal}</p>
+                                    <p class="search-ready__right-money">{literal}${MONEY}{/literal}{literal}${details.shipping_cost}{/literal}</p>
                                 </div>
                                 <div class="search-ready__right-row">
                                     <p class="search-ready__right-label">GST</p>
-                                    <p class="search-ready__right-money">{literal}$${details.taxes["6"].tax_subtotal}{/literal}</p>
+                                    <p class="search-ready__right-money search-ready__right-taxes">
+                                            {* get taxes *}
+                                    </p>
                                 </div>
                                 <div class="search-ready__right-row">
                                     <p class="search-ready__right-label">Discount</p>
-                                    <p class="search-ready__right-money">{literal}$${details.subtotal_discount}{/literal}</p>
+                                    <p class="search-ready__right-money">{literal}${MONEY}{/literal}{literal}${details.subtotal_discount}{/literal}</p>
                                 </div>
                             </div> 
                         </div>
@@ -1240,96 +1565,190 @@
             `;
           
 
-          html2 += htmlItem2; 
+        html2 += htmlItem2; 
 
    
         let container2 = document.querySelector('.have-ready__content');
         container2.innerHTML = html2;
         let containerSub = document.querySelector('.search-ready__list-details')
         containerSub.innerHTML = htmlSub;
+        let containerTaxes = document.querySelector('.search-ready__right-taxes')
+        containerTaxes.innerHTML = htmlTaxes;
+
+        function fancyTimeFormat(time) {
+            // Hours, minutes and seconds
+            const hrs = ~~(time / 3600);
+            const mins = ~~((time % 3600) / 60);
+            const secs = ~~time % 60;
+
+            // Output like "1:01" or "4:03:59" or "123:03:59"
+            let ret = "";
+
+            if (hrs > 0) {
+                ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+            }
+
+            ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+            ret += "" + secs;
+            return ret;
+        }
+
+        const countdownNumberEl = document.getElementById("countdown-number");
+        const circle = document.getElementsByClassName("countdown-circle")[0];
+        const countdown = 300;
+        let newcountdown = countdown;
+        const maxoffset = 2 * Math.PI * 100;
+        let offset = 0;
+        countdownNumberEl.textContent = fancyTimeFormat(countdown);
+
+        tick = setInterval(function() {
+        newcountdown = --newcountdown <= 0 ? 0 : newcountdown;
+        if (offset - maxoffset / countdown >= -Math.abs(maxoffset)) {
+            offset = offset - maxoffset / countdown;
+        } else {
+            offset = -Math.abs(maxoffset);
+            clearInterval(tick);
+        }
+
+        countdownNumberEl.textContent = fancyTimeFormat(newcountdown);
+        circle.setAttribute("style", "stroke-dashoffset:" + offset + "px");
+        }, 1000);
+
      
     }
-   
+    
+    function countTimeHistory(time) {
+       
+        let ts = new Date(time * 1000);
+        console.log("ts: ",ts.toLocaleString());
+        return ts.toLocaleString();
+    }
+    
+
+
     // past
     async function renderDetailsPast(ids) {
         let details = await getDataProduct(ids);
         console.log("details: ----- ", details);
 
+        console.log("time history: ", details.status_history)
+
         let html2 = "";
         let htmlSub = "";
         
+        let place = '';
+        
+        let confirm = '';
 
-        let timeCompleted = `<div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p class="search-past__box-time-h">02:08 PM</p>
-                                <p class="search-past__box-time-p">Placed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Confirmed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Packed</p>
-                            </div>
-                        </div>
-                        <div class="search-past__box-time-list">
-                            <img src="https://i.imgur.com/1Tyk2hG.png" />
-                            <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Delivered</p>
-                            </div>
-                        </div>`
+        let packed = '';
+
+        let delivery = '';
+
+        let cancel = '';
+
+        
+        let timeArray = details.status_history;
+
+        for(let a in timeArray) {
+            console.log("time history: ", timeArray[a])
+            let index = timeArray[a];
+
+            if(index.status === "G") {
+                console.log("GGGGG")
+                place = `
+                <p class="search-past__box-time-h">{literal}${countTimeHistory(index.timestamp)}{/literal}</p>
+                <p class="search-past__box-time-p">Placed</p>`
+            } else if (index.status === "E") {
+                console.log("EEEEE")
+                confirm = `
+                <p  class="search-past__box-time-h">{literal}${countTimeHistory(index.timestamp)}{/literal}</p>
+                <p class="search-past__box-time-p">Confirmed</p>`
+            } else if (index.status === "A") {
+                console.log("AAAAAAA")
+                packed = `
+                <p  class="search-past__box-time-h">{literal}${countTimeHistory(index.timestamp)}{/literal}</p>
+                <p class="search-past__box-time-p">Packed</p>`
+            } else if (index.status === "C") {
+                console.log("CCCCCCCCC")
+                delivery = ` 
+                <p  class="search-past__box-time-h">{literal}${countTimeHistory(index.timestamp)}{/literal}</p>
+                <p class="search-past__box-time-p">Delivered</p>`
+            } else if (index.status === "I") {
+                console.log("canncel IIIIIII")
+                cancel = ` 
+                <p  class="search-past__box-time-h">{literal}${countTimeHistory(index.timestamp)}{/literal}</p>
+                <p class="search-past__box-time-p">Canceled</p>`
+            } else {
+                console.log('nothing')
+            }
+        }
+
+        let timeCompleted = `
+                <div class="search-past__box-time-list">
+                    <img src="https://i.imgur.com/1Tyk2hG.png" />
+                    <div class="search-past__box-time-hour">
+                        {literal}${place}{/literal}
+                    </div>
+                </div>
+                <div class="search-past__box-time-list">
+                    <img src="https://i.imgur.com/1Tyk2hG.png" />
+                    <div class="search-past__box-time-hour">
+                        {literal}${confirm}{/literal}
+                    </div>
+                </div>
+                <div class="search-past__box-time-list">
+                    <img src="https://i.imgur.com/1Tyk2hG.png" />
+                    <div class="search-past__box-time-hour">
+                        {literal}${packed}{/literal}
+                    </div>
+                </div>
+                <div class="search-past__box-time-list">
+                    <img src="https://i.imgur.com/1Tyk2hG.png" />
+                    <div class="search-past__box-time-hour">
+                        {literal}${delivery}{/literal}
+                        {* <p  class="search-past__box-time-h">02:20 PM</p>
+                                <p class="search-past__box-time-p">Canceled</p> *}
+                    </div>
+                </div>`
 
         let timeOutFor = `<div class="search-past__box-time-list">
                             <img src="https://i.imgur.com/1Tyk2hG.png" />
                             <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:08 PM</p>
-                                <p class="search-past__box-time-p">Placed</p>
+                                {literal}${place}{/literal}
                             </div>
                         </div>
                         <div class="search-past__box-time-list">
                             <img src="https://i.imgur.com/1Tyk2hG.png" />
                             <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Confirmed</p>
+                                {literal}${confirm}{/literal}
                             </div>
                         </div>
                         <div class="search-past__box-time-list">
                             <img src="https://i.imgur.com/1Tyk2hG.png" />
                             <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Packed</p>
+                                {literal}${packed}{/literal}
                             </div>
                         </div>`
         let timeCancel = `<div class="search-past__box-time-list">
                             <img src="https://i.imgur.com/1Tyk2hG.png" />
                             <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:08 PM</p>
-                                <p class="search-past__box-time-p">Placed</p>
+                                {literal}${place}{/literal}
                             </div>
                         </div>
                         <div class="search-past__box-time-list">
                             <img src="https://i.imgur.com/1Tyk2hG.png" />
                             <div class="search-past__box-time-hour">
-                                <p  class="search-past__box-time-h">02:20 PM</p>
-                                <p class="search-past__box-time-p">Canceled</p>
+                                {literal}${cancel}{/literal}
+                                 {* <p  class="search-past__box-time-h">02:20 PM</p>
+                                <p class="search-past__box-time-p">Canceled</p> *}
                             </div>
                         </div>`
         
-
         let htmlTime = `
-            {literal}${details.status === "C"{/literal} ? `{literal}${timeCompleted}{/literal}` : `{literal}${details.status === "I"{/literal} ? `{literal}${timeCancel}{/literal}` : `{literal}${timeOutFor}{/literal}` }` }
+            {literal}${details.status === NEW_UI_STATUS_COMPLETE{/literal} ? `{literal}${timeCompleted}{/literal}` : `{literal}${details.status === NEW_UI_STATUS_CANCELED{/literal} ? `{literal}${timeCancel}{/literal}` : `{literal}${timeOutFor}{/literal}` }` }
         `
- 
 
+        let stt = 1;
         for(let a in details.products ) {
             //console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
@@ -1339,7 +1758,7 @@
             let htmlItem0 = `
                         <li class="search-past__details">
                             <div class="search-past__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
+                                <span class="search-packing__title">{literal}${stt++}{/literal}</span>
                                 <div class="search-past__dish">
                                     <p class="search-past__title">{literal}${pName.product}{/literal}</p>
                                     <p class="search-past__type">{literal}${pName.product_code}{/literal}</p>
@@ -1354,16 +1773,39 @@
             htmlSub += htmlItem0;
         }
     
+        let htmlTaxes = "";
+        for(let a in details.taxes ) {
+            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+            let tName = details.taxes[a];
+           
+            let htmlTax = `
+                        {literal}${MONEY}{/literal}{literal}${tName.tax_subtotal}{/literal}
+            `
+            htmlTaxes += htmlTax;
+        }
 
-            let htmlItem2 = `
+        let timeArray2 = details.status_history;
+        let timePrint = '';
+        for(let a in timeArray2) {
+            console.log("time history: ", timeArray2[a])
+            let index = timeArray2[a];
+
+            if(index.status === "G") {
+                console.log("GGGGG")
+                timePrint = `
+                {literal}${countTimeHistory(index.timestamp)}{/literal}</p>
+                `
+            }
+        }
+        let htmlItem2 = `
             <div class="have-past__mid">
                 <div class="have-past__mid--rel active" data-order="order{literal}${details.order_id}{/literal}">
                     <div class="search-past__box search-past__box--mid search-past__box--nomg">
                         <div class="search-past__left">
-                            {literal}${details.status === "C" {/literal} ? ` 
+                            {literal}${details.status === NEW_UI_STATUS_COMPLETE {/literal} ? ` 
                                 <h3 class="search-past__id search-past__id--bold search-past__id--packing">
                                     {literal}Order #${details.order_id}{/literal}<span class="search-past__new search-past__new--packing">Delivered</span>
-                                </h3>` : `{literal}${details.status === "I" {/literal} ? `
+                                </h3>` : `{literal}${details.status === NEW_UI_STATUS_CANCELED {/literal} ? `
                                 <h3 class="search-past__id search-past__id--bold search-past__id--delevered">
                                     {literal}Order #${details.order_id}{/literal}<span class="search-past__new search-past__new--delevered">Cancelled</span>
                                 </h3>` : `
@@ -1371,14 +1813,27 @@
                                     {literal}Order #${details.order_id}{/literal}<span class="search-past__new search-past__new--delevered">Out for delivery</span>
                                 </h3>
                             `}`} 
-                            <p class="search-past__desc search-past__desc--gray">{literal}${totalProducts}{/literal} items for {literal}${details.total}{/literal}</p>
+                            <p class="search-past__desc search-past__desc--gray">{literal}${totalProducts}{/literal} items for {literal}${MONEY}{/literal}{literal}${details.total}{/literal}</p>
   
                         </div>
-                        <div class="search-past__right">
-                            
-                            <img class="search-past__print" src="https://i.imgur.com/q6OYhBH.png" />
-                            
-                            <p class="search-past__date">21 Jul 2020 02:08 PM</p>
+                        <div class="search-order__right">
+                            <div class="search-order__right-print dropdown show">
+                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="search-order__print" src="https://i.imgur.com/q6OYhBH.png" />
+                                </a>
+                                <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id={literal}${details.order_id}{/literal}">Invoice</a>
+                                    </li>
+                                    <li>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id={literal}${details.order_id}{/literal}">Invoice (PDF)</a>
+                                    </li>
+                                    <li>
+                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id={literal}${details.order_id}{/literal}">Packing slip</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="search-order__date">{literal}${timePrint}{/literal}</p>
                         </div>
                     </div>
                     <div class="search-past__box-time">
@@ -1405,24 +1860,26 @@
                                 Grand Total
                             </h4>
                             <p class="search-past__right-price">
-                                {literal}${details.total}{/literal}
+                                {literal}${MONEY}{/literal}{literal}${details.total}{/literal}
                             </p>
                             <div class="search-past__right-info">
                                 <div class="search-past__right-row">
                                     <p class="search-past__right-label">Item total</p>
-                                    <p class="search-past__right-money">{literal}$${details.subtotal}{/literal}</p>
+                                    <p class="search-past__right-money">{literal}${MONEY}{/literal}{literal}${details.subtotal}{/literal}</p>
                                 </div>
                                 <div class="search-past__right-row">
                                     <p class="search-past__right-label">Shipping cost</p>
-                                    <p class="search-past__right-money">{literal}$${details.shipping_cost}{/literal}</p>
+                                    <p class="search-past__right-money">{literal}${MONEY}{/literal}{literal}${details.shipping_cost}{/literal}</p>
                                 </div>
                                 <div class="search-past__right-row">
                                     <p class="search-past__right-label">GST</p>
-                                    <p class="search-past__right-money">{literal}$${details.taxes["6"].tax_subtotal}{/literal}</p>
+                                    <p class="search-past__right-money search-past__right-taxes">
+                                            {* get taxes *}
+                                    </p>
                                 </div>
                                 <div class="search-past__right-row">
                                     <p class="search-past__right-label">Discount</p>
-                                    <p class="search-past__right-money">{literal}$${details.subtotal_discount}{/literal}</p>
+                                    <p class="search-past__right-money">{literal}${MONEY}{/literal}{literal}${details.subtotal_discount}{/literal}</p>
                                 </div>
                             </div> 
                         </div>
@@ -1433,7 +1890,7 @@
             `;
           
 
-          html2 += htmlItem2; 
+        html2 += htmlItem2; 
 
    
         let container2 = document.querySelector('.have-past__content');
@@ -1442,7 +1899,10 @@
         containerSub.innerHTML = htmlSub;
         let containerTime = document.querySelector('.search-past__box-time')
         containerTime.innerHTML = htmlTime;
-     
+        let containerTaxes = document.querySelector('.search-past__right-taxes')
+        containerTaxes.innerHTML = htmlTaxes;
+
+
     }
     
   
@@ -1452,17 +1912,19 @@
 {* make tab *}
 <script>
 
-    function hideModal() {
-        document.getElementById("showStork").style.display="none";
-        document.getElementById("continue").style.display="block";
-        document.querySelector(".modal-backdrop").style.display="none";
-        console.log("hide")
+    function continueModal() {
+        document.querySelector(".step1").style.display="none";
+        document.querySelector(".step2").style.display="block";
+        
     }
     function backModal() {
-         document.getElementById("showStork").style.display="block";
-         document.getElementById("continue").style.display="none";
-         document.querySelector(".modal-backdrop").style.display="block";
-         console.log("show")
+        document.querySelector(".step1").style.display="block";
+        document.querySelector(".step2").style.display="none";
+    }
+
+    function confirmModal() {
+        document.querySelector(".step2").style.display="none";
+        document.querySelector(".step3").style.display="block";
     }
     /*document.getElementById("new").style.display="none";
         document.getElementById("packing").style.display="flex";*/
@@ -1484,17 +1946,28 @@
     console.log("tabs list: ",tabs.list, "all: ",tabs.all);
     console.log("tabs container: ",tabsContent.container, "current: ",tabsContent.current, "tab: ",tabsContent.tab);
     
-
+    
     tabs.all.forEach(f => {
-    f.addEventListener('mousedown', () => {
-        f.classList.contains('activeTab') || setAciveTabs(f);
-        console.log("func: ",f)
-         console.log("tabs list: ",tabs.list, "all: ",tabs.all);
-        console.log("tabs container: ",tabsContent.container, "current tab: ",tabsContent.current, "tab: ",tabsContent.tab);
-    })
-    });
+            
+        f.addEventListener('mousedown', () => {
+            
+            //console.log("func: ",f)
+            //console.log("tabs list: ",tabs.list, "all: ",tabs.all);
+            //console.log("tabs container: ",tabsContent.container, "current tab: ",tabsContent.current, "tab: ",tabsContent.tab);
+                
+                // set time out for change tab
+                f.classList.contains('activeTab') || setAciveTabs(f);
+              /*  spinner.removeAttribute('hidden');
+                setTimeout(function() {
+                    spinner.setAttribute('hidden', '');
+                    f.classList.contains('activeTab') || setAciveTabs(f);
+                }, 1000) */
+            })
+        }
+    );
 
     function setAciveTabs(f) {
+        
         tabs.list.querySelector('.active').classList.remove('active')
         f.classList.add('active')
         
@@ -1508,118 +1981,7 @@
 
 </script>
 
-
-{* new order *}
-<script>
-       /* document.querySelector('.search-order__box[data-order=order78411]').classList.add('active')
-        document.querySelector('.have-order__mid--rel[data-order=order78398]').classList.add('active')
-        document.querySelector('.search-order__right-top[data-order=order78398]').classList.add('active') */
-
-        let orders = {
-        list: document.querySelector('ul.search-order__list'),
-        all: document.querySelectorAll('.search-order .search-order__box'),
-
-        },
-        ordersContent = {
-            container: document.querySelector('.have-order .have-order__mid'),
-            current: null,
-            order: null,
-        },
-        detailContent = {
-            container: document.querySelector('.have-order .have-order__right'),
-            current: null,
-            order: null,
-        }
-
-        /*console.log("list: ",orders.list, "all: ",orders.all);
-        console.log("ordersContent: ",ordersContent.container, "current: ",ordersContent.current, "order: ",ordersContent.order);
-        console.log("detailContent: ",detailContent.container, "current: ",detailContent.current, "order: ",detailContent.order);
-        */
-        orders.all.forEach(f => {
-        f.addEventListener('mousedown', () => {
-            
-            f.classList.contains('active') || setAciveChat(f);
-            console.log('-----------new---------')
-            console.log("list: ",orders.list, "all: ",orders.all);
-            console.log("ordersContent: ",ordersContent.container, "current: ",ordersContent.current, "order: ",ordersContent.order);
-            console.log("detailContent: ",detailContent.container, "current: ",detailContent.current, "order: ",detailContent.order);
-        })
-        });
-
-        function setAciveChat(f) {
-            
-            orders.list.querySelector('.active').classList.remove('active')
-            f.classList.add('active')
-            
-            ordersContent.current = ordersContent.container.querySelector('.active')
-            ordersContent.order = f.getAttribute('data-order')
-            ordersContent.current.classList.remove('active')
-            ordersContent.container.querySelector('[data-order="' + ordersContent.order + '"]').classList.add('active')
-
-            detailContent.current = detailContent.container.querySelector('.active')
-            detailContent.order = f.getAttribute('data-order')
-            detailContent.current.classList.remove('active')
-            detailContent.container.querySelector('[data-order="' + detailContent.order + '"]').classList.add('active')
-        
-        }
-    
- 
-
-</script>
-
-{* packing *}
-
-<script>
-    /*document.querySelector('.search-packing__box[data-order=order9161]').classList.add('active')
-    document.querySelector('.have-packing__mid--rel[data-order=order9161]').classList.add('active')
-    document.querySelector('.search-packing__right-top[data-order=order9161]').classList.add('active') */
-
-    let packings = {
-    list: document.querySelector('ul.search-packing__list'),
-    all: document.querySelectorAll('.search-packing .search-packing__box'),
-
-    },
-    packingsContent = {
-        container: document.querySelector('.have-packing .have-packing__mid'),
-        current: null,
-        packing: null,
-    },
-    detailPacking = {
-        container: document.querySelector('.have-packing .have-packing__right'),
-        current: null,
-        packing: null,
-    }
-
-    /*console.log("list: ",packings.list, "all: ",packings.all);
-    console.log("ordersContent: ",packingsContent.container, "current: ",packingsContent.current, "packing: ",packingsContent.packing);
-    console.log("detailContent: ",detailPacking.container, "current: ",detailPacking.current, "packing: ",detailPacking.packing);
-*/
-    packings.all.forEach(f => {
-    f.addEventListener('mousedown', () => {
-         console.log('abc')
-        f.classList.contains('active') || setAcivePacking(f);
-        console.log(f)
-        console.log('axx')
-    })
-    });
-
-    function setAcivePacking(f) {
-        packings.list.querySelector('.active').classList.remove('active')
-        f.classList.add('active')
-        
-        packingsContent.current = packingsContent.container.querySelector('.active')
-        packingsContent.packing = f.getAttribute('data-order')
-        packingsContent.current.classList.remove('active')
-        packingsContent.container.querySelector('[data-order="' + packingsContent.packing + '"]').classList.add('active')
-
-        detailPacking.current = detailPacking.container.querySelector('.active')
-        detailPacking.packing = f.getAttribute('data-order')
-        detailPacking.current.classList.remove('active')
-        detailPacking.container.querySelector('[data-order="' + detailPacking.packing + '"]').classList.add('active')
-    
-    }
-
-</script>
+{* spin *}
 
 <script>
 
@@ -1637,11 +1999,11 @@
             console.log(error2)
         }
 
-        renderCountStatus("G", "tab1");
-        renderLeftSide("G", "order");
+        renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
+        renderLeftSide(NEW_UI_STATUS_PLACED, "order");
 
-        renderCountStatus("E", "tab2");
-        renderLeftSide("E", "packing");
+        renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
+        renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
 
         document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
         document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
@@ -1665,11 +2027,11 @@
             console.log(error2)
         }
 
-        renderCountStatus("E", "tab2");
-        renderLeftSide("E", "packing");
+        renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
+        renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
 
-        renderCountStatus("A", "tab3");
-        renderLeftSide("A", "ready");
+        renderCountStatus(NEW_UI_STATUS_PACKED, "tab3");
+        renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
 
         document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
         document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
@@ -1685,58 +2047,7 @@
    
 </script>
 
-{* ready *}
-<script>
-   /* document.querySelector('.search-ready__box[data-order=order9161]').classList.add('active')
-    document.querySelector('.have-ready__mid--rel[data-order=order9161]').classList.add('active')
-    document.querySelector('.search-ready__right-top[data-order=order9161]').classList.add('active')
-*/
-    let readys = {
-    list: document.querySelector('ul.search-ready__list'),
-    all: document.querySelectorAll('.search-ready .search-ready__box'),
 
-    },
-    readysContent = {
-        container: document.querySelector('.have-ready .have-ready__mid'),
-        current: null,
-        ready: null,
-    },
-    detailReadys = {
-        container: document.querySelector('.have-ready .have-ready__right'),
-        current: null,
-        ready: null,
-    }
-/*
-    console.log("readys: ",readys.list, "all: ",readys.all);
-    console.log("ordersContent: ",readysContent.container, "current: ",readysContent.current, "ready: ",readysContent.ready);
-    console.log("detailContent: ",detailReadys.container, "current: ",detailReadys.current, "ready: ",detailReadys.ready);
-*/
-    readys.all.forEach(f => {
-    f.addEventListener('mousedown', () => {
-         console.log('abc')
-        f.classList.contains('active') || setAciveReady(f);
-        console.log(f)
-        console.log('axx')
-    })
-    });
-
-    function setAciveReady(f) {
-        readys.list.querySelector('.active').classList.remove('active')
-        f.classList.add('active')
-        
-        readysContent.current = readysContent.container.querySelector('.active')
-        readysContent.ready = f.getAttribute('data-order')
-        readysContent.current.classList.remove('active')
-        readysContent.container.querySelector('[data-order="' + readysContent.ready + '"]').classList.add('active')
-
-        detailReadys.current = detailReadys.container.querySelector('.active')
-        detailReadys.ready = f.getAttribute('data-order')
-        detailReadys.current.classList.remove('active')
-        detailReadys.container.querySelector('[data-order="' + detailReadys.ready + '"]').classList.add('active')
-    
-    }
-
-</script>
 
 <script>
     function openReady() {
@@ -1756,58 +2067,7 @@
     }
 </script>
 
-{* past *}
-<script>
-   /* document.querySelector('.search-past__box[data-order=order9161]').classList.add('active')
-    document.querySelector('.have-past__mid--rel[data-order=order9161]').classList.add('active')
-    document.querySelector('.search-past__right-top[data-order=order9161]').classList.add('active')
-*/
-    let pasts = {
-    list: document.querySelector('ul.search-past__list'),
-    all: document.querySelectorAll('.search-past .search-past__box'),
 
-    },
-    pastsContent = {
-        container: document.querySelector('.have-past .have-past__mid'),
-        current: null,
-        past: null,
-    },
-    detailPasts = {
-        container: document.querySelector('.have-past .have-past__right'),
-        current: null,
-        past: null,
-    }
-/*
-    console.log("readys: ",readys.list, "all: ",readys.all);
-    console.log("ordersContent: ",readysContent.container, "current: ",readysContent.current, "ready: ",readysContent.ready);
-    console.log("detailContent: ",detailReadys.container, "current: ",detailReadys.current, "ready: ",detailReadys.ready);
-*/
-    pasts.all.forEach(f => {
-    f.addEventListener('mousedown', () => {
-         console.log('abc')
-        f.classList.contains('active') || setAcivePast(f);
-        console.log(f)
-        console.log('axx')
-    })
-    });
-
-    function setAcivePast(f) {
-        pasts.list.querySelector('.active').classList.remove('active')
-        f.classList.add('active')
-        
-        pastsContent.current = pastsContent.container.querySelector('.active')
-        pastsContent.past = f.getAttribute('data-order')
-        pastsContent.current.classList.remove('active')
-        pastsContent.container.querySelector('[data-order="' + pastsContent.past + '"]').classList.add('active')
-
-        detailPasts.current = detailPasts.container.querySelector('.active')
-        detailPasts.past = f.getAttribute('data-order')
-        detailPasts.current.classList.remove('active')
-        detailPasts.container.querySelector('[data-order="' + detailPasts.past + '"]').classList.add('active')
-    
-    }
-
-</script>
 
 <script>
     function openPast() {
@@ -1818,3 +2078,8 @@
     }
 </script>
 
+<script>
+
+
+
+</script>

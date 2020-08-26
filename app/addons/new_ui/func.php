@@ -138,4 +138,13 @@ function fn_new_ui_schedule_ivr($order_id){
 
 }
 
+function fn_new_ui_change_order_status_post($order_id, $status_to, $status_from, $force_notification, $place_order, $order_info, $edp_data){
+    
+    $status_data['order_id']=$order_id;
+    $status_data['status']=$status_to;
+    $status_data['timestamp']=time();
+    db_query("REPLACE INTO ?:order_vendor_status ?e", $status_data);
+    
+}
+
 

@@ -47,6 +47,15 @@
               PRIMARY KEY (`order_id`,`product_id`)
             ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
         </item>
+        <item for="install">
+          CREATE TABLE IF NOT EXISTS `?:order_vendor_status` (
+            `order_id` mediumint(8) UNSIGNED NOT NULL,
+            `status` char(1) NOT NULL,
+            `timestamp` int(11) UNSIGNED NOT NULL,
+            PRIMARY KEY (`order_id`,`status`)
+          ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+        </item>
+        
     </queries>
 </addon>
 
