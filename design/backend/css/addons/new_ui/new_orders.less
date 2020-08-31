@@ -1,3 +1,248 @@
+// new sell
+#newSell,
+.newSell {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-flow: row nowrap;
+
+    height: 250px;
+    padding: 10px 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    margin: 10px 0;
+
+    &__left {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-right: 10px;
+        border-right: 1px solid #cdd0d2;
+    }
+
+    &__title {
+        color: #37454d;
+        font-size: 20px;
+        line-height: 1.25;
+        font-weight: 700;
+    }
+
+    &__star {
+        margin: 0;
+    }
+
+    &__button {
+        background: #fdf3e5;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px;
+        font-size: 14px;
+        color: #37454d;
+        margin: 10px 0;
+    }
+
+    &__pop {
+        margin-left: 12px;
+    }
+
+    &__off {
+        border-top: 1px solid #cdd0d2;
+        border-bottom: 1px solid #cdd0d2;
+        padding: 10px 0;
+
+        &--icon {
+            margin-left: 5px;
+            margin-right: 10px;
+        }
+
+
+        &--text {
+            font-size: 14px;
+            color: #ff671f;
+            font-weight: 700;
+        }
+    }
+
+    &__review {
+        padding: 10px 0;
+
+        &--rate {
+            width: 30px;
+            height: 18px;
+            border-radius: 18px;
+            background: #316300;
+            display: inline-block;
+            margin-left: 5px;
+            margin-right: 10px;
+        }
+
+        &--text {
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            line-height: 1.25;
+            display: block;
+        }
+
+        &--count {
+            font-size: 14px;
+            color: #37454d;
+        }
+    }
+
+    &__mid {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+        & span {
+            font-size: 13px;
+            color: #43b02a;
+        }
+    }
+
+    &__right {
+        display: flex;
+        flex-direction: column;
+
+        &--top {
+            display: flex;
+            padding: 10px;
+            background: #ecf3e6;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        &--bottom {
+            text-align: center;
+        }
+    }
+
+    &__fsai {
+        color: #4c4d4c;
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+
+    &__days {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+
+        &--row {
+            display: flex;
+            align-items: center;
+            margin-right: 12px;
+        }
+    }
+
+    &__green {
+        margin-left: 4px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        color: #316300;
+        line-height: 1;
+    }
+
+    &__action {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__price {
+        font-size: 20px;
+        font-weight: 700;
+        color: #316300;
+    }
+
+
+    &__time {
+        color: #393939;
+        font-size: 12px;
+    }
+
+    &__shipping {
+        color: #316300;
+        font-size: 12px
+    }
+
+    &__buynow {
+        background: #fb6823;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #fff;
+        font-weight: 700;
+        margin-right: 20px;
+        height: 42px;
+
+        &--icon {
+            margin-right: 5px;
+        }
+    }
+
+    &__save {
+        background: #f1f0ef;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #000;
+        font-weight: 700;
+        border: 1px solid #c3c3c3;
+        box-sizing: border-box;
+        height: 42px;
+    }
+}
+
+
+
+
+
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) {}
+
+// Extra large devices (large desktops)
+// No media query since the extra-large breakpoint has no upper bound on its width
+
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {}
+
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+
+    #newSell,
+    .newSell {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #newSell__left,
+    .newSell__left {
+        padding-right: 0;
+        border-right: unset;
+    }
+
+    #newSell__mid,
+    .newSell__mid {
+        padding: 20px 0;
+    }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {}
+
 // orders
 .orders-wrap {
     margin-top: 15px;

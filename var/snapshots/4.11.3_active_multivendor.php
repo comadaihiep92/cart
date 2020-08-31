@@ -1,5 +1,5 @@
 <?php $snapshot = array (
-  'time' => 1598432846,
+  'time' => 1598884759,
   'files' => 
   array (
     '12a5350b4ec83ef86b6951b308a4cb00' => '/api.php',
@@ -1280,7 +1280,7 @@
     '5a86187f1d49ae96f141bea9e2e2656b' => '/app/addons/newsletters/schemas/security/object_sanitization.post.php',
     '12f8cbf6fd8e75a378c0ab38e54c05bc' => '/app/addons/newsletters/schemas/sharing/schema.post.php',
     'aaf05d47bb4b0b6f4b84d18a57b67213' => '/app/addons/new_ui/addon.xml',
-    '362a103d4479dc6d3562f9c61ef7998c' => '/app/addons/new_ui/controllers/backend/new_orders.php',
+    '5734c8f23ece121833612d0e8d9ec019' => '/app/addons/new_ui/controllers/backend/new_orders.php',
     '6cf2dc294c8fc5ccdeea1042213c4935' => '/app/addons/new_ui/func.php',
     '4cca7edde669d75188defd8e564aa19c' => '/app/addons/new_ui/init.php',
     '6a67004f0755eae62dccba8f62d0f15b' => '/app/addons/new_ui/schemas/permissions/vendor_multivendor.post.php',
@@ -9760,7 +9760,9 @@
     'b5b094af329e9772ee8ca1734e1e7ac1' => '/design/backend/templates/addons/newsletters/views/subscribers/manage.tpl',
     'e03439f3ff1a93c8abe1605e44731a4e' => '/design/backend/templates/addons/new_ui/hooks/index/styles.post.tpl',
     '1baa04be1fc87360dd0bcaa09a181bd7' => '/design/backend/templates/addons/new_ui/views/new_orders/manage - Copy.tpl',
-    'c11e4433f096789e51917284f8dba927' => '/design/backend/templates/addons/new_ui/views/new_orders/manage.tpl',
+    'eecb6a3e6ec3cef4f174e3d259f67eba' => '/design/backend/templates/addons/new_ui/views/new_orders/manage copy.tpl',
+    'bab2cbeb203112d8ca7a33187ed2b544' => '/design/backend/templates/addons/new_ui/views/new_orders/manage.tpl',
+    '9633443ae3d679a472703ba6a40f59ba' => '/design/backend/templates/addons/new_ui/views/new_orders/totals_form.tpl',
     '2754cc181d8e439d43019d618d7a35d7' => '/design/backend/templates/addons/onekpay/views/payments/components/cc_processors/onekpay.tpl',
     'a6306d06603b2f061fef43856ae15fd8' => '/design/backend/templates/addons/payment_dependencies/hooks/shippings/update.post.tpl',
     'b218e6b13687f98e7cc473c6aac910e3' => '/design/backend/templates/addons/paypal/common/connect_to_paypal.tpl',
