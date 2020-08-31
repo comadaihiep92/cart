@@ -328,6 +328,7 @@
                             <p class="order-modal__amount order-modal__amount--big">$127</p>
                         </div>   *}
                     </div>
+                    <div class="formHere"></div>
                 </div>
             </div>
         </div>
@@ -372,6 +373,7 @@
                             <p class="order-modal__amount order-modal__amount--big">$127</p>
                         </div>  
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -561,7 +563,7 @@
 
 <script>
 // --- online version:
-  /*  const NEW_UI_STATUS_PLACED = 'G'; // Placed
+   /* const NEW_UI_STATUS_PLACED = 'G'; // Placed
     const NEW_UI_STATUS_VCONFIRMED = 'E'; // Vendor Confirmed
     const NEW_UI_STATUS_PACKED = 'A';
     const NEW_UI_STATUS_COMPLETE = 'C';
@@ -593,6 +595,7 @@
         let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_orders&status={literal}${status}{/literal}`;
         try {
             let res = await fetch(url);
+           // console.log("con me no 2 +++++++: ", res)
             return await res.json();
 
         }
@@ -600,6 +603,37 @@
             console.log(error)
         }
     }
+    // fetch total form
+
+    async function getTotalForm() {
+        
+        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.totals_form&order_id=78417`;
+        try {
+            let res = await fetch(url);
+           // console.log("con me no 2 +++++++: ", res)
+            return await res.text();
+
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+   /* async function getTotalForm() {
+
+        let response = await fetch('http://localhost:8080/cart/vendor.php?dispatch=new_orders.totals_form&order_id=78417');
+
+        console.log(response.status); // 200
+        console.log(response.statusText); // OK
+
+        if (response.status === 200) {
+            let data = await response.text();
+            // handle data
+            console.log('data ne ba con: ', data)
+        }
+    } */
+
+    
 
     async function searchId(status) {
         let datas = await getStatus("G");
@@ -940,6 +974,9 @@
         document.querySelector(".step1").style.display="block";
         document.querySelector(".step2").style.display="none";
         document.querySelector(".step3").style.display="none";
+
+        let totalForm = await getTotalForm();
+        console.log("totalForm: ----- ", totalForm);
         
         let details = await getDataProduct(ids);
         console.log("details: ----- ", details);
@@ -953,6 +990,7 @@
             console.log('total product:', Object.keys(details.products).length)
             console.log("z: ", pName)
             let htmlItem0 = `
+            
                 <div class="order-modal__conme">
                     <div class="order-modal__conmeno">
                         <span class="order-modal__index">{literal}${count++}{/literal}</span>
@@ -968,7 +1006,9 @@
                         </div>
                         <input class="order-modal__quantity quantity" onchange="sum({literal}${details.order_id}{/literal})"   name="quantity" value="{literal}${pName.amount}{/literal}" type="number" />
                     </div>
+                    
                 </div>
+ 
             `
             dataModal += htmlItem0;
         }
@@ -980,10 +1020,16 @@
             </div>  
         `
 
+        let form = `
+            {literal}${totalForm}{/literal}
+        `
+
         let containerModal = document.querySelector('.order-modal__conme');
         containerModal.innerHTML = dataModal;
         let containerInput = document.querySelector('.order-modal__input');
         containerInput.innerHTML = total;
+        let containerForm = document.querySelector('.formHere');
+        containerForm.innerHTML = form;
     }
 
     // new

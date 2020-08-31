@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-08-26 11:57:06
+<?php /* Smarty version Smarty-3.1.21, created on 2020-08-26 13:27:05
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1598432223,
+      1 => 1598437620,
       2 => 'tygh',
     ),
   ),
@@ -212,6 +212,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     <div class="order-modal__input">
                         
                     </div>
+                    <div class="formHere"></div>
                 </div>
             </div>
         </div>
@@ -256,6 +257,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                             <p class="order-modal__amount order-modal__amount--big">$127</p>
                         </div>  
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -388,7 +390,7 @@ if (!empty($_capture_buffer)) {
 <?php echo '<script'; ?>
 >
 // --- online version:
-  /*  const NEW_UI_STATUS_PLACED = 'G'; // Placed
+   /* const NEW_UI_STATUS_PLACED = 'G'; // Placed
     const NEW_UI_STATUS_VCONFIRMED = 'E'; // Vendor Confirmed
     const NEW_UI_STATUS_PACKED = 'A';
     const NEW_UI_STATUS_COMPLETE = 'C';
@@ -428,6 +430,7 @@ if (!empty($_capture_buffer)) {
         let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_orders&status=${status}`;
         try {
             let res = await fetch(url);
+           // console.log("con me no 2 +++++++: ", res)
             return await res.json();
 
         }
@@ -435,6 +438,37 @@ if (!empty($_capture_buffer)) {
             console.log(error)
         }
     }
+    // fetch total form
+
+    async function getTotalForm() {
+        
+        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.totals_form&order_id=78417`;
+        try {
+            let res = await fetch(url);
+           // console.log("con me no 2 +++++++: ", res)
+            return await res.text();
+
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+   /* async function getTotalForm() {
+
+        let response = await fetch('http://localhost:8080/cart/vendor.php?dispatch=new_orders.totals_form&order_id=78417');
+
+        console.log(response.status); // 200
+        console.log(response.statusText); // OK
+
+        if (response.status === 200) {
+            let data = await response.text();
+            // handle data
+            console.log('data ne ba con: ', data)
+        }
+    } */
+
+    
 
     async function searchId(status) {
         let datas = await getStatus("G");
@@ -775,6 +809,9 @@ if (!empty($_capture_buffer)) {
         document.querySelector(".step1").style.display="block";
         document.querySelector(".step2").style.display="none";
         document.querySelector(".step3").style.display="none";
+
+        let totalForm = await getTotalForm();
+        console.log("totalForm: ----- ", totalForm);
         
         let details = await getDataProduct(ids);
         console.log("details: ----- ", details);
@@ -788,6 +825,7 @@ if (!empty($_capture_buffer)) {
             console.log('total product:', Object.keys(details.products).length)
             console.log("z: ", pName)
             let htmlItem0 = `
+            
                 <div class="order-modal__conme">
                     <div class="order-modal__conmeno">
                         <span class="order-modal__index">${count++}</span>
@@ -803,7 +841,9 @@ if (!empty($_capture_buffer)) {
                         </div>
                         <input class="order-modal__quantity quantity" onchange="sum(${details.order_id})"   name="quantity" value="${pName.amount}" type="number" />
                     </div>
+                    
                 </div>
+ 
             `
             dataModal += htmlItem0;
         }
@@ -815,10 +855,16 @@ if (!empty($_capture_buffer)) {
             </div>  
         `
 
+        let form = `
+            ${totalForm}
+        `
+
         let containerModal = document.querySelector('.order-modal__conme');
         containerModal.innerHTML = dataModal;
         let containerInput = document.querySelector('.order-modal__input');
         containerInput.innerHTML = total;
+        let containerForm = document.querySelector('.formHere');
+        containerForm.innerHTML = form;
     }
 
     // new
