@@ -1,5 +1,5 @@
 <?php $snapshot = array (
-  'time' => 1598884759,
+  'time' => 1598966957,
   'files' => 
   array (
     '12a5350b4ec83ef86b6951b308a4cb00' => '/api.php',
@@ -9135,7 +9135,7 @@
     '609688f45114fbd38e4a7f6cc7f63481' => '/design/backend/css/addons/mobile_app/styles.less',
     '4d5c0be5b207fde638b57002a21dfa87' => '/design/backend/css/addons/mobile_app/variables.less',
     '23bdebf6e246dc4ce5b7222d7c3d886d' => '/design/backend/css/addons/new_ui/new_orders copy.less',
-    '1c7e50ee775c2b60021931c0b9ba543f' => '/design/backend/css/addons/new_ui/new_orders.less',
+    'eae7409f708339b0b0ab401e7e4e9340' => '/design/backend/css/addons/new_ui/new_orders.less',
     'a8381c18d98e2f51a44cb117b7a55dbb' => '/design/backend/css/addons/new_ui/orders.less',
     'fbdc7d96e3272871c40ba9900224bd9f' => '/design/backend/css/addons/paypal/styles.less',
     'b2cc5fe16ecccc921c0e99b759467f09' => '/design/backend/css/addons/pingpp/styles.less',
@@ -9760,8 +9760,8 @@
     'b5b094af329e9772ee8ca1734e1e7ac1' => '/design/backend/templates/addons/newsletters/views/subscribers/manage.tpl',
     'e03439f3ff1a93c8abe1605e44731a4e' => '/design/backend/templates/addons/new_ui/hooks/index/styles.post.tpl',
     '1baa04be1fc87360dd0bcaa09a181bd7' => '/design/backend/templates/addons/new_ui/views/new_orders/manage - Copy.tpl',
-    'eecb6a3e6ec3cef4f174e3d259f67eba' => '/design/backend/templates/addons/new_ui/views/new_orders/manage copy.tpl',
-    'bab2cbeb203112d8ca7a33187ed2b544' => '/design/backend/templates/addons/new_ui/views/new_orders/manage.tpl',
+    'be26d4dbbbe0ed59af858b6992c5e98e' => '/design/backend/templates/addons/new_ui/views/new_orders/manage backup.tpl',
+    'f2f743f4c36f76a72cfc54949abfeb4d' => '/design/backend/templates/addons/new_ui/views/new_orders/manage.tpl',
     '9633443ae3d679a472703ba6a40f59ba' => '/design/backend/templates/addons/new_ui/views/new_orders/totals_form.tpl',
     '2754cc181d8e439d43019d618d7a35d7' => '/design/backend/templates/addons/onekpay/views/payments/components/cc_processors/onekpay.tpl',
     'a6306d06603b2f061fef43856ae15fd8' => '/design/backend/templates/addons/payment_dependencies/hooks/shippings/update.post.tpl',
