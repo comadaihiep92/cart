@@ -101,7 +101,7 @@
         </div>
         <div class="newSell__right--bottom">
             <p class="newSell__time"><span>icon</span><a class="newSell__shipping" href="#"> Shipping:</a> by <span>Tomorrow, 10:30, from <strong>$0</strong></p>
-            <p class="newSell__green">Covid icons displayed here</p>
+            <p class="newSell__covid">Covid icons displayed here</p>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-08-31 20:01:36
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-01 16:28:58
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1598893287,
+      1 => 1598966915,
       2 => 'tygh',
     ),
   ),
@@ -131,7 +131,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         </div>
         <div class="newSell__right--bottom">
             <p class="newSell__time"><span>icon</span><a class="newSell__shipping" href="#"> Shipping:</a> by <span>Tomorrow, 10:30, from <strong>$0</strong></p>
-            <p class="newSell__green">Covid icons displayed here</p>
+            <p class="newSell__covid">Covid icons displayed here</p>
         </div>
     </div>
 </div>
