@@ -1,15 +1,14 @@
 <?php
 
+use Tygh\Enum\NotificationSeverity;
 use Tygh\Notifications\EventIdProviders\OrderProvider;
-use Tygh\Pdf;
 use Tygh\Registry;
-use Tygh\Shippings\Shippings;
 use Tygh\Storage;
 use Tygh\Tygh;
 
 if (!defined('BOOTSTRAP') || ACCOUNT_TYPE!='vendor') { die('Access denied'); }
 
-// --- local version:
+// // --- local version:
 // define('NEW_UI_STATUS_PLACED', 'L'); // Placed
 // define('NEW_UI_STATUS_VCONFIRMED', 'M'); // Vendor Confirmed
 // define('NEW_UI_STATUS_PACKED', 'G');
@@ -38,12 +37,182 @@ define('NEW_UI_STATUS_OFD', 'B'); // Out for delivery (shipment)
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    $suffix = '';
+    $suffix = !empty($cart['order_id']) ? '.update' : '.add';
 
     if ($mode == 'm_delete' && !empty($_REQUEST['order_ids']) && ACCOUNT_TYPE!='vendor') {
         foreach ($_REQUEST['order_ids'] as $v) {
             fn_delete_order($v);
         }
+    }
+    
+    if($mode == 'update_totals'){
+        
+        $_REQUEST=array (
+          'result_ids' => 'om_ajax_*',
+          'cart_products' => $_POST['cart_products'],
+          'security_hash' => $_POST['security_hash'],
+          'is_ajax' => '1',
+          'dispatch' => 
+          array (
+            'new_orders.update_totals' => 'Recalculate',
+          ),
+        );
+        
+        $suffix = !empty($cart['order_id']) ? '.update' : '.add';
+        
+        fn_define('ORDER_MANAGEMENT', true); // Defines that the cart is in order management mode now
+
+        Tygh::$app['session']['cart'] = isset(Tygh::$app['session']['cart']) ? Tygh::$app['session']['cart'] : array();
+        $cart = & Tygh::$app['session']['cart'];
+
+        Tygh::$app['session']['customer_auth'] = isset(Tygh::$app['session']['customer_auth']) ? Tygh::$app['session']['customer_auth'] : array();
+        $customer_auth = & Tygh::$app['session']['customer_auth'];
+
+        Tygh::$app['session']['shipping_rates'] = isset(Tygh::$app['session']['shipping_rates']) ? Tygh::$app['session']['shipping_rates'] : array();
+        $shipping_rates = & Tygh::$app['session']['shipping_rates'];
+
+        if (empty($customer_auth)) {
+            $customer_auth = fn_fill_auth(array(), array(), false, 'C');
+        }        
+        
+        fn_update_cart_by_data($cart, $_REQUEST, $customer_auth);
+        
+        $get_additional_statuses = false;
+        if (!empty($cart['order_id'])) {
+            $order_info = fn_get_order_short_info($cart['order_id']);
+            $cart['order_status'] = $order_info['status'];
+
+            if ($cart['order_status'] == STATUS_INCOMPLETED_ORDER) {
+                $get_additional_statuses = true;
+            }
+
+            if (!empty($order_info['issuer_id'])) {
+                $cart['issuer_data'] = fn_get_user_short_info($order_info['issuer_id']);
+            }
+        }
+        
+        $order_statuses = fn_get_simple_statuses(STATUSES_ORDER, $get_additional_statuses, true);
+        Tygh::$app['view']->assign('order_statuses', $order_statuses);
+
+        //
+        // Prepare customer info
+        //
+        $profile_fields = fn_get_profile_fields('O', $customer_auth);
+
+        $cart['profile_id'] = empty($cart['profile_id']) ? 0 : $cart['profile_id'];
+        Tygh::$app['view']->assign('profile_fields', $profile_fields);
+
+        //Get user profiles
+        $user_profiles = fn_get_user_profiles($customer_auth['user_id']);
+        Tygh::$app['view']->assign('user_profiles', $user_profiles);
+
+        //Get countries and states
+        Tygh::$app['view']->assign('countries', fn_get_simple_countries(true, CART_LANGUAGE));
+        Tygh::$app['view']->assign('states', fn_get_all_states());
+        Tygh::$app['view']->assign('usergroups', fn_get_usergroups(array('type' => 'C', 'status' => array('A', 'H')), DESCR_SL));
+
+        if (!empty($customer_auth['user_id']) && (empty($cart['user_data']) || (!empty($_REQUEST['profile_id']) && $cart['profile_id'] != $_REQUEST['profile_id']))) {
+            $cart['profile_id'] = !empty($_REQUEST['profile_id']) ? $_REQUEST['profile_id'] : 0;
+            $cart['user_data'] = fn_get_user_info($customer_auth['user_id'], true, $cart['profile_id']);
+        }
+
+        if (!empty($cart['user_data'])) {
+            fn_filter_hidden_profile_fields($cart['user_data'], 'O');
+            $cart['ship_to_another'] = fn_check_shipping_billing($cart['user_data'], $profile_fields);
+        }
+
+        //
+        // Get products info
+        // and shipping rates
+        //
+
+        // Clean up saved shipping rates
+        // unset(Tygh::$app['session']['shipping_rates']);
+
+        if (!empty($shipping_rates)) {
+            define('CACHED_SHIPPING_RATES', true);
+        }
+
+        $cart['calculate_shipping'] = true;
+
+        // calculate cart - get products with options, full shipping rates info and promotions
+        @list ($cart_products, $product_groups) = fn_calculate_cart_content($cart, $customer_auth);
+
+        Tygh::$app['view']->assign('product_groups', $product_groups);
+
+        if (fn_allowed_for('MULTIVENDOR') && !empty($cart['order_id'])) {
+            $order_info = fn_get_order_info($cart['order_id']);
+            if (isset($order_info['company_id'])) {
+                Tygh::$app['view']->assign('order_company_id', $order_info['company_id']);
+            }
+        }
+
+        fn_gather_additional_products_data($cart_products, array('get_icon' => true, 'get_detailed' => true, 'get_options' => true, 'get_discounts' => false));
+
+        Tygh::$app['view']->assign('cart_products', $cart_products);
+
+        Tygh::$app['view']->assign('update_options', true);
+
+        //
+        //Get payment methods
+        //
+        $payment_methods = fn_get_payments(array('usergroup_ids' => $customer_auth['usergroup_ids']));
+
+        // Check if payment method has surcharge rates
+        foreach ($payment_methods as $k => $v) {
+            if (!isset($cart['payment_id'])) {
+                $cart['payment_id'] = $v['payment_id'];
+            }
+            $payment_methods[$k]['surcharge_value'] = 0;
+            if (floatval($v['a_surcharge'])) {
+                $payment_methods[$k]['surcharge_value'] += $v['a_surcharge'];
+            }
+            if (floatval($v['p_surcharge'])) {
+                $payment_methods[$k]['surcharge_value'] += fn_format_price($cart['total'] * $v['p_surcharge'] / 100);
+            }
+        }
+
+        fn_update_payment_surcharge($cart, $auth);
+        if (!empty($cart['payment_surcharge'])) {
+            $payment_methods[$cart['payment_id']]['surcharge_value'] = $cart['payment_surcharge'];
+        }
+
+        //Get payment method info
+        if (!empty($cart['payment_id']) && isset($payment_methods[$cart['payment_id']])) {
+            $payment_data = fn_get_payment_method_data($cart['payment_id']);
+            Tygh::$app['view']->assign('payment_method', $payment_data);
+        } elseif (!empty($payment_methods)) {
+            $payment_data = fn_get_payment_method_data(reset($payment_methods)['payment_id']);
+            Tygh::$app['view']->assign('payment_method', $payment_data);
+        }
+
+        Tygh::$app['view']->assign('payment_methods', $payment_methods);
+
+        //
+        // Check if order information is complete
+        //
+        if (fn_cart_is_empty($cart)) {
+            Tygh::$app['view']->assign('is_empty_cart', true);
+        }
+
+        if (empty($cart['user_data']) || !fn_check_profile_fields($cart['user_data'], 'O', $customer_auth)) {
+            Tygh::$app['view']->assign('is_empty_user_data', true);
+        }
+
+        Tygh::$app['view']->assign('is_order_management', true);
+
+        if (!empty($order_info['storefront_id'])) {
+            Tygh::$app['view']->assign('selected_storefront_id', $order_info['storefront_id']);
+        } elseif (!empty($_REQUEST['storefront_id'])) {
+            Tygh::$app['view']->assign('selected_storefront_id', $_REQUEST['storefront_id']);
+        } else {
+            /** @var \Tygh\Storefront\Repository $repository */
+            $repository = Tygh::$app['storefront.repository'];
+
+            Tygh::$app['view']->assign('selected_storefront_id', $repository->findDefault()->storefront_id);
+        }
+        
+        die(json_encode(array('total'=>$cart['total'])));
     }
 
     if ($mode == 'update_details' && ACCOUNT_TYPE!='vendor') {

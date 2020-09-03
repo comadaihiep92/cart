@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-09-01 16:28:58
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-03 20:34:36
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1598966915,
+      1 => 1599154462,
       2 => 'tygh',
     ),
   ),
@@ -46,51 +46,60 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 
 <div id="newSell" class="newSell">
-    <div class="newSell__left">
-        <h2 class="newSell__title">Hotel The Leela Palace</h2>
-        <div class="newSell__star" itemprop="starRating" itemtype="https://schema.org/Rating" itemscope="true">
-            <meta itemprop="ratingValue" content="5"><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
-                <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
-                </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
-                <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
-                </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
-                <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
-                </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
-                <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
-                </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
-                <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
-                </svg></span>
-        </div>
-        <div>
-            <button class="newSell__button" type="button" tabindex="-1">
-                <span class="mr-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="24" height="24" viewBox="0 0 24 24">
-                        <path class="svg-color--primary" fill="#37454D" d="M19.8 5h-1.1c.1-.6.1-1 .1-1 0-.6-.5-1-1-1h-12c-.5 0-1 .4-1 1 0 0 0 .4.1 1H3.8c-.5 0-1 .4-1 1 0 .2 0 2.2 2.3 4.1.7.6 1.6 1 2.6 1.4.7.6 1.6 1.1 2.5 1.4L9.9 16H8.8c-.4 0-.8.3-1 .7l-1 3c-.1.3 0 .6.1.9.3.3.6.4.9.4h8c.3 0 .6-.1.8-.4.2-.3.2-.6.1-.9l-1-3c-.1-.4-.5-.7-1-.7h-1.1l-.3-3.2c1-.2 1.8-.7 2.5-1.4 1-.3 1.9-.8 2.6-1.4 2.2-1.9 2.3-3.9 2.3-4.1.1-.5-.3-.9-.9-.9zm-14-1h12s0 .4-.1 1c0 .3-.1.6-.2 1-.2.9-.5 2.1-1.2 3.3-.3.5-.6.9-.9 1.2-.6.6-1.3 1-2.1 1.2-.3.2-.8.3-1.5.3 0 0 .1 0 0 0h-.5c-.4 0-.7-.1-1-.2-.8-.2-1.6-.7-2.2-1.2-.4-.4-.7-.8-.9-1.2-.6-1.3-.9-2.5-1.1-3.4-.1-.4-.3-2-.3-2zm-2 2H5c.2 1 .6 2.4 1.3 3.8-.1-.2-.3-.3-.5-.5-1.9-1.6-2-3.2-2-3.3zm11 11l1 3h-8l1-3h6zm-3.9-1l.3-3h1.2l.3 3h-1.8zm7-6.7c-.2.2-.4.3-.6.5C18 8.4 18.4 7 18.6 6h1.2c0 .1 0 1.7-1.9 3.3z"></path>
-                    </svg>
+    
+    
+         <div class="newSell__left">
+            <h2 class="newSell__title">
+                <a href="#">Hotel The Leela Palace</a>
+                Hotel The Leela Palace
+            </h2>
+            <div class="newSell__star" itemprop="starRating" itemtype="https://schema.org/Rating" itemscope="true">
+                <meta itemprop="ratingValue" content="5"><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
+                    <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
+                    </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
+                    <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
+                    </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
+                    <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
+                    </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
+                    <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
+                    </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
+                    <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
+                    </svg></span>
+            </div>
+            <div>
+                <button class="newSell__button" type="button" tabindex="-1">
+                    <span class="mr-3 newSell__button--icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="24" height="24" viewBox="0 0 24 24">
+                            <path class="svg-color--primary" fill="#37454D" d="M19.8 5h-1.1c.1-.6.1-1 .1-1 0-.6-.5-1-1-1h-12c-.5 0-1 .4-1 1 0 0 0 .4.1 1H3.8c-.5 0-1 .4-1 1 0 .2 0 2.2 2.3 4.1.7.6 1.6 1 2.6 1.4.7.6 1.6 1.1 2.5 1.4L9.9 16H8.8c-.4 0-.8.3-1 .7l-1 3c-.1.3 0 .6.1.9.3.3.6.4.9.4h8c.3 0 .6-.1.8-.4.2-.3.2-.6.1-.9l-1-3c-.1-.4-.5-.7-1-.7h-1.1l-.3-3.2c1-.2 1.8-.7 2.5-1.4 1-.3 1.9-.8 2.6-1.4 2.2-1.9 2.3-3.9 2.3-4.1.1-.5-.3-.9-.9-.9zm-14-1h12s0 .4-.1 1c0 .3-.1.6-.2 1-.2.9-.5 2.1-1.2 3.3-.3.5-.6.9-.9 1.2-.6.6-1.3 1-2.1 1.2-.3.2-.8.3-1.5.3 0 0 .1 0 0 0h-.5c-.4 0-.7-.1-1-.2-.8-.2-1.6-.7-2.2-1.2-.4-.4-.7-.8-.9-1.2-.6-1.3-.9-2.5-1.1-3.4-.1-.4-.3-2-.3-2zm-2 2H5c.2 1 .6 2.4 1.3 3.8-.1-.2-.3-.3-.5-.5-1.9-1.6-2-3.2-2-3.3zm11 11l1 3h-8l1-3h6zm-3.9-1l.3-3h1.2l.3 3h-1.8zm7-6.7c-.2.2-.4.3-.6.5C18 8.4 18.4 7 18.6 6h1.2c0 .1 0 1.7-1.9 3.3z"></path>
+                        </svg>
+                    </span>
+                    <span class="newSell__pop" >Popular Choice</span>
+                </button>
+            </div>
+            <div class="newSell__off">
+                <img class="newSell__off--icon" src="https://i.imgur.com/RU7mR4S.png" alt="" />
+                <span class="newSell__off--text">Get upto 45% OFF on Fresh Vegetables</span>
+            </div>
+            <div class="newSell__review">
+                <span class="newSell__review--rate">
+                    <span class="newSell__review--text">9.5</span>
                 </span>
-                <span class="newSell__pop" >Popular Choice</span>
-            </button>
-        </div>
-        <div class="newSell__off">
-            <img class="newSell__off--icon" src="https://i.imgur.com/RU7mR4S.png" alt="" />
-            <span class="newSell__off--text">Get upto 45% OFF on Fresh Vegetables</span>
-        </div>
-        <div class="newSell__review">
-            <span class="newSell__review--rate">
-                <span class="newSell__review--text">9.5</span>
-            </span>
-            <span class="newSell__review--count" ><strong class="newSell__review--bold" >Excellent </strong>(3020 reviews)</span>
+                <span class="newSell__review--count" ><strong class="newSell__review--bold" >Excellent </strong>(3020 reviews)</span>
 
+            </div>
         </div>
-    </div>
-    <div class="newSell__mid">
-        <div >
-            <span >Availability:</span>
-            <span >
-                56&nbsp;item(s)
-            </span>
+        <div class="newSell__mid">
+            <div >
+                <span >Availability:</span>
+                <span >
+                    56&nbsp;item(s)
+                </span>
+            </div>
         </div>
-    </div>
+       
+    
+    
+    
     <div class="newSell__right">
         <div class="newSell__right--top">
             <p class="newSell__fsai">FSAI: <span>546546</span></p>
@@ -117,7 +126,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 </div>
             </div>
             <div class="newSell__action">
-                <span class="newSell__price">$180</span>
+                <a href="#" class="newSell__price">$180</a>
                 <div>
                     <button class="newSell__buynow">
                         <span class="newSell__buynow--icon">icon</span><span>Buy now</span>
@@ -146,7 +155,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     
                         
                         
-                    </a>
+                    
                 </li>
                 <li>
                     <span class="orders-state-transition-indicator"></span>
@@ -415,68 +424,6 @@ if (!empty($_capture_buffer)) {
 <?php echo $_smarty_tpl->getSubTemplate ("common/mainbox.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('title'=>$_smarty_tpl->tpl_vars['page_title']->value,'sidebar'=>Smarty::$_smarty_vars['capture']['sidebar'],'content'=>Smarty::$_smarty_vars['capture']['mainbox'],'buttons'=>Smarty::$_smarty_vars['capture']['buttons'],'adv_buttons'=>Smarty::$_smarty_vars['capture']['adv_buttons'],'content_id'=>"manage_orders",'select_storefront'=>true,'storefront_switcher_param_name'=>"storefront_id",'selected_storefront_id'=>$_smarty_tpl->tpl_vars['selected_storefront_id']->value), 0);?>
 
 
-<?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-<?php echo '<script'; ?>
- src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"><?php echo '</script'; ?>
-><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
-
-<?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
-<?php echo '<script'; ?>
->
-    Vue.component('profile-progress', { 
-    props: ['percent', 'radius'],
-    replace: true,
-    computed: {
-        // If more than 50% filled switch arc drawing mode from less than 180 deg to more than 180 deg
-        largeArc: function () {
-        return this.percent < 50 ? 0 : 1;
-        },
-        // Where to put x coordinate of center of circle
-        x: function () {
-        return 100;
-        },
-        // Where to put y coordinate of centre of circle
-        y: function () {
-        return 100 - this.radius;
-        },
-        // Calculate X coordinate of end of arc (+ 100 to move it to middle of image)
-        // add some rounding error to make arc not disappear at 100%
-        endX: function () {
-        return -Math.sin(this.radians) * this.radius + 100 - 0.0001;
-        },
-        // Calculate Y coordinate of end of arc (+ 100 to move it to middle of image)
-        endY: function () {
-        return Math.cos(this.radians) * this.radius + 100;
-        },
-        // Calculate length of arc in radians
-        radians: function () {
-        var degrees = (this.percent/100)*360
-        var value = degrees - 180; // Turn the circle 180 degrees counter clockwise
-
-        return (value*Math.PI)/180;
-        },
-        // If it reaches full circle we need to complete the circle, this ties into the rounding error in X coordinate above
-        z: function () {
-        return this.percent == 100 ? 'z' : '';
-        },
-        dBg: function () {
-        return "M "+this.x+" "+this.y+" A "+this.radius+" "+this.radius+" 0 1 1 "+(this.x-0.0001)+" "+this.y+" z";
-        },
-        d: function () {
-        return "M "+this.x+" "+this.y+" A "+this.radius+" "+this.radius+" 0 "+this.largeArc+" 1 "+this.endX+" "+this.endY+" "+this.z;
-        }
-    }
-    });
-
-    new Vue({
-    el: '#circle1'
-    });
-
-
-
-<?php echo '</script'; ?>
-><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
 
 
 <?php $_smarty_tpl->smarty->_tag_stack[] = array('inline_script', array()); $_block_repeat=true; echo smarty_block_inline_script(array(), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
@@ -865,7 +812,7 @@ if (!empty($_capture_buffer)) {
     function getCurentDays() {
         
         var datetime = new Date().toLocaleString();
-        console.log("datetime: ", datetime)
+        //console.log("datetime: ", datetime)
         return datetime;
     }
     getCurentDays()
@@ -874,15 +821,15 @@ if (!empty($_capture_buffer)) {
        
 
         let quantity = document.querySelectorAll(`input[name="quantity"]`);
-        console.log("quantity: ", quantity.length)
-        console.log("price: ", price)
+        //console.log("quantity: ", quantity.length)
+        //console.log("price: ", price)
         let sumTotal = 0;
         for(let i = 0; i <= quantity.length - 1; i++) {
             console.log("value: ", quantity[i].value , "price: ", price)
             let sums = quantity[i].value * price;
-            console.log("sums: ", sums)
+            //console.log("sums: ", sums)
             sumTotal += sums;
-            console.log("sumTotal: ", sumTotal)
+            //console.log("sumTotal: ", sumTotal)
         }
 
         
@@ -897,6 +844,8 @@ if (!empty($_capture_buffer)) {
         containerInput.innerHTML = total;
     }
 
+
+    // get data modal
     async function getModals(ids) {
         
         document.querySelector(".step1").style.display="block";
@@ -904,19 +853,31 @@ if (!empty($_capture_buffer)) {
         document.querySelector(".step3").style.display="none";
 
         let totalForm = await getTotalForm();
-        console.log("totalForm: ----- ", totalForm);
+        //console.log("totalForm: ----- ", totalForm);
         
         let details = await getDataProduct(ids);
-        console.log("details: ----- ", details);
+        //console.log("details: ----- ", details);
 
         let dataModal = '';
         let count = 1;
+        
+        let form = `
+            ${totalForm}
+        `
+        let containerForm = document.querySelector('.formHere');
+        containerForm.innerHTML = form;
+
+        
+      
         for(let a in details.products ) {
-            console.log("a: ", a, "det: ", details.products[a].product)
+            //console.log("a: ", a, "det: ", details.products[a].product)
+            console.log("key___product: ", details.products[a].amount )
             let pName = details.products[a];
             totalProducts = Object.keys(details.products).length;
-            console.log('total product:', Object.keys(details.products).length)
-            console.log("z: ", pName)
+            //console.log('total product:', Object.keys(details.products).length)
+            //console.log("z: ", pName)
+
+          
             let htmlItem0 = `
             
                 <div class="order-modal__conme">
@@ -932,14 +893,32 @@ if (!empty($_capture_buffer)) {
                         <div class="order-modal__details--right">
                             <p class="order-modal__amount">${pName.price}</p>
                         </div>
-                        <input class="order-modal__quantity quantity" onchange="sum(${details.order_id})"   name="quantity" value="${pName.amount}" type="number" />
+
+                        
+                        
+                        <input class="order-modal__quantity" id="${pName.item_id}" onchange="changeAmount(${details.order_id},this.value)"  name="[${pName.item_id}][amount]"  value="${pName.amount}" type="number" />
                     </div>
                     
                 </div>
  
             `
+
             dataModal += htmlItem0;
+
+
+            //let inputUpdate = document.getElementsByName(`cart_products[${pName.item_id}][amount]`)[0];
+           // let inputUpdate = document.getElementsByName(`cart_products[${pName.item_id}][amount]`)[0];
+        
+            
+            //console.log("updateInput:", inputUpdate)
+
+
         }
+       
+        //let updateInput = document.getElementsByName ('cart_products[450215437][amount]')[0];
+        
+
+        
         
         let total = `
             <div class="order-modal__grand-total">
@@ -948,17 +927,33 @@ if (!empty($_capture_buffer)) {
             </div>  
         `
 
-        let form = `
-            ${totalForm}
-        `
 
         let containerModal = document.querySelector('.order-modal__conme');
         containerModal.innerHTML = dataModal;
         let containerInput = document.querySelector('.order-modal__input');
         containerInput.innerHTML = total;
-        let containerForm = document.querySelector('.formHere');
-        containerForm.innerHTML = form;
+        
+        
+       
     }
+
+    async function changeAmount(ids, val) {
+         let details = await getDataProduct(ids);
+        for(let a in details.products ) {
+            let pName = details.products[a];
+            
+            let inputUpdate = document.getElementsByName(`cart_products[${pName.item_id}][amount]`)[0];
+            let idUpdate = document.getElementsByName(`[${pName.item_id}][amount]`)[0];
+            //idUpdate.value = val;
+            inputUpdate.value = idUpdate.value;
+            
+            console.log("updateInput:", inputUpdate)
+            //console.log("idUpdate:", idUpdate)
+            //console.log("update:", inputUpdate.value = idUpdate.value)
+        }
+    }
+
+
 
     // new
     async function renderDetails(ids) {

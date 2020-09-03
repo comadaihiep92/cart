@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-08-26 12:13:31
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-01 17:39:11
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\totals_form.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:16005051345f4627bb828dc4-01742331%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '3d78e701696e33e78baf30c0d135089c4a7aeae5' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\totals_form.tpl',
-      1 => 1598358885,
+      1 => 1598625051,
       2 => 'tygh',
     ),
   ),
@@ -15,6 +15,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'function' => 
   array (
   ),
+  'version' => 'Smarty-3.1.21',
+  'unifunc' => 'content_5f4627bb896601_56142275',
   'variables' => 
   array (
     'cart_products' => 0,
@@ -23,8 +25,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'order_id' => 0,
   ),
   'has_nocache_code' => false,
-  'version' => 'Smarty-3.1.21',
-  'unifunc' => 'content_5f4627bb896601_56142275',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5f4627bb896601_56142275')) {function content_5f4627bb896601_56142275($_smarty_tpl) {?><?php if (!is_callable('smarty_block_hook')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\block.hook.php';
 ?><form action="<?php echo htmlspecialchars(fn_url(''), ENT_QUOTES, 'UTF-8');?>
@@ -49,5 +49,5 @@ $_smarty_tpl->tpl_vars["cp"]->_loop = true;
 <?php } ?>
 <input type="hidden"  name="order_id" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['order_id']->value, ENT_QUOTES, 'UTF-8');?>
 "  />
-<button type="submit" name="dispatch[new_orders.place_order.save]" value="Recalculate">Update order</button>
+<button type="submit" name="dispatch[new_orders.update_totals]" value="Recalculate">Update order</button>
 </form><?php }} ?>

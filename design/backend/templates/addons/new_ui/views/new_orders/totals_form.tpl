@@ -6,5 +6,5 @@
 {/hook}
 {/foreach}
 <input type="hidden"  name="order_id" value="{$order_id}"  />
-<button type="submit" name="dispatch[new_orders.place_order.save]" value="Recalculate">Update order</button>
+<button type="submit" name="dispatch[new_orders.update_totals]" value="Recalculate">Update order</button>
 </form>
