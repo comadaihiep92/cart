@@ -279,7 +279,7 @@
     width: 100%;
   }
   .newSell__title {
-    margin-top: 0;
+    margin-top: 0 !important;
   }
   #newSell__off,
   .newSell__off {
@@ -304,6 +304,10 @@
   .newSell__mid {
     padding: 0;
     margin-bottom: 10px;
+  }
+  #newSell__mid,
+  .newSell__mid .product-list-field .ty-mb-m {
+    margin-bottom: 0 !important;
   }
   #newSell__fsai,
   .newSell__fsai {

@@ -171,7 +171,7 @@
 </div>
 
 {* <form action="{""|fn_url}" method="post" target="_self" name="orders_list_form"> *}
-<form action="{""|fn_url}" method="post" target="_self" name="orders_list_form">
+{* <form action="{""|fn_url}" method="post" target="_self" name="orders_list_form"> *}
 
 {* {include file="common/pagination.tpl" save_current_page=true save_current_url=true div_id=$smarty.request.content_id} *}
 
@@ -570,7 +570,7 @@
     {/hook}
 {/capture} *}
 
-</form>
+{* </form> *}
 {/capture}
 
 {* {capture name="buttons"}
@@ -659,6 +659,7 @@
         try {
             let res = await fetch(url);
            // console.log("con me no 2 +++++++: ", res)
+            //return await res.text();
             return await res.text();
 
         }
@@ -1026,7 +1027,7 @@
         document.querySelector(".step3").style.display="none";
 
         let totalForm = await getTotalForm();
-        //console.log("totalForm: ----- ", totalForm);
+        console.log("totalForm: ----- ", totalForm);
         
         let details = await getDataProduct(ids);
         //console.log("details: ----- ", details);
@@ -1034,13 +1035,11 @@
         let dataModal = '';
         let count = 1;
         
-        let form = `
-            {literal}${totalForm}{/literal}
-        `
-        let containerForm = document.querySelector('.formHere');
-        containerForm.innerHTML = form;
+        let form = totalForm
+      
+     
 
-        
+
       
         for(let a in details.products ) {
             //console.log("a: ", a, "det: ", details.products[a].product)
@@ -1052,8 +1051,6 @@
 
           
             let htmlItem0 = `
-            
-                <div class="order-modal__conme">
                     <div class="order-modal__conmeno">
                         <span class="order-modal__index">{literal}${count++}{/literal}</span>
                         <div class="order-modal__details--left">
@@ -1071,43 +1068,100 @@
                         {* name="cart_products{literal}[${pName.item_id}]{/literal}[amount]" *}
                         <input class="order-modal__quantity" id="{literal}${pName.item_id}{/literal}" onchange="changeAmount({literal}${details.order_id}{/literal},this.value)"  name="{literal}[${pName.item_id}]{/literal}[amount]"  value="{literal}${pName.amount}{/literal}" type="number" />
                     </div>
-                    
-                </div>
- 
+                      {* {literal}${totalForm}{/literal} *}
             `
 
             dataModal += htmlItem0;
-
-
-            //let inputUpdate = document.getElementsByName(`cart_products{literal}[${pName.item_id}]{/literal}[amount]`)[0];
-           // let inputUpdate = document.getElementsByName(`cart_products{literal}[${pName.item_id}]{/literal}[amount]`)[0];
-        
-            
-            //console.log("updateInput:", inputUpdate)
-
+          
 
         }
        
-        //let updateInput = document.getElementsByName ('cart_products[450215437][amount]')[0];
-        
-
-        
+      
         
         let total = `
             <div class="order-modal__grand-total">
                 <p class="order-modal__grand">Grand total</p>
-                <p class="order-modal__amount order-modal__amount--big">{literal}${MONEY}{/literal}{literal}${details.total}{/literal}</p>
+                <p class="order-modal__amount order-modal__amount--big" id="total">{literal}${MONEY}{/literal}{literal}${details.total}{/literal}</p>
             </div>  
+
+            <div id="result" > </div>
+            <input type="hidden" name="result_ids" value="my_id" />
+          
         `
 
 
         let containerModal = document.querySelector('.order-modal__conme');
         containerModal.innerHTML = dataModal;
+       
         let containerInput = document.querySelector('.order-modal__input');
         containerInput.innerHTML = total;
+        let containerForm = document.querySelector('.formHere');
+        containerForm.innerHTML = form;
         
         
-       
+        /*let btn2 = document.querySelector('.formHere button').classList.add('cm-ajax');
+        console.log("btn: ", btn2)
+
+        $(function() {
+            $('form').submit(function() {
+                console.log('form submit', $('form').serializeObject())
+                $('#result').text(JSON.stringify($('form').serializeObject()));
+                return false;
+            });
+        });*/
+        
+       //let btn = document.querySelector('.form-table').classList.add('cm-ajax');
+      // let btn = $(".form-table").addClass('cm-ajax-full-render cm-ajax')
+       //let btn2 = $(".form-table button").addClass('cm-ajax')
+      // console.log("btn: ", btn)
+/*console.log($(".formHere  button"))
+        $(".formHere form button").click(function(e){    
+            e.preventDefault();
+                $.ajax({    
+                    type: "POST",
+                    url: "http://localhost:8080/cart/vendor.php",
+                    data: $(".formHere form").serialize(),
+                    cache: false,
+                    success: function(response)
+                    {    if(response =="done")
+                        {    alert("Form submitted successfully!", response);    }
+                        else
+                        {    alert("Form submission failed!");    }
+                    },
+                    error:function(response){    alert(response);    }
+                });
+        })*/
+        $(".formHere form button").click(function(e){    
+           e.preventDefault();
+            var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
+
+            $.ajax({ 
+                type: "POST",
+                url: endpoint,
+                data: $('.formHere form').serializeArray(),
+                success: function (response) {
+                    console.log('success post', JSON.parse(response));
+                    let newTotal = JSON.parse(response)
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                        //$('#result').text($('.form-table').serializeObject());
+                    // return false;
+                    $('#total').text(`₹{literal}${newTotal.total}{/literal}.00`)
+                }
+            });
+        })
+
+       /* $(function() {
+            //let sb =document.querySelector('.form-table').classList.add('cmdne')
+            $('.formHere form').submit(function(e) {
+                e.preventDefault();
+                console.log('.form-table:', $('.formHere form'))
+                console.log('form submit', $('.formHere form').serializeObject())
+                $('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                //$('#result').text($('.form-table').serializeObject());
+                return false;
+            });
+        });*/
     }
 
     async function changeAmount(ids, val) {
@@ -1123,6 +1177,7 @@
             console.log("updateInput:", inputUpdate)
             //console.log("idUpdate:", idUpdate)
             //console.log("update:", inputUpdate.value = idUpdate.value)
+            console.log("button: ")
         }
     }
 

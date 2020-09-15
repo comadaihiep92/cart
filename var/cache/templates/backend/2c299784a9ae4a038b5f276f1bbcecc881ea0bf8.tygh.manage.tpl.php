@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-09-03 20:34:36
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-15 19:07:17
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1599154462,
+      1 => 1600186036,
       2 => 'tygh',
     ),
   ),
@@ -188,8 +188,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 </div>
 
 
-<form action="<?php echo htmlspecialchars(fn_url(''), ENT_QUOTES, 'UTF-8');?>
-" method="post" target="_self" name="orders_list_form">
+
 
 
 
@@ -411,7 +410,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 
 
-</form>
+
 <?php list($_capture_buffer, $_capture_assign, $_capture_append) = array_pop($_smarty_tpl->_capture_stack[0]);
 if (!empty($_capture_buffer)) {
  if (isset($_capture_assign)) $_smarty_tpl->assign($_capture_assign, ob_get_contents());
@@ -486,6 +485,7 @@ if (!empty($_capture_buffer)) {
         try {
             let res = await fetch(url);
            // console.log("con me no 2 +++++++: ", res)
+            //return await res.text();
             return await res.text();
 
         }
@@ -853,7 +853,7 @@ if (!empty($_capture_buffer)) {
         document.querySelector(".step3").style.display="none";
 
         let totalForm = await getTotalForm();
-        //console.log("totalForm: ----- ", totalForm);
+        console.log("totalForm: ----- ", totalForm);
         
         let details = await getDataProduct(ids);
         //console.log("details: ----- ", details);
@@ -861,13 +861,11 @@ if (!empty($_capture_buffer)) {
         let dataModal = '';
         let count = 1;
         
-        let form = `
-            ${totalForm}
-        `
-        let containerForm = document.querySelector('.formHere');
-        containerForm.innerHTML = form;
+        let form = totalForm
+      
+     
 
-        
+
       
         for(let a in details.products ) {
             //console.log("a: ", a, "det: ", details.products[a].product)
@@ -879,8 +877,6 @@ if (!empty($_capture_buffer)) {
 
           
             let htmlItem0 = `
-            
-                <div class="order-modal__conme">
                     <div class="order-modal__conmeno">
                         <span class="order-modal__index">${count++}</span>
                         <div class="order-modal__details--left">
@@ -898,43 +894,100 @@ if (!empty($_capture_buffer)) {
                         
                         <input class="order-modal__quantity" id="${pName.item_id}" onchange="changeAmount(${details.order_id},this.value)"  name="[${pName.item_id}][amount]"  value="${pName.amount}" type="number" />
                     </div>
-                    
-                </div>
- 
+                      
             `
 
             dataModal += htmlItem0;
-
-
-            //let inputUpdate = document.getElementsByName(`cart_products[${pName.item_id}][amount]`)[0];
-           // let inputUpdate = document.getElementsByName(`cart_products[${pName.item_id}][amount]`)[0];
-        
-            
-            //console.log("updateInput:", inputUpdate)
-
+          
 
         }
        
-        //let updateInput = document.getElementsByName ('cart_products[450215437][amount]')[0];
-        
-
-        
+      
         
         let total = `
             <div class="order-modal__grand-total">
                 <p class="order-modal__grand">Grand total</p>
-                <p class="order-modal__amount order-modal__amount--big">${MONEY}${details.total}</p>
+                <p class="order-modal__amount order-modal__amount--big" id="total">${MONEY}${details.total}</p>
             </div>  
+
+            <div id="result" > </div>
+            <input type="hidden" name="result_ids" value="my_id" />
+          
         `
 
 
         let containerModal = document.querySelector('.order-modal__conme');
         containerModal.innerHTML = dataModal;
+       
         let containerInput = document.querySelector('.order-modal__input');
         containerInput.innerHTML = total;
+        let containerForm = document.querySelector('.formHere');
+        containerForm.innerHTML = form;
         
         
-       
+        /*let btn2 = document.querySelector('.formHere button').classList.add('cm-ajax');
+        console.log("btn: ", btn2)
+
+        $(function() {
+            $('form').submit(function() {
+                console.log('form submit', $('form').serializeObject())
+                $('#result').text(JSON.stringify($('form').serializeObject()));
+                return false;
+            });
+        });*/
+        
+       //let btn = document.querySelector('.form-table').classList.add('cm-ajax');
+      // let btn = $(".form-table").addClass('cm-ajax-full-render cm-ajax')
+       //let btn2 = $(".form-table button").addClass('cm-ajax')
+      // console.log("btn: ", btn)
+/*console.log($(".formHere  button"))
+        $(".formHere form button").click(function(e){    
+            e.preventDefault();
+                $.ajax({    
+                    type: "POST",
+                    url: "http://localhost:8080/cart/vendor.php",
+                    data: $(".formHere form").serialize(),
+                    cache: false,
+                    success: function(response)
+                    {    if(response =="done")
+                        {    alert("Form submitted successfully!", response);    }
+                        else
+                        {    alert("Form submission failed!");    }
+                    },
+                    error:function(response){    alert(response);    }
+                });
+        })*/
+        $(".formHere form button").click(function(e){    
+           e.preventDefault();
+    var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
+
+    $.ajax({ 
+        type: "POST",
+        url: endpoint,
+        data: $('.formHere form').serializeArray(),
+        success: function (response) {
+            console.log('success post', JSON.parse(response));
+            let newTotal = JSON.parse(response)
+            //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+            //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                //$('#result').text($('.form-table').serializeObject());
+               // return false;
+               $('#total').text(`₹${newTotal.total}.00`)
+        }
+    });
+})
+
+       /* $(function() {
+            //let sb =document.querySelector('.form-table').classList.add('cmdne')
+            $('.formHere form').submit(function(e) {
+                e.preventDefault();
+                console.log('.form-table:', $('.formHere form'))
+                console.log('form submit', $('.formHere form').serializeObject())
+                $('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                //$('#result').text($('.form-table').serializeObject());
+                return false;
+            });
+        });*/
     }
 
     async function changeAmount(ids, val) {
@@ -950,6 +1003,7 @@ if (!empty($_capture_buffer)) {
             console.log("updateInput:", inputUpdate)
             //console.log("idUpdate:", idUpdate)
             //console.log("update:", inputUpdate.value = idUpdate.value)
+            console.log("button: ")
         }
     }
 

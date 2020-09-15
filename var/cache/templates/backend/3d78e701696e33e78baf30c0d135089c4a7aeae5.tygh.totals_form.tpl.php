@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-09-01 17:39:11
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-15 16:30:47
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\totals_form.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:16005051345f4627bb828dc4-01742331%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '3d78e701696e33e78baf30c0d135089c4a7aeae5' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\totals_form.tpl',
-      1 => 1598625051,
+      1 => 1600168854,
       2 => 'tygh',
     ),
   ),
