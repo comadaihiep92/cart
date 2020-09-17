@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-09-15 19:07:17
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-17 03:50:51
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1600186036,
+      1 => 1600303849,
       2 => 'tygh',
     ),
   ),
@@ -334,38 +334,23 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             <div class="order-modal__list order-modal__markout">
                 <p class="order-modal__label">Enter Quantity</p>
                 <div class="order-modal__box"> 
-                    <div class="order-modal__conme">
-                        <div class="order-modal__conmeno">
-                            <span class="order-modal__index">1</span>
-                            <div class="order-modal__details--left">
-                                <img src="https://i.imgur.com/76y9dFM.png" />
-                                <div class="order-modal__dish">
-                                    <p class="order-modal__title">Chicken Biryani</p>
-                                    <p class="order-modal__type">Biryani</p>
-                                </div>
-                            </div>
-                            <div class="order-modal__details--right">
-                                <p class="order-modal__amount">$127</p>
-                            </div>
-                            <input class="order-modal__quantity order-modal__quantity--noedit" value="1" type="number" />
-                        </div>
+                    <div class="order-modal__conme2">
+                        
                         
                     </div>
                     
-                    <div class="order-modal__input">
-                        <div class="order-modal__grand-total">
-                            <p class="order-modal__grand">Grand total</p>
-                            <p class="order-modal__amount order-modal__amount--big">$127</p>
-                        </div>  
+                    <div class="order-modal__input2">
+                        
                     </div>
-                    
+                    <div class="formHere2"></div>
                 </div>
+                
             </div>
         </div>
       </div>
       <div class="modal-footer modal-showStork__footer">
         <div class="order-modal__buttons">
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal" onclick="backModal()">Back</button>
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-toggle="modal" onclick="backModal()">Back</button>
             <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm" data-toggle="modal" data-target="#confirm" onclick="confirmModal()">Confirm</button>
         </div>
       </div>
@@ -874,8 +859,22 @@ if (!empty($_capture_buffer)) {
             totalProducts = Object.keys(details.products).length;
             //console.log('total product:', Object.keys(details.products).length)
             //console.log("z: ", pName)
+            let option = ''
+            for(let i = 1; i <= details.products[a].amount; i++) {
+                console.log(i)
+                if(i == details.products[a].amount) {
+                    console.log('adbbff')
+                    $("select option[value='details.products[a].amount']").attr("selected","selected");
+                }
 
-          
+                option +=`
+
+                    
+                    <option class="optionA" value="${i}">${i}</option>
+                `
+            }
+
+          //console.log(option)
             let htmlItem0 = `
                     <div class="order-modal__conmeno">
                         <span class="order-modal__index">${count++}</span>
@@ -892,9 +891,16 @@ if (!empty($_capture_buffer)) {
 
                         
                         
-                        <input class="order-modal__quantity" id="${pName.item_id}" onchange="changeAmount(${details.order_id},this.value)"  name="[${pName.item_id}][amount]"  value="${pName.amount}" type="number" />
+                        
+                        <select class="order-modal__quantity" id="${pName.item_id}" onchange="changeAmount(${details.order_id},this.value)"  name="[${pName.item_id}][amount]"  value="${pName.amount}">
+                            
+                               ${option}
+                            
+                            
+                            
+                        </select>
+                        
                     </div>
-                      
             `
 
             dataModal += htmlItem0;
@@ -923,8 +929,17 @@ if (!empty($_capture_buffer)) {
         containerInput.innerHTML = total;
         let containerForm = document.querySelector('.formHere');
         containerForm.innerHTML = form;
+
+        let containerModal2 = document.querySelector('.order-modal__conme2');
+        containerModal2.innerHTML = dataModal;
+       
+        let containerInput2 = document.querySelector('.order-modal__input2');
+        containerInput2.innerHTML = total;
+        let containerForm2 = document.querySelector('.formHere2');
+        containerForm2.innerHTML = form;
         
-        
+        $(".formHere button").hide();
+        $(".formHere2 button").hide();
         /*let btn2 = document.querySelector('.formHere button').classList.add('cm-ajax');
         console.log("btn: ", btn2)
 
@@ -957,37 +972,46 @@ if (!empty($_capture_buffer)) {
                     error:function(response){    alert(response);    }
                 });
         })*/
-        $(".formHere form button").click(function(e){    
+       /* $(".formHere form button").click(function(e){    
            e.preventDefault();
-    var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
+            var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
 
-    $.ajax({ 
-        type: "POST",
-        url: endpoint,
-        data: $('.formHere form').serializeArray(),
-        success: function (response) {
-            console.log('success post', JSON.parse(response));
-            let newTotal = JSON.parse(response)
-            //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
-            //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
-                //$('#result').text($('.form-table').serializeObject());
-               // return false;
-               $('#total').text(`₹${newTotal.total}.00`)
-        }
-    });
-})
-
-       /* $(function() {
-            //let sb =document.querySelector('.form-table').classList.add('cmdne')
-            $('.formHere form').submit(function(e) {
-                e.preventDefault();
-                console.log('.form-table:', $('.formHere form'))
-                console.log('form submit', $('.formHere form').serializeObject())
-                $('#total').text(JSON.stringify($('.formHere form').serializeObject()));
-                //$('#result').text($('.form-table').serializeObject());
-                return false;
+            $.ajax({ 
+                type: "POST",
+                url: endpoint,
+                data: $('.formHere form').serializeArray(),
+                success: function (response) {
+                    console.log('success post', JSON.parse(response));
+                    let newTotal = JSON.parse(response)
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                        //$('#result').text($('.form-table').serializeObject());
+                    // return false;
+                    $('#total').text(`₹${newTotal.total}.00`)
+                }
             });
-        });*/
+        })
+        function updateTotals(e){    
+           e.preventDefault();
+            var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
+
+            $.ajax({ 
+                type: "POST",
+                url: endpoint,
+                data: $('.formHere form').serializeArray(),
+                success: function (response) {
+                    console.log('success post', JSON.parse(response));
+                    let newTotal = JSON.parse(response)
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                        //$('#result').text($('.form-table').serializeObject());
+                    // return false;
+                    $('#total').text(`₹${newTotal.total}.00`)
+                }
+            });
+        }
+        */
+
     }
 
     async function changeAmount(ids, val) {
@@ -999,14 +1023,36 @@ if (!empty($_capture_buffer)) {
             let idUpdate = document.getElementsByName(`[${pName.item_id}][amount]`)[0];
             //idUpdate.value = val;
             inputUpdate.value = idUpdate.value;
+
+           
             
             console.log("updateInput:", inputUpdate)
-            //console.log("idUpdate:", idUpdate)
+            console.log("idUpdate:", idUpdate)
             //console.log("update:", inputUpdate.value = idUpdate.value)
             console.log("button: ")
         }
+        
+            updateTotals2();
     }
+function updateTotals2(e){    
+          // e.preventDefault();
+            var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
 
+            $.ajax({ 
+                type: "POST",
+                url: endpoint,
+                data: $('.formHere form').serializeArray(),
+                success: function (response) {
+                    console.log('success post', JSON.parse(response));
+                    let newTotal = JSON.parse(response)
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                        //$('#result').text($('.form-table').serializeObject());
+                    // return false;
+                    $('#total').text(`₹${newTotal.total}.00`)
+                }
+            });
+        }
 
 
     // new

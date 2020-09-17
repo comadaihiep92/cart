@@ -451,6 +451,33 @@
             <div class="order-modal__list order-modal__markout">
                 <p class="order-modal__label">Enter Quantity</p>
                 <div class="order-modal__box"> 
+                    <div class="order-modal__conme2">
+                        {* <div class="order-modal__conmeno">
+                            <span class="order-modal__index">1</span>
+                            <div class="order-modal__details--left">
+                                <img src="https://i.imgur.com/76y9dFM.png" />
+                                <div class="order-modal__dish">
+                                    <p class="order-modal__title">Chicken Biryani</p>
+                                    <p class="order-modal__type">Biryani</p>
+                                </div>
+                            </div>
+                            <div class="order-modal__details--right">
+                                <p class="order-modal__amount">$127</p>
+                            </div>
+                            <input class="order-modal__quantity" id="quantity" name="quantity" value="1" type="number" />
+                        </div> *}
+                        
+                    </div>
+                    
+                    <div class="order-modal__input2">
+                        {* <div class="order-modal__grand-total">
+                            <p class="order-modal__grand">Grand total</p>
+                            <p class="order-modal__amount order-modal__amount--big">$127</p>
+                        </div>   *}
+                    </div>
+                    <div class="formHere2"></div>
+                </div>
+                {* <div class="order-modal__box"> 
                     <div class="order-modal__conme">
                         <div class="order-modal__conmeno">
                             <span class="order-modal__index">1</span>
@@ -476,13 +503,13 @@
                         </div>  
                     </div>
                     
-                </div>
+                </div> *}
             </div>
         </div>
       </div>
       <div class="modal-footer modal-showStork__footer">
         <div class="order-modal__buttons">
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal" onclick="backModal()">Back</button>
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-toggle="modal" onclick="backModal()">Back</button>
             <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm" data-toggle="modal" data-target="#confirm" onclick="confirmModal()">Confirm</button>
         </div>
       </div>
@@ -1048,8 +1075,22 @@
             totalProducts = Object.keys(details.products).length;
             //console.log('total product:', Object.keys(details.products).length)
             //console.log("z: ", pName)
+            let option = ''
+            for(let i = 1; i <= details.products[a].amount; i++) {
+                console.log(i)
+                if(i == details.products[a].amount) {
+                    console.log('adbbff')
+                    $("select option[value='details.products[a].amount']").attr("selected","selected");
+                }
 
-          
+                option +=`
+
+                    
+                    <option class="optionA" value="{literal}${i}{/literal}">{literal}${i}{/literal}</option>
+                `
+            }
+
+          //console.log(option)
             let htmlItem0 = `
                     <div class="order-modal__conmeno">
                         <span class="order-modal__index">{literal}${count++}{/literal}</span>
@@ -1066,9 +1107,19 @@
 
                         {* onchange="sum({literal}${details.order_id}{/literal})" *}
                         {* name="cart_products{literal}[${pName.item_id}]{/literal}[amount]" *}
-                        <input class="order-modal__quantity" id="{literal}${pName.item_id}{/literal}" onchange="changeAmount({literal}${details.order_id}{/literal},this.value)"  name="{literal}[${pName.item_id}]{/literal}[amount]"  value="{literal}${pName.amount}{/literal}" type="number" />
+                        {* <input class="order-modal__quantity" id="{literal}${pName.item_id}{/literal}" onchange="changeAmount({literal}${details.order_id}{/literal},this.value)"  name="{literal}[${pName.item_id}]{/literal}[amount]"  value="{literal}${pName.amount}{/literal}" type="number" /> *}
+                        <select class="order-modal__quantity" id="{literal}${pName.item_id}{/literal}" onchange="changeAmount({literal}${details.order_id}{/literal},this.value)"  name="{literal}[${pName.item_id}]{/literal}[amount]"  value="{literal}${pName.amount}{/literal}">
+                            
+                               {literal}${option}{/literal}
+                            
+                            
+                            {* <option value="0">0</option>
+                             <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="20" selected="selected">20</option>  *}
+                        </select>
+                        
                     </div>
-                      {* {literal}${totalForm}{/literal} *}
             `
 
             dataModal += htmlItem0;
@@ -1097,8 +1148,17 @@
         containerInput.innerHTML = total;
         let containerForm = document.querySelector('.formHere');
         containerForm.innerHTML = form;
+
+        let containerModal2 = document.querySelector('.order-modal__conme2');
+        containerModal2.innerHTML = dataModal;
+       
+        let containerInput2 = document.querySelector('.order-modal__input2');
+        containerInput2.innerHTML = total;
+        let containerForm2 = document.querySelector('.formHere2');
+        containerForm2.innerHTML = form;
         
-        
+        $(".formHere button").hide();
+        $(".formHere2 button").hide();
         /*let btn2 = document.querySelector('.formHere button').classList.add('cm-ajax');
         console.log("btn: ", btn2)
 
@@ -1131,7 +1191,7 @@
                     error:function(response){    alert(response);    }
                 });
         })*/
-        $(".formHere form button").click(function(e){    
+       /* $(".formHere form button").click(function(e){    
            e.preventDefault();
             var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
 
@@ -1150,18 +1210,27 @@
                 }
             });
         })
+        function updateTotals(e){    
+           e.preventDefault();
+            var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
 
-       /* $(function() {
-            //let sb =document.querySelector('.form-table').classList.add('cmdne')
-            $('.formHere form').submit(function(e) {
-                e.preventDefault();
-                console.log('.form-table:', $('.formHere form'))
-                console.log('form submit', $('.formHere form').serializeObject())
-                $('#total').text(JSON.stringify($('.formHere form').serializeObject()));
-                //$('#result').text($('.form-table').serializeObject());
-                return false;
+            $.ajax({ 
+                type: "POST",
+                url: endpoint,
+                data: $('.formHere form').serializeArray(),
+                success: function (response) {
+                    console.log('success post', JSON.parse(response));
+                    let newTotal = JSON.parse(response)
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                        //$('#result').text($('.form-table').serializeObject());
+                    // return false;
+                    $('#total').text(`₹{literal}${newTotal.total}{/literal}.00`)
+                }
             });
-        });*/
+        }
+        */
+
     }
 
     async function changeAmount(ids, val) {
@@ -1173,14 +1242,36 @@
             let idUpdate = document.getElementsByName(`{literal}[${pName.item_id}]{/literal}[amount]`)[0];
             //idUpdate.value = val;
             inputUpdate.value = idUpdate.value;
+
+           
             
             console.log("updateInput:", inputUpdate)
-            //console.log("idUpdate:", idUpdate)
+            console.log("idUpdate:", idUpdate)
             //console.log("update:", inputUpdate.value = idUpdate.value)
             console.log("button: ")
         }
+        
+            updateTotals2();
     }
+function updateTotals2(e){    
+          // e.preventDefault();
+            var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
 
+            $.ajax({ 
+                type: "POST",
+                url: endpoint,
+                data: $('.formHere form').serializeArray(),
+                success: function (response) {
+                    console.log('success post', JSON.parse(response));
+                    let newTotal = JSON.parse(response)
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                        //$('#result').text($('.form-table').serializeObject());
+                    // return false;
+                    $('#total').text(`₹{literal}${newTotal.total}{/literal}.00`)
+                }
+            });
+        }
 
 
     // new
