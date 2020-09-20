@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-09-20 04:44:03
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-20 10:34:53
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1600566240,
+      1 => 1600587289,
       2 => 'tygh',
     ),
   ),
@@ -300,6 +300,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     
     <div class="modal-content modal-showStork__content modal-showStork__content--active step1">
       <div class="modal-body">
+      <div hidden id="spinner2"></div>
         <div class="order-modal modal-showStork__margin">
             <div class="order-modal__top title1">Enter your desired quantily and click continue</div>
             <div class="order-modal__top title2">Note: Order once confirmed can't be edited again.</div>
@@ -325,8 +326,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
             <button type="button" class="order-modal__buttons--btn order-modal__buttons--continue" data-toggle="modal" data-target="#continue" onclick="continueModal()">Continue</button>
         </div>
         <div class="order-modal__buttons order-modal__buttons2">
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-toggle="modal" onclick="backModal()">Back</button>
-            <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm" data-toggle="modal" data-target="#confirm" onclick="confirmModal()">Confirm</button>
+            
         </div>
       </div>
     </div>
@@ -469,13 +469,31 @@ if (!empty($_capture_buffer)) {
     }
     // fetch total form
 
-    async function getTotalForm() {
+    async function getTotalForm(id) {
+        spinner2.removeAttribute('hidden');
         
-        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.totals_form&order_id=78417`;
+        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.totals_form&order_id=${id}`;
         try {
             let res = await fetch(url);
            // console.log("con me no 2 +++++++: ", res)
             //return await res.text();
+            spinner2.setAttribute('hidden', '');
+            return await res.text();
+
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    async function updateTotalForm(id) {
+        spinner2.removeAttribute('hidden');
+        
+        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.stock_form&order_id=${id}`;
+        try {
+            let res = await fetch(url);
+           // console.log("con me no 2 +++++++: ", res)
+            //return await res.text();
+            spinner2.setAttribute('hidden', '');
             return await res.text();
 
         }
@@ -484,20 +502,6 @@ if (!empty($_capture_buffer)) {
         }
     }
 
-   /* async function getTotalForm() {
-
-        let response = await fetch('http://localhost:8080/cart/vendor.php?dispatch=new_orders.totals_form&order_id=78417');
-
-        console.log(response.status); // 200
-        console.log(response.statusText); // OK
-
-        if (response.status === 200) {
-            let data = await response.text();
-            // handle data
-            console.log('data ne ba con: ', data)
-        }
-    } */
-
     
 
     async function searchId(status) {
@@ -505,10 +509,10 @@ if (!empty($_capture_buffer)) {
 
         let inputSearch = document.querySelector('.searchID').value;
 
-        console.log("inputSearch: ", inputSearch);
+       // console.log("inputSearch: ", inputSearch);
 
         const result = datas.filter(data => data.order_id == inputSearch);
-        console.log("result search: ", result)
+       // console.log("result search: ", result)
         
     }
     
@@ -517,8 +521,8 @@ if (!empty($_capture_buffer)) {
     async function renderCountStatus(status, tab) {
         let datas = await getStatus(status);
 
-        console.log("data: ----- ", datas);
-        console.log("length: ----- ", datas.length);
+     //   console.log("data: ----- ", datas);
+    //    console.log("length: ----- ", datas.length);
 
 
         // count length of status
@@ -569,7 +573,7 @@ if (!empty($_capture_buffer)) {
     function timestampConvert(time) {
         var seconds_now = new Date().getTime() / 1000;
         let received_sec_ago = Math.floor((seconds_now - time))
-        console.log("received_sec_ago: ", received_sec_ago)
+        //console.log("received_sec_ago: ", received_sec_ago)
 
         let minutes = Math.floor((seconds_now - time) / 60 ) ;
         let hours = Math.floor((seconds_now - time) / 60 / 60) ;
@@ -778,11 +782,17 @@ if (!empty($_capture_buffer)) {
         }
     }
 
-   /* setInterval(async function() {
-            let abb = await getStatus();
-            console.log('reset---------: ',abb)
-            renderData();
-        }, 2000); */
+    // update data after 10 sec
+    setInterval(async function() {
+            let abb = await getStatus(NEW_UI_STATUS_PLACED);
+            let arr = Array.from(abb);
+           // if(abb.length) {
+           //    renderLeftSide(NEW_UI_STATUS_PLACED, "order")
+           // }
+         //   console.log('reset---------: ',abb, arr)
+            //renderData();
+            //renderDetails();
+    }, 10000);
 
     async function getDataProduct(id) {
         spinner.removeAttribute('hidden');
@@ -838,12 +848,11 @@ if (!empty($_capture_buffer)) {
     // get data modal
     async function getModals(ids) {
         
-        document.querySelector(".step1").style.display="block";
-        document.querySelector(".step2").style.display="none";
-        document.querySelector(".step3").style.display="none";
+        let idOrder = ids;
 
-        let totalForm = await getTotalForm();
-        console.log("totalForm: ----- ", totalForm);
+
+        let totalForm = await getTotalForm(idOrder);
+      //  console.log("totalForm: ----- ", totalForm);
         
         let details = await getDataProduct(ids);
         //console.log("details: ----- ", details);
@@ -851,15 +860,26 @@ if (!empty($_capture_buffer)) {
         let dataModal = '';
         let count = 1;
         
-        let form = totalForm
-      
-     
+        let form = totalForm;
+        let button = '';
+      document.querySelector(".step3").style.display="none";
+       document.querySelector(".step1").style.display="block";
+      //  document.querySelector(".step2").style.display="none";
+        document.querySelector(".step3").style.display="none";
+
+        document.querySelector(".title1").style.display="block";
+        document.querySelector(".order-modal__buttons1").style.display="flex";
+        document.querySelector(".title2").style.display="none";
+        document.querySelector(".order-modal__buttons2").style.display="none";
+        $(".order-modal__quantity").removeClass('order-modal__quantity--noedit').attr("disabled", false);
+        
+
 
 
       
         for(let a in details.products ) {
             //console.log("a: ", a, "det: ", details.products[a].product)
-            console.log("key___product: ", details.products[a].amount )
+           // console.log("key___product: ", details.products[a].amount )
             let pName = details.products[a];
             totalProducts = Object.keys(details.products).length;
             //console.log('total product:', Object.keys(details.products).length)
@@ -899,7 +919,7 @@ if (!empty($_capture_buffer)) {
                         
                         
                         
-                        <select class="order-modal__quantity" id="${pName.item_id}" onchange="changeAmount(${details.order_id},this.value)"  name="[${pName.item_id}][amount]"  value="${pName.amount}">
+                        <select class="order-modal__quantity " id="${pName.item_id}" onchange="changeAmount(${details.order_id},this.value)"  name="[${pName.item_id}][amount]"  value="${pName.amount}">
                             
                                ${option}
                             
@@ -912,7 +932,12 @@ if (!empty($_capture_buffer)) {
 
             dataModal += htmlItem0;
           
-
+            button = `
+            
+                <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-toggle="modal" onclick="backModal()">Back</button>
+                <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm" data-toggle="modal" data-target="#confirm" onclick="confirmModal(${details.order_id})">Confirm</button>
+           
+            `
         }
        
       
@@ -944,86 +969,18 @@ if (!empty($_capture_buffer)) {
         containerInput2.innerHTML = total;
         let containerForm2 = document.querySelector('.formHere2');
         containerForm2.innerHTML = form;
+        let containerButton= document.querySelector('.order-modal__buttons2');
+        containerButton.innerHTML = button;
 
         
         $(".formHere button").hide();
         $(".formHere2 button").hide();
-        /*let btn2 = document.querySelector('.formHere button').classList.add('cm-ajax');
-        console.log("btn: ", btn2)
-
-        $(function() {
-            $('form').submit(function() {
-                console.log('form submit', $('form').serializeObject())
-                $('#result').text(JSON.stringify($('form').serializeObject()));
-                return false;
-            });
-        });*/
-        
-       //let btn = document.querySelector('.form-table').classList.add('cm-ajax');
-      // let btn = $(".form-table").addClass('cm-ajax-full-render cm-ajax')
-       //let btn2 = $(".form-table button").addClass('cm-ajax')
-      // console.log("btn: ", btn)
-/*console.log($(".formHere  button"))
-        $(".formHere form button").click(function(e){    
-            e.preventDefault();
-                $.ajax({    
-                    type: "POST",
-                    url: "http://localhost:8080/cart/vendor.php",
-                    data: $(".formHere form").serialize(),
-                    cache: false,
-                    success: function(response)
-                    {    if(response =="done")
-                        {    alert("Form submitted successfully!", response);    }
-                        else
-                        {    alert("Form submission failed!");    }
-                    },
-                    error:function(response){    alert(response);    }
-                });
-        })*/
-       /* $(".formHere form button").click(function(e){    
-           e.preventDefault();
-            var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
-
-            $.ajax({ 
-                type: "POST",
-                url: endpoint,
-                data: $('.formHere form').serializeArray(),
-                success: function (response) {
-                    console.log('success post', JSON.parse(response));
-                    let newTotal = JSON.parse(response)
-                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
-                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
-                        //$('#result').text($('.form-table').serializeObject());
-                    // return false;
-                    $('#total').text(`₹${newTotal.total}.00`)
-                }
-            });
-        })
-        function updateTotals(e){    
-           e.preventDefault();
-            var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
-
-            $.ajax({ 
-                type: "POST",
-                url: endpoint,
-                data: $('.formHere form').serializeArray(),
-                success: function (response) {
-                    console.log('success post', JSON.parse(response));
-                    let newTotal = JSON.parse(response)
-                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
-                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
-                        //$('#result').text($('.form-table').serializeObject());
-                    // return false;
-                    $('#total').text(`₹${newTotal.total}.00`)
-                }
-            });
-        }
-        */
+     
 
     }
-
+    // change amount
     async function changeAmount(ids, val) {
-         let details = await getDataProduct(ids);
+        let details = await getDataProduct(ids);
         for(let a in details.products ) {
             let pName = details.products[a];
             
@@ -1034,39 +991,64 @@ if (!empty($_capture_buffer)) {
 
            
             
-            console.log("updateInput:", inputUpdate)
-            console.log("idUpdate:", idUpdate)
+          //  console.log("updateInput:", inputUpdate)
+          //  console.log("idUpdate:", idUpdate)
             //console.log("update:", inputUpdate.value = idUpdate.value)
-            console.log("button: ")
+          //  console.log("button: ")
         }
         
             updateTotals2();
     }
-function updateTotals2(e){    
-          // e.preventDefault();
-            var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
 
-            $.ajax({ 
-                type: "POST",
-                url: endpoint,
-                data: $('.formHere form').serializeArray(),
-                success: function (response) {
-                    console.log('success post', JSON.parse(response));
-                    let newTotal = JSON.parse(response)
-                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
-                    //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
-                        //$('#result').text($('.form-table').serializeObject());
-                    // return false;
-                    $('#total').text(`₹${newTotal.total}.00`)
-                }
-            });
-        }
+    // update total
+    function updateTotals2(e){    
+        // e.preventDefault();
+        var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
+
+        $.ajax({ 
+            type: "POST",
+            url: endpoint,
+            data: $('.formHere form').serializeArray(),
+            success: function (response) {
+               // console.log('success post', JSON.parse(response));
+                let newTotal = JSON.parse(response)
+                //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                    //$('#result').text($('.form-table').serializeObject());
+                // return false;
+                $('#total').text(`₹${newTotal.total}.00`)
+            }
+        });
+    }
+    // save new amount and total
+    function saveTotals(id){    
+        // e.preventDefault();
+        var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.place_order.save'; 
+
+        $.ajax({ 
+            type: "POST",
+            url: endpoint,
+            data: $('.formHere form').serializeArray(),
+            success: function (response) {
+                renderDetails(id);
+              //  console.log('save completed!')
+                //console.log('success post', JSON.parse(response));
+                //let newTotal = JSON.parse(response)
+                //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                //$('#total').text(JSON.stringify($('.formHere form').serializeObject()));
+                    //$('#result').text($('.form-table').serializeObject());
+                // return false;
+                //$('#total').text(`₹${newTotal.total}.00`)
+                //console.log("response save: ", response)
+            }
+        });
+    }
 
 
     // new
     async function renderDetails(ids) {
         let details = await getDataProduct(ids);
-        console.log("details: ----- ", details);
+       // console.log("details: ----- ", details);
 
        /* document.querySelector(`.search-order__box[data-order=order${details.order_id}]`).classList.add('active')
         document.querySelector(`.have-order__mid--rel[data-order=order${details.order_id}]`).classList.add('active')
@@ -1121,7 +1103,7 @@ function updateTotals2(e){
 
         let htmlTaxes = "";
         for(let a in details.taxes ) {
-            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+           // console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
             let tName = details.taxes[a];
            
             let htmlTax = `
@@ -1133,11 +1115,11 @@ function updateTotals2(e){
         let timeArray = details.status_history;
         let timePrint = '';
         for(let a in timeArray) {
-            console.log("time history: ", timeArray[a])
+          //  console.log("time history: ", timeArray[a])
             let index = timeArray[a];
 
             if(index.status === "G") {
-                console.log("GGGGG")
+              //  console.log("GGGGG")
                 timePrint = `
                 ${countTimeHistory(index.timestamp)}</p>
                 `
@@ -1288,17 +1270,17 @@ function updateTotals2(e){
     // packing
     async function renderDetailsPacking(ids) {
         let details = await getDataProduct(ids);
-        console.log("details: ----- ", details);
+        //console.log("details: ----- ", details);
         
 
         let html2 = "";
         let htmlSub = "";
         let stt = 1;
         for(let a in details.products ) {
-            console.log("a: ", a, "det: ", details.products[a].product)
+            //console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
             totalProducts = Object.keys(details.products).length;
-            console.log("z: ", pName)
+           // console.log("z: ", pName)
             let htmlItem0 = `
                             <li class="search-packing__details">
                                 <div class="search-packing__details--left">
@@ -1475,18 +1457,18 @@ function updateTotals2(e){
     // ready
     async function renderDetailsReady(ids) {
         let details = await getDataProduct(ids);
-        console.log("details: ----- ", details);
+        //console.log("details: ----- ", details);
 
         let html2 = "";
         let htmlSub = "";
       
         let stt = 1;
         for(let a in details.products ) {
-            console.log("a: ", a, "det: ", details.products[a].product)
+           // console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
             totalProducts = Object.keys(details.products).length;
-            console.log('total product:', Object.keys(details.products).length)
-            console.log("z: ", pName)
+           // console.log('total product:', Object.keys(details.products).length)
+           // console.log("z: ", pName)
             let htmlItem0 = `
                         <li class="search-ready__details">
                             <div class="search-ready__details--left">
@@ -1506,7 +1488,7 @@ function updateTotals2(e){
         }
         let htmlTaxes = "";
         for(let a in details.taxes ) {
-            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+           // console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
             let tName = details.taxes[a];
            
             let htmlTax = `
@@ -1520,11 +1502,11 @@ function updateTotals2(e){
         let timeArray = details.status_history;
         let timePrint = '';
         for(let a in timeArray) {
-            console.log("time history: ", timeArray[a])
+           // console.log("time history: ", timeArray[a])
             let index = timeArray[a];
 
             if(index.status === "G") {
-                console.log("GGGGG")
+               // console.log("GGGGG")
                 timePrint = `
                 ${countTimeHistory(index.timestamp)}</p>
                 `
@@ -1696,7 +1678,7 @@ function updateTotals2(e){
     function countTimeHistory(time) {
        
         let ts = new Date(time * 1000);
-        console.log("ts: ",ts.toLocaleString());
+        //console.log("ts: ",ts.toLocaleString());
         return ts.toLocaleString();
     }
     
@@ -1705,9 +1687,9 @@ function updateTotals2(e){
     // past
     async function renderDetailsPast(ids) {
         let details = await getDataProduct(ids);
-        console.log("details: ----- ", details);
+        //console.log("details: ----- ", details);
 
-        console.log("time history: ", details.status_history)
+       // console.log("time history: ", details.status_history)
 
         let html2 = "";
         let htmlSub = "";
@@ -1726,31 +1708,31 @@ function updateTotals2(e){
         let timeArray = details.status_history;
 
         for(let a in timeArray) {
-            console.log("time history: ", timeArray[a])
+            //console.log("time history: ", timeArray[a])
             let index = timeArray[a];
 
             if(index.status === "G") {
-                console.log("GGGGG")
+               // console.log("GGGGG")
                 place = `
                 <p class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
                 <p class="search-past__box-time-p">Placed</p>`
             } else if (index.status === "E") {
-                console.log("EEEEE")
+              //  console.log("EEEEE")
                 confirm = `
                 <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
                 <p class="search-past__box-time-p">Confirmed</p>`
             } else if (index.status === "A") {
-                console.log("AAAAAAA")
+                //console.log("AAAAAAA")
                 packed = `
                 <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
                 <p class="search-past__box-time-p">Packed</p>`
             } else if (index.status === "C") {
-                console.log("CCCCCCCCC")
+                //console.log("CCCCCCCCC")
                 delivery = ` 
                 <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
                 <p class="search-past__box-time-p">Delivered</p>`
             } else if (index.status === "I") {
-                console.log("canncel IIIIIII")
+               // console.log("canncel IIIIIII")
                 cancel = ` 
                 <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
                 <p class="search-past__box-time-p">Canceled</p>`
@@ -1861,11 +1843,11 @@ function updateTotals2(e){
         let timeArray2 = details.status_history;
         let timePrint = '';
         for(let a in timeArray2) {
-            console.log("time history: ", timeArray2[a])
+            //console.log("time history: ", timeArray2[a])
             let index = timeArray2[a];
 
             if(index.status === "G") {
-                console.log("GGGGG")
+               // console.log("GGGGG")
                 timePrint = `
                 ${countTimeHistory(index.timestamp)}</p>
                 `
@@ -1991,16 +1973,30 @@ function updateTotals2(e){
 >
 
     function continueModal() {
-        document.querySelector(".step1").style.display="none";
-        document.querySelector(".step2").style.display="block";
-        
+       // document.querySelector(".step1").style.display="none";
+       // document.querySelector(".step2").style.display="block";
+       
+         document.querySelector(".title1").style.display="none";
+        document.querySelector(".order-modal__buttons1").style.display="none";
+         document.querySelector(".title2").style.display="block";
+        document.querySelector(".order-modal__buttons2").style.display="flex";
+        //document.querySelector(".order-modal__quantity").classList.add('order-modal__quantity--noedit');
+       $(".order-modal__quantity").addClass('order-modal__quantity--noedit').attr("disabled", true);
     }
     function backModal() {
-        document.querySelector(".step1").style.display="block";
-        document.querySelector(".step2").style.display="none";
+        //document.querySelector(".step1").style.display="block";
+        //document.querySelector(".step2").style.display="none";
+         document.querySelector(".title1").style.display="block";
+        document.querySelector(".order-modal__buttons1").style.display="flex";
+         document.querySelector(".title2").style.display="none";
+        document.querySelector(".order-modal__buttons2").style.display="none";
+        $(".order-modal__quantity").removeClass('order-modal__quantity--noedit').attr("disabled", false);
     }
 
-    function confirmModal() {
+    function confirmModal(id) {
+        let newId = id;
+        saveTotals(id);
+        document.querySelector(".step1").style.display="none";
         document.querySelector(".step2").style.display="none";
         document.querySelector(".step3").style.display="block";
     }
@@ -2068,6 +2064,8 @@ function updateTotals2(e){
 >
 
     const spinner = document.getElementById("spinner");
+    const spinner2 = document.getElementById("spinner2");
+   // console.log('spinner2: ',spinner2 )
 
     async function getChange(id) {
         spinner.removeAttribute('hidden');
@@ -2137,7 +2135,7 @@ function updateTotals2(e){
 <?php echo '<script'; ?>
 >
     function openReady() {
-        console.log('open ready')
+       // console.log('open ready')
         /*
         document.getElementById("packing").style.display="none";
         document.getElementById("ready").style.display="flex";*/
@@ -2161,7 +2159,7 @@ function updateTotals2(e){
 <?php echo '<script'; ?>
 >
     function openPast() {
-        console.log('open ready')
+        //console.log('open ready')
         document.getElementById("ready").style.display="none";
         document.getElementById("past").style.display="flex";
 
