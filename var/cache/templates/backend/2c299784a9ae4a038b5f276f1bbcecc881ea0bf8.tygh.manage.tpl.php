@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-09-17 03:50:51
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-20 04:44:03
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1600303849,
+      1 => 1600566240,
       2 => 'tygh',
     ),
   ),
@@ -301,7 +301,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     <div class="modal-content modal-showStork__content modal-showStork__content--active step1">
       <div class="modal-body">
         <div class="order-modal modal-showStork__margin">
-            <div class="order-modal__top">Enter your desired quantily and click continue</div>
+            <div class="order-modal__top title1">Enter your desired quantily and click continue</div>
+            <div class="order-modal__top title2">Note: Order once confirmed can't be edited again.</div>
             <div class="order-modal__list order-modal__markout">
                 <p class="order-modal__label">Enter Quantity</p>
                 <div class="order-modal__box"> 
@@ -319,9 +320,13 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         </div>
       </div>
       <div class="modal-footer modal-showStork__footer">
-        <div class="order-modal__buttons">
+        <div class="order-modal__buttons order-modal__buttons1">
             <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal">Cancel</button>
             <button type="button" class="order-modal__buttons--btn order-modal__buttons--continue" data-toggle="modal" data-target="#continue" onclick="continueModal()">Continue</button>
+        </div>
+        <div class="order-modal__buttons order-modal__buttons2">
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-toggle="modal" onclick="backModal()">Back</button>
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm" data-toggle="modal" data-target="#confirm" onclick="confirmModal()">Confirm</button>
         </div>
       </div>
     </div>
@@ -860,18 +865,20 @@ if (!empty($_capture_buffer)) {
             //console.log('total product:', Object.keys(details.products).length)
             //console.log("z: ", pName)
             let option = ''
-            for(let i = 1; i <= details.products[a].amount; i++) {
-                console.log(i)
-                if(i == details.products[a].amount) {
-                    console.log('adbbff')
-                    $("select option[value='details.products[a].amount']").attr("selected","selected");
-                }
-
-                option +=`
-
-                    
+           
+            for(let i = 1; i <= details.products[a].amount ; i++) {
+                option +=`  
                     <option class="optionA" value="${i}">${i}</option>
                 `
+                console.log(i, details.products[a].amount)
+                if(i == details.products[a].amount) {
+                    console.log('bang nhau: ', details.products[a].amount , i )
+                     option +=`  
+                    <option class="optionA" hidden selected value="${i}">${i}</option>
+                `
+                }
+
+              
             }
 
           //console.log(option)
@@ -937,6 +944,7 @@ if (!empty($_capture_buffer)) {
         containerInput2.innerHTML = total;
         let containerForm2 = document.querySelector('.formHere2');
         containerForm2.innerHTML = form;
+
         
         $(".formHere button").hide();
         $(".formHere2 button").hide();

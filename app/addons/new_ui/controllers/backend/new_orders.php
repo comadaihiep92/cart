@@ -8,7 +8,7 @@ use Tygh\Tygh;
 
 if (!defined('BOOTSTRAP') || ACCOUNT_TYPE!='vendor') { die('Access denied'); }
 
-// // --- local version:
+// --- local version:
 // define('NEW_UI_STATUS_PLACED', 'L'); // Placed
 // define('NEW_UI_STATUS_VCONFIRMED', 'M'); // Vendor Confirmed
 // define('NEW_UI_STATUS_PACKED', 'G');
@@ -399,12 +399,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if($mode == 'stock'){
         
         // array structure:
-        //$array['order_id']=115;
-        //$array['products'][1434]=0;
+        $array['order_id']=118;
+        $array['products'][1943]=1;
         
         //die(json_encode($array, JSON_PRETTY_PRINT));
 
-        $array = json_decode(file_get_contents('php://input'), true);
+        //$array = json_decode(file_get_contents('php://input'), true);
         
         // mark out of stock
         $result=fn_new_ui_set_order_stock($array);
@@ -422,12 +422,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if(!in_array($key, $allowed_request)) unset($_REQUEST["{$key}"]);
         }
         
+        if(!isset($_REQUEST['order_id']) || !is_numeric($_REQUEST['order_id'])) die('invalid or empty order id');
+        
         // get currient order info
         $order_info = fn_get_order_info($_REQUEST['order_id'], false, true, true, false);
         fn_check_first_order($order_info);
         if (empty($order_info)) {
                 die('error getting order info');
         }
+        
+        // check order_id
+        $cust_profile_id=db_get_field("SELECT profile_id FROM ?:orders WHERE order_id=?i AND company_id=?i AND status=?s", $_REQUEST['order_id'], fn_get_runtime_company_id(), NEW_UI_STATUS_PLACED);
+        if($cust_profile_id===false) return 'internal error[2]';
+        
         $pre_products_all=$order_info['products'];
         $pre_products=array();
         foreach($pre_products_all as $key=>$value){
@@ -435,6 +442,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $pre_products[$key]['product_id']=$value['product_id'];
                 $pre_products[$key]['amount']=$value['amount'];
             }
+        }
+        
+        $order_to_be_canceled=true;
+        foreach($_REQUEST['cart_products'] as $pr_key=>$pr_value){
+            
+            if(!is_numeric($pr_value['product_id'])) die('product id must be integer');
+            if(!is_numeric($pr_value['amount'])) die('amount must be integer');
+            
+            if($pr_value['amount']>$order_info['products'][$pr_key]['amount']){
+                die('new amount must be less or equal ordered amount');
+            }elseif($pr_value['amount']>0){
+                $order_to_be_canceled=false;    
+            }
+            
         }
         
         //file_put_contents('C:/projects/chfmart/totals.txt', '---CART: '.var_export($_REQUEST, true)."\r\n\r\n", FILE_APPEND);
@@ -458,6 +479,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         $force_notification = fn_get_notification_rules($_REQUEST);
         list($order_id, $action) = fn_place_order_manually($cart, $_REQUEST, $customer_auth, $action, $auth['user_id'], $force_notification);
+        
+        // order_to_be_canceled ?
+        if($order_to_be_canceled){
+            fn_change_order_status($_REQUEST['order_id'], NEW_UI_STATUS_CANCELED, NEW_UI_STATUS_PLACED);
+            die();
+        }
+        
         if ($order_id) {
             // save old order product(s) amount(s)
             foreach($pre_products as $key=>$value){
@@ -466,6 +494,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $fields['product_id']=$value['product_id'];
                 $fields['amount']=$value['amount'];
                 db_query("REPLACE INTO ?:order_vendor_stock ?e", $fields);
+            }
+            
+            // count stock_out_amount
+            $stock_out_amount=0;
+            foreach($_REQUEST['cart_products'] as $pr_key=>$pr_value){
+                $amount_diff=$order_info['products'][$pr_key]['amount']-$pr_value['amount'];
+                $amount_to_charge=$amount_diff*$order_info['products'][$pr_key]['price'];
+                $stock_out_amount+=$amount_to_charge;
+            }
+
+            if($stock_out_amount>0){ // charge vendor % & charge back to customer's wallet
+                // charge vendor %
+                $percent=(float)Registry::get('addons.new_ui.vendor_penalty_percent');
+                $k=$percent*0.01;
+                $amount_to_charge_vendor=$stock_out_amount*$k;
+                fn_new_ui_charge_vendor($amount_to_charge_vendor);
+
+                // charge back to customer's wallet
+                fn_new_ui_chargebak_customer($cust_profile_id, $stock_out_amount);
+
             }
             
             die();
@@ -931,7 +979,207 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         Tygh::$app['view']->assign('order_id', $_REQUEST['order_id']);
         Tygh::$app['view']->display('addons/new_ui/views/new_orders/totals_form.tpl');
         die();
+    }elseif($mode == 'stock'){
+        
+        // array structure:
+        $array['order_id']=118;
+        $array['products'][1943]=3;
+        
+        //die(json_encode($array, JSON_PRETTY_PRINT));
+
+        //$array = json_decode(file_get_contents('php://input'), true);
+        
+        // mark out of stock
+        $result=fn_new_ui_set_order_stock($array);
+    }elseif($mode=="stock_form"){
+        fn_define('ORDER_MANAGEMENT', true); // Defines that the cart is in order management mode now
+
+        Tygh::$app['session']['cart'] = isset(Tygh::$app['session']['cart']) ? Tygh::$app['session']['cart'] : array();
+        $cart = & Tygh::$app['session']['cart'];
+        
+        Tygh::$app['session']['cart'] = isset(Tygh::$app['session']['cart']) ? Tygh::$app['session']['cart'] : array();
+        $cart = & Tygh::$app['session']['cart'];
+
+        Tygh::$app['session']['customer_auth'] = isset(Tygh::$app['session']['customer_auth']) ? Tygh::$app['session']['customer_auth'] : array();
+        $customer_auth = & Tygh::$app['session']['customer_auth'];
+        
+        Tygh::$app['session']['shipping_rates'] = isset(Tygh::$app['session']['shipping_rates']) ? Tygh::$app['session']['shipping_rates'] : array();
+        $shipping_rates = & Tygh::$app['session']['shipping_rates']; 
+        
+        if (empty($customer_auth)) {
+            $customer_auth = fn_fill_auth(array(), array(), false, 'C');
+        }
+        
+        ////
+        
+        fn_clear_cart($cart, true);
+        $customer_auth = fn_fill_auth(array(), array(), false, 'C');
+
+        $cart_status = md5(serialize($cart));
+        fn_form_cart($_REQUEST['order_id'], $cart, $customer_auth, !empty($_REQUEST['copy']));
+
+        fn_store_shipping_rates($_REQUEST['order_id'], $cart, $customer_auth);
+
+        if ($cart_status == md5(serialize($cart))) {
+            // Order info was not found or customer does not have enought permissions
+            return array(CONTROLLER_STATUS_DENIED, '');
+        }
+
+        if (empty($_REQUEST['copy'])) {
+            $cart['order_id'] = $_REQUEST['order_id'];
+        } elseif ($_REQUEST['copy'] !== '1') {
+            return array(CONTROLLER_STATUS_DENIED, '');
+        }
+        
+        //////////////////////////////////////////////////////////
+        
+        //
+        // Prepare order status info
+        //
+        $get_additional_statuses = false;
+        if (!empty($cart['order_id'])) {
+            $order_info = fn_get_order_short_info($cart['order_id']);
+            $cart['order_status'] = $order_info['status'];
+
+            if ($cart['order_status'] == STATUS_INCOMPLETED_ORDER) {
+                $get_additional_statuses = true;
+            }
+
+            if (!empty($order_info['issuer_id'])) {
+                $cart['issuer_data'] = fn_get_user_short_info($order_info['issuer_id']);
+            }
+        }
+        $order_statuses = fn_get_simple_statuses(STATUSES_ORDER, $get_additional_statuses, true);
+        Tygh::$app['view']->assign('order_statuses', $order_statuses);
+
+        //
+        // Prepare customer info
+        //
+        $profile_fields = fn_get_profile_fields('O', $customer_auth);
+
+        $cart['profile_id'] = empty($cart['profile_id']) ? 0 : $cart['profile_id'];
+        Tygh::$app['view']->assign('profile_fields', $profile_fields);
+
+        //Get user profiles
+        $user_profiles = fn_get_user_profiles($customer_auth['user_id']);
+        Tygh::$app['view']->assign('user_profiles', $user_profiles);
+
+        //Get countries and states
+        Tygh::$app['view']->assign('countries', fn_get_simple_countries(true, CART_LANGUAGE));
+        Tygh::$app['view']->assign('states', fn_get_all_states());
+        Tygh::$app['view']->assign('usergroups', fn_get_usergroups(array('type' => 'C', 'status' => array('A', 'H')), DESCR_SL));
+
+        if (!empty($customer_auth['user_id']) && (empty($cart['user_data']) || (!empty($_REQUEST['profile_id']) && $cart['profile_id'] != $_REQUEST['profile_id']))) {
+            $cart['profile_id'] = !empty($_REQUEST['profile_id']) ? $_REQUEST['profile_id'] : 0;
+            $cart['user_data'] = fn_get_user_info($customer_auth['user_id'], true, $cart['profile_id']);
+        }
+
+        if (!empty($cart['user_data'])) {
+            fn_filter_hidden_profile_fields($cart['user_data'], 'O');
+            $cart['ship_to_another'] = fn_check_shipping_billing($cart['user_data'], $profile_fields);
+        }
+
+        //
+        // Get products info
+        // and shipping rates
+        //
+
+        // Clean up saved shipping rates
+        // unset(Tygh::$app['session']['shipping_rates']);
+
+        if (!empty($shipping_rates)) {
+            define('CACHED_SHIPPING_RATES', true);
+        }
+
+        $cart['calculate_shipping'] = true;
+
+        // calculate cart - get products with options, full shipping rates info and promotions
+        list ($cart_products, $product_groups) = fn_calculate_cart_content($cart, $customer_auth);
+        Tygh::$app['view']->assign('product_groups', $product_groups);
+
+        if (fn_allowed_for('MULTIVENDOR') && !empty($cart['order_id'])) {
+            $order_info = fn_get_order_info($cart['order_id']);
+            if (isset($order_info['company_id'])) {
+                Tygh::$app['view']->assign('order_company_id', $order_info['company_id']);
+            }
+        }
+
+        fn_gather_additional_products_data($cart_products, array('get_icon' => true, 'get_detailed' => true, 'get_options' => true, 'get_discounts' => false));
+
+        Tygh::$app['view']->assign('cart_products', $cart_products);
+
+        Tygh::$app['view']->assign('update_options', true);
+
+        //
+        //Get payment methods
+        //
+        $payment_methods = fn_get_payments(array('usergroup_ids' => $customer_auth['usergroup_ids']));
+
+        // Check if payment method has surcharge rates
+        foreach ($payment_methods as $k => $v) {
+            if (!isset($cart['payment_id'])) {
+                $cart['payment_id'] = $v['payment_id'];
+            }
+            $payment_methods[$k]['surcharge_value'] = 0;
+            if (floatval($v['a_surcharge'])) {
+                $payment_methods[$k]['surcharge_value'] += $v['a_surcharge'];
+            }
+            if (floatval($v['p_surcharge'])) {
+                $payment_methods[$k]['surcharge_value'] += fn_format_price($cart['total'] * $v['p_surcharge'] / 100);
+            }
+        }
+
+        fn_update_payment_surcharge($cart, $auth);
+        if (!empty($cart['payment_surcharge'])) {
+            $payment_methods[$cart['payment_id']]['surcharge_value'] = $cart['payment_surcharge'];
+        }
+
+        //Get payment method info
+        if (!empty($cart['payment_id']) && isset($payment_methods[$cart['payment_id']])) {
+            $payment_data = fn_get_payment_method_data($cart['payment_id']);
+            Tygh::$app['view']->assign('payment_method', $payment_data);
+        } elseif (!empty($payment_methods)) {
+            $payment_data = fn_get_payment_method_data(reset($payment_methods)['payment_id']);
+            Tygh::$app['view']->assign('payment_method', $payment_data);
+        }
+
+        Tygh::$app['view']->assign('payment_methods', $payment_methods);
+
+        //
+        // Check if order information is complete
+        //
+        if (fn_cart_is_empty($cart)) {
+            Tygh::$app['view']->assign('is_empty_cart', true);
+        }
+
+        if (empty($cart['user_data']) || !fn_check_profile_fields($cart['user_data'], 'O', $customer_auth)) {
+            Tygh::$app['view']->assign('is_empty_user_data', true);
+        }
+
+        Tygh::$app['view']->assign('is_order_management', true);
+
+        if (!empty($order_info['storefront_id'])) {
+            Tygh::$app['view']->assign('selected_storefront_id', $order_info['storefront_id']);
+        } elseif (!empty($_REQUEST['storefront_id'])) {
+            Tygh::$app['view']->assign('selected_storefront_id', $_REQUEST['storefront_id']);
+        } else {
+            /** @var \Tygh\Storefront\Repository $repository */
+            $repository = Tygh::$app['storefront.repository'];
+
+            Tygh::$app['view']->assign('selected_storefront_id', $repository->findDefault()->storefront_id);
+        }
+        Tygh::$app['view']->assign('cart', $cart);
+
+        if (!Tygh::$app['view']->getTemplateVars('user_data') && !empty($cart['user_data'])) {
+            Tygh::$app['view']->assign('user_data', $cart['user_data']);
+        }
+
+        Tygh::$app['view']->assign('customer_auth', $customer_auth);
+        Tygh::$app['view']->assign('order_id', $_REQUEST['order_id']);
+        Tygh::$app['view']->display('addons/new_ui/views/new_orders/stock_form.tpl');
+        die();
     }
+
 }
 
 //

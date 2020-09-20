@@ -402,7 +402,8 @@
     <div class="modal-content modal-showStork__content modal-showStork__content--active step1">
       <div class="modal-body">
         <div class="order-modal modal-showStork__margin">
-            <div class="order-modal__top">Enter your desired quantily and click continue</div>
+            <div class="order-modal__top title1">Enter your desired quantily and click continue</div>
+            <div class="order-modal__top title2">Note: Order once confirmed can't be edited again.</div>
             <div class="order-modal__list order-modal__markout">
                 <p class="order-modal__label">Enter Quantity</p>
                 <div class="order-modal__box"> 
@@ -436,9 +437,13 @@
         </div>
       </div>
       <div class="modal-footer modal-showStork__footer">
-        <div class="order-modal__buttons">
+        <div class="order-modal__buttons order-modal__buttons1">
             <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-dismiss="modal">Cancel</button>
             <button type="button" class="order-modal__buttons--btn order-modal__buttons--continue" data-toggle="modal" data-target="#continue" onclick="continueModal()">Continue</button>
+        </div>
+        <div class="order-modal__buttons order-modal__buttons2">
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--cancel" data-toggle="modal" onclick="backModal()">Back</button>
+            <button type="button" class="order-modal__buttons--btn order-modal__buttons--confirm" data-toggle="modal" data-target="#confirm" onclick="confirmModal()">Confirm</button>
         </div>
       </div>
     </div>
@@ -1076,18 +1081,20 @@
             //console.log('total product:', Object.keys(details.products).length)
             //console.log("z: ", pName)
             let option = ''
-            for(let i = 1; i <= details.products[a].amount; i++) {
-                console.log(i)
-                if(i == details.products[a].amount) {
-                    console.log('adbbff')
-                    $("select option[value='details.products[a].amount']").attr("selected","selected");
-                }
-
-                option +=`
-
-                    
+           
+            for(let i = 1; i <= details.products[a].amount ; i++) {
+                option +=`  
                     <option class="optionA" value="{literal}${i}{/literal}">{literal}${i}{/literal}</option>
                 `
+                console.log(i, details.products[a].amount)
+                if(i == details.products[a].amount) {
+                    console.log('bang nhau: ', details.products[a].amount , i )
+                     option +=`  
+                    <option class="optionA" hidden selected value="{literal}${i}{/literal}">{literal}${i}{/literal}</option>
+                `
+                }
+
+              
             }
 
           //console.log(option)
@@ -1156,6 +1163,7 @@
         containerInput2.innerHTML = total;
         let containerForm2 = document.querySelector('.formHere2');
         containerForm2.innerHTML = form;
+
         
         $(".formHere button").hide();
         $(".formHere2 button").hide();
