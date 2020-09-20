@@ -1042,7 +1042,7 @@
         //console.log("price: ", price)
         let sumTotal = 0;
         for(let i = 0; i <= quantity.length - 1; i++) {
-            console.log("value: ", quantity[i].value , "price: ", price)
+            //console.log("value: ", quantity[i].value , "price: ", price)
             let sums = quantity[i].value * price;
             //console.log("sums: ", sums)
             sumTotal += sums;
@@ -1107,9 +1107,9 @@
                 option +=`  
                     <option class="optionA" value="{literal}${i}{/literal}">{literal}${i}{/literal}</option>
                 `
-                console.log(i, details.products[a].amount)
+                //console.log(i, details.products[a].amount)
                 if(i == details.products[a].amount) {
-                    console.log('bang nhau: ', details.products[a].amount , i )
+                    //console.log('bang nhau: ', details.products[a].amount , i )
                      option +=`  
                     <option class="optionA" hidden selected value="{literal}${i}{/literal}">{literal}${i}{/literal}</option>
                 `
@@ -1290,11 +1290,11 @@
         
         let stt = 1;
         for(let a in details.products ) {
-            console.log("a: ", a, "det: ", details.products[a].product)
+           // console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
             totalProducts = Object.keys(details.products).length;
-            console.log('total product:', Object.keys(details.products).length)
-            console.log("z: ", pName)
+           // console.log('total product:', Object.keys(details.products).length)
+           // console.log("z: ", pName)
             let htmlItem0 = `
                             <li class="search-order__details">
                                 <div class="search-order__details--left">
@@ -1520,7 +1520,7 @@
         }
         let htmlTaxes = "";
         for(let a in details.taxes ) {
-            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+           // console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
             let tName = details.taxes[a];
            
             let htmlTax = `
@@ -1532,11 +1532,11 @@
         let timeArray = details.status_history;
         let timePrint = '';
         for(let a in timeArray) {
-            console.log("time history: ", timeArray[a])
+            //("time history: ", timeArray[a])
             let index = timeArray[a];
 
             if(index.status === "G") {
-                console.log("GGGGG")
+               // console.log("GGGGG")
                 timePrint = `
                 {literal}${countTimeHistory(index.timestamp)}{/literal}</p>
                 `
@@ -2236,8 +2236,8 @@
         tab: null,
     }
 
-    console.log("tabs list: ",tabs.list, "all: ",tabs.all);
-    console.log("tabs container: ",tabsContent.container, "current: ",tabsContent.current, "tab: ",tabsContent.tab);
+   // console.log("tabs list: ",tabs.list, "all: ",tabs.all);
+  //  console.log("tabs container: ",tabsContent.container, "current: ",tabsContent.current, "tab: ",tabsContent.tab);
     
     
     tabs.all.forEach(f => {
