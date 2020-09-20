@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-09-20 10:34:53
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-20 11:19:12
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1600587289,
+      1 => 1600589949,
       2 => 'tygh',
     ),
   ),
@@ -785,12 +785,11 @@ if (!empty($_capture_buffer)) {
     // update data after 10 sec
     setInterval(async function() {
             let abb = await getStatus(NEW_UI_STATUS_PLACED);
-            let arr = Array.from(abb);
-           // if(abb.length) {
-           //    renderLeftSide(NEW_UI_STATUS_PLACED, "order")
-           // }
-         //   console.log('reset---------: ',abb, arr)
-            //renderData();
+            renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+            renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
+            //activeOrder("order",  )
+            console.log('reset---------: ',abb, abb.length)
+            
             //renderDetails();
     }, 10000);
 
@@ -825,7 +824,7 @@ if (!empty($_capture_buffer)) {
         //console.log("price: ", price)
         let sumTotal = 0;
         for(let i = 0; i <= quantity.length - 1; i++) {
-            console.log("value: ", quantity[i].value , "price: ", price)
+            //console.log("value: ", quantity[i].value , "price: ", price)
             let sums = quantity[i].value * price;
             //console.log("sums: ", sums)
             sumTotal += sums;
@@ -890,9 +889,9 @@ if (!empty($_capture_buffer)) {
                 option +=`  
                     <option class="optionA" value="${i}">${i}</option>
                 `
-                console.log(i, details.products[a].amount)
+                //console.log(i, details.products[a].amount)
                 if(i == details.products[a].amount) {
-                    console.log('bang nhau: ', details.products[a].amount , i )
+                    //console.log('bang nhau: ', details.products[a].amount , i )
                      option +=`  
                     <option class="optionA" hidden selected value="${i}">${i}</option>
                 `
@@ -1070,11 +1069,11 @@ if (!empty($_capture_buffer)) {
         
         let stt = 1;
         for(let a in details.products ) {
-            console.log("a: ", a, "det: ", details.products[a].product)
+           // console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
             totalProducts = Object.keys(details.products).length;
-            console.log('total product:', Object.keys(details.products).length)
-            console.log("z: ", pName)
+           // console.log('total product:', Object.keys(details.products).length)
+           // console.log("z: ", pName)
             let htmlItem0 = `
                             <li class="search-order__details">
                                 <div class="search-order__details--left">
@@ -1301,7 +1300,7 @@ if (!empty($_capture_buffer)) {
         }
         let htmlTaxes = "";
         for(let a in details.taxes ) {
-            console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
+           // console.log("a: ", a, "taxes: ", details.taxes[a].tax_subtotal)
             let tName = details.taxes[a];
            
             let htmlTax = `
@@ -1313,11 +1312,11 @@ if (!empty($_capture_buffer)) {
         let timeArray = details.status_history;
         let timePrint = '';
         for(let a in timeArray) {
-            console.log("time history: ", timeArray[a])
+            //("time history: ", timeArray[a])
             let index = timeArray[a];
 
             if(index.status === "G") {
-                console.log("GGGGG")
+               // console.log("GGGGG")
                 timePrint = `
                 ${countTimeHistory(index.timestamp)}</p>
                 `
@@ -2017,8 +2016,8 @@ if (!empty($_capture_buffer)) {
         tab: null,
     }
 
-    console.log("tabs list: ",tabs.list, "all: ",tabs.all);
-    console.log("tabs container: ",tabsContent.container, "current: ",tabsContent.current, "tab: ",tabsContent.tab);
+   // console.log("tabs list: ",tabs.list, "all: ",tabs.all);
+  //  console.log("tabs container: ",tabsContent.container, "current: ",tabsContent.current, "tab: ",tabsContent.tab);
     
     
     tabs.all.forEach(f => {
@@ -2083,16 +2082,20 @@ if (!empty($_capture_buffer)) {
         renderLeftSide(NEW_UI_STATUS_PLACED, "order");
 
         renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
-        renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
+       renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
 
-        document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
-        document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
+        //document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
+        //document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
+      /*  document.querySelector('.tab__li[data-tab=tab1]').classList.add('active');
+        document.querySelector('.have-tab[data-tab=tab1]').classList.add('activeTab');
 
         document.querySelector('.tab__li[data-tab=tab3]').classList.remove('active');
         document.querySelector('.have-tab[data-tab=tab3]').classList.remove('activeTab');
 
-        document.querySelector('.tab__li[data-tab=tab2]').classList.add('active');
-        document.querySelector('.have-tab[data-tab=tab2]').classList.add('activeTab');
+        document.querySelector('.tab__li[data-tab=tab2]').classList.remove('active');
+        document.querySelector('.have-tab[data-tab=tab2]').classList.remove('activeTab');
+
+        */
     }
 
     async function getPacked(id) {
@@ -2112,7 +2115,7 @@ if (!empty($_capture_buffer)) {
 
         renderCountStatus(NEW_UI_STATUS_PACKED, "tab3");
         renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
-
+/*
         document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
         document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
 
@@ -2121,7 +2124,7 @@ if (!empty($_capture_buffer)) {
 
         document.querySelector('.tab__li[data-tab=tab3]').classList.add('active');
         document.querySelector('.have-tab[data-tab=tab3]').classList.add('activeTab');
-        
+        */
     }
     
    

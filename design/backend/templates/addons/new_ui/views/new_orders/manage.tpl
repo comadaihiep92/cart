@@ -1002,12 +1002,11 @@
     // update data after 10 sec
     setInterval(async function() {
             let abb = await getStatus(NEW_UI_STATUS_PLACED);
-            let arr = Array.from(abb);
-           // if(abb.length) {
-           //    renderLeftSide(NEW_UI_STATUS_PLACED, "order")
-           // }
-         //   console.log('reset---------: ',abb, arr)
-            //renderData();
+            renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+            renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
+            //activeOrder("order",  )
+            console.log('reset---------: ',abb, abb.length)
+            
             //renderDetails();
     }, 10000);
 
@@ -2298,16 +2297,20 @@
         renderLeftSide(NEW_UI_STATUS_PLACED, "order");
 
         renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
-        renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
+       renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
 
-        document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
-        document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
+        //document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
+        //document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
+      /*  document.querySelector('.tab__li[data-tab=tab1]').classList.add('active');
+        document.querySelector('.have-tab[data-tab=tab1]').classList.add('activeTab');
 
         document.querySelector('.tab__li[data-tab=tab3]').classList.remove('active');
         document.querySelector('.have-tab[data-tab=tab3]').classList.remove('activeTab');
 
-        document.querySelector('.tab__li[data-tab=tab2]').classList.add('active');
-        document.querySelector('.have-tab[data-tab=tab2]').classList.add('activeTab');
+        document.querySelector('.tab__li[data-tab=tab2]').classList.remove('active');
+        document.querySelector('.have-tab[data-tab=tab2]').classList.remove('activeTab');
+
+        */
     }
 
     async function getPacked(id) {
@@ -2327,7 +2330,7 @@
 
         renderCountStatus(NEW_UI_STATUS_PACKED, "tab3");
         renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
-
+/*
         document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
         document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
 
@@ -2336,7 +2339,7 @@
 
         document.querySelector('.tab__li[data-tab=tab3]').classList.add('active');
         document.querySelector('.have-tab[data-tab=tab3]').classList.add('activeTab');
-        
+        */
     }
     
    
