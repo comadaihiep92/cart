@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-09-20 11:19:12
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-22 17:53:47
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1600589949,
+      1 => 1600786421,
       2 => 'tygh',
     ),
   ),
@@ -501,6 +501,24 @@ if (!empty($_capture_buffer)) {
             console.log(error)
         }
     }
+    async function getStatusComp() {
+       // spinner2.removeAttribute('hidden');
+        
+        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_company_status`;
+        try {
+            let res = await fetch(url);
+          // console.log("con me no status +++++++: ", res)
+            //return await res.text();
+            //spinner2.setAttribute('hidden', '');
+            return await res.json();
+
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    
 
     
 
@@ -516,6 +534,37 @@ if (!empty($_capture_buffer)) {
         
     }
     
+     async function showStatus() {
+        let datas = await getStatusComp();
+        let fail = `
+            <p class="no-items no-data-new">
+            You Are Offline
+                <span>Due to the outlet inactivity, we have switched OFF your outlet. If you wish to receive orders at this time, please turn your restaurant ON, by using the toggle in your Partner App. You will not be able to receive any orders until you turn your restaurant ON</span>
+            </p>
+        `
+        let containerfail = document.querySelector('.have-order__content');
+        containerfail.innerHTML = fail;
+        console.log("status comp: ", datas)
+         
+        if(datas.company_status === "A"){
+            renderLeftSide(NEW_UI_STATUS_PLACED, "order")
+            // update data after 10 sec
+            setInterval(async function() {
+                    let abb = await getStatus(NEW_UI_STATUS_PLACED);
+                    renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+                    renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
+                    //activeOrder("order",  )
+                    console.log('reset---------: ',abb, abb.length)
+                    
+                    //renderDetails();
+            }, 10000);
+        } else {
+            document.querySelector(".search-order__box-input").classList.add("hidden")
+             fail
+        }
+        
+     }
+     showStatus()
 
     /* render count status length */
     async function renderCountStatus(status, tab) {
@@ -757,7 +806,10 @@ if (!empty($_capture_buffer)) {
         `${status === NEW_UI_STATUS_PLACED ? activeOrder("order", datas[0].order_id) : `${status === NEW_UI_STATUS_VCONFIRMED ? activeOrder("packing", datas[0].order_id) : `${status === NEW_UI_STATUS_PACKED ?  activeOrder("ready", datas[0].order_id) : activeOrder("past", datas[0].order_id)}`}`}`;
     }
 
-    renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+
+   // renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+
+
     renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
     renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
     renderLeftSide(NEW_UI_STATUS_COMPLETE, "past");
@@ -783,7 +835,7 @@ if (!empty($_capture_buffer)) {
     }
 
     // update data after 10 sec
-    setInterval(async function() {
+   /* setInterval(async function() {
             let abb = await getStatus(NEW_UI_STATUS_PLACED);
             renderLeftSide(NEW_UI_STATUS_PLACED, "order");
             renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
@@ -792,7 +844,7 @@ if (!empty($_capture_buffer)) {
             
             //renderDetails();
     }, 10000);
-
+*/
     async function getDataProduct(id) {
         spinner.removeAttribute('hidden');
         let url2 = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_order&order_id=${id}`;

@@ -718,6 +718,24 @@
             console.log(error)
         }
     }
+    async function getStatusComp() {
+       // spinner2.removeAttribute('hidden');
+        
+        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_company_status`;
+        try {
+            let res = await fetch(url);
+          // console.log("con me no status +++++++: ", res)
+            //return await res.text();
+            //spinner2.setAttribute('hidden', '');
+            return await res.json();
+
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+
+    
 
     
 
@@ -733,6 +751,48 @@
         
     }
     
+     async function showStatus() {
+        let datas = await getStatusComp();
+        let fail = `
+            <p class="no-items no-data-new">
+            You Are Offline
+                <span>Due to the outlet inactivity, we have switched OFF your outlet. If you wish to receive orders at this time, please turn your restaurant ON, by using the toggle in your Partner App. You will not be able to receive any orders until you turn your restaurant ON</span>
+            </p>
+        `
+        let containerfail = document.querySelector('.have-order__content');
+        containerfail.innerHTML = fail;
+        console.log("status comp: ", datas)
+
+        switch(datas.company_status) {
+        case :
+            // code block
+            break;
+        case y:
+            // code block
+            break;
+        default:
+            // code block
+        }
+         
+        if(datas.company_status === "A"){
+            renderLeftSide(NEW_UI_STATUS_PLACED, "order")
+            // update data after 10 sec
+            setInterval(async function() {
+                    let abb = await getStatus(NEW_UI_STATUS_PLACED);
+                    renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+                    renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
+                    //activeOrder("order",  )
+                    console.log('reset---------: ',abb, abb.length)
+                    
+                    //renderDetails();
+            }, 10000);
+        } else {
+            document.querySelector(".search-order__box-input").classList.add("hidden");
+            fail
+        }
+        
+     }
+     showStatus()
 
     /* render count status length */
     async function renderCountStatus(status, tab) {
@@ -974,7 +1034,10 @@
         `{literal}${status === NEW_UI_STATUS_PLACED{/literal} ? activeOrder("order", datas[0].order_id) : `{literal}${status === NEW_UI_STATUS_VCONFIRMED{/literal} ? activeOrder("packing", datas[0].order_id) : `{literal}${status === NEW_UI_STATUS_PACKED{/literal} ?  activeOrder("ready", datas[0].order_id) : activeOrder("past", datas[0].order_id)}`}`}`;
     }
 
-    renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+
+   // renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+
+
     renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
     renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
     renderLeftSide(NEW_UI_STATUS_COMPLETE, "past");
@@ -1000,7 +1063,7 @@
     }
 
     // update data after 10 sec
-    setInterval(async function() {
+   /* setInterval(async function() {
             let abb = await getStatus(NEW_UI_STATUS_PLACED);
             renderLeftSide(NEW_UI_STATUS_PLACED, "order");
             renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
@@ -1009,7 +1072,7 @@
             
             //renderDetails();
     }, 10000);
-
+*/
     async function getDataProduct(id) {
         spinner.removeAttribute('hidden');
         let url2 = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_order&order_id={literal}${id}{/literal}`;
