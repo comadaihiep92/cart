@@ -1,0 +1,14 @@
+msgid ""
+msgstr "Project-Id-Version: tygh\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: English\n"
+"Language: en_US\n"
+
+msgctxt "Addons::name::vendor_api_key"
+msgid "vendor_api_key"
+msgstr "API key for vendors users"
+
+msgctxt "Addons::description::vendor_api_key"
+msgid "vendor_api_key_description"
+msgstr "Creation of API key upon vendor user creation. Getting API key from database."
+

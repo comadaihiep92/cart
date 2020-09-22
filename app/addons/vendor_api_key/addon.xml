@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<addon scheme="3.0">
+    <id>vendor_api_key</id>
+    <version>1.0</version>
+    <priority>1500</priority>
+    <status>active</status>
+    <default_language>en</default_language>
+    <queries>
+        <item for="install">
+        CREATE TABLE IF NOT EXISTS `?:vendor_api_keys` (
+          `user_id` int(11) NOT NULL,
+          `api_key` text NOT NULL,
+          PRIMARY KEY (`user_id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+        </item>        
+    </queries>
+</addon>

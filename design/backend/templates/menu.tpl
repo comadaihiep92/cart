@@ -92,7 +92,8 @@
                 </li>
                 {if $auth.company_id}
                     <li class="dropdown">
-                        <a href="{"companies.update?company_id=`$runtime.company_id`"|fn_url}">{__("vendor")}: {$runtime.company_data.company}</a>
+                        <a href="{"companies.update?company_id=`$runtime.company_id`"|fn_url}">{__("vendor")}: {$runtime.company_data.company}
+                            {*if $vendor_gen_id!=""} [ID: {$vendor_gen_id}]{/if*}</a>
                     </li>
                 {elseif $runtime.company_id && fn_check_view_permissions("companies.update", "GET")}
                     <li class="dropdown">
@@ -107,8 +108,30 @@
         {/if}
 
             <ul id="mainrightnavbar" class="nav hover-show navbar-right">
-            {if $auth.user_id && $navigation.static}
-
+                {if $auth.user_id && $navigation.static}
+                    {if $company_status_real=='D'}
+                    <li>
+                    <table><tr><td width="10%" class="right" data-th="Vendor status" style="padding-top:11px;">
+                                <img src="/images/switch_off.png" width="72" height="19">
+                    </td></tr></table>                                
+                          </li>                        
+                    {elseif $smarty.const.ACCOUNT_TYPE=="vendor" && ($vendor_user_perm || $vendor_user_role=="o")}
+                    <li>
+                    <table><tr><td width="10%" class="right" data-th="Vendor status" style="padding-top:11px;">
+                        {include file="common/switcher.tpl"
+                            meta = "company-switch-storefront-status-button storefront__status"
+                            checked = $company_status == "StorefrontStatuses::OPEN"|enum
+                            extra_attrs = [
+                                "data-ca-submit-url" => 'companies1.update_vendor_status',
+                                "data-ca-company-id" => $company_id,
+                                "data-ca-opened-status" => {"StorefrontStatuses::OPEN"|enum},
+                                "data-ca-closed-status" => {"StorefrontStatuses::CLOSED"|enum},
+                                "data-ca-return-url" => $return_url
+                            ]
+                        }
+                    </td></tr></table>                                
+                          </li>
+                    {/if}
                 {foreach from=$navigation.static.top key=first_level_title item=m name="first_level_top"}
                     <li class="dropdown dropdown-top-menu-item{if $first_level_title == $navigation.selected_tab} active{/if} navigate-items">
                         <a id="elm_menu_{$first_level_title}" href="#" class="dropdown-toggle {$first_level_title}">
@@ -216,7 +239,9 @@
                         <li><a href="{"auth.logout"|fn_url}">{__("sign_out")}</a></li>
                         {if !$runtime.company_id}
                             <li class="divider"></li>
-                            
+                            <li>
+                                {include file="common/popupbox.tpl" id="group`$id_prefix`feedback" edit_onclick=$onclick text=__("feedback_values") act="link" picker_meta="cm-clear-content" link_text=__("send_feedback", ["[product]" => $smarty.const.PRODUCT_NAME]) content=$smarty.capture.update_block href="feedback.prepare" no_icon_link=true but_name="dispatch[feedback.send]" opener_ajax_class="cm-ajax"}
+                            </li>
                         {/if}
                         {/hook}
                     </ul>
@@ -399,6 +424,31 @@
             <ul class="nav hover-show nav-pills nav-child">
             {foreach from=$navigation.static.central key=first_level_title item=m name="first_level"}
                 <li class="dropdown {if $first_level_title == $navigation.selected_tab} active{/if} ">
+                    {if $first_level_title=="sales_reports" && $smarty.const.ACCOUNT_TYPE == "vendor"}
+                    <a href="/vendor.php?dispatch=sales_reports.view" class="dropdown-toggle">
+                        {__($first_level_title)}
+                    </a>
+                    {elseif $first_level_title=="help" && $smarty.const.ACCOUNT_TYPE == "vendor"}
+                    <a href="/vendor.php?dispatch=vendor_help.view" class="dropdown-toggle">
+                        {__($first_level_title)}
+                    </a>
+                    {elseif $first_level_title=="orders" && $smarty.const.ACCOUNT_TYPE == "vendor"}
+                    <a href="/vendor.php?dispatch=orders.manage" class="dropdown-toggle">
+                        {__($first_level_title)}
+                    </a>
+                    {elseif $first_level_title=="profile" && $smarty.const.ACCOUNT_TYPE == "vendor"}
+                    <a href="/vendor.php?dispatch=companies.update&company_id={$runtime.company_data.company_id}" class="dropdown-toggle">
+                        {__($first_level_title)}
+                    </a>
+                    {elseif $first_level_title=="promotions" && $smarty.const.ACCOUNT_TYPE == "vendor"}
+                    <a href="/vendor.php?dispatch=promotions.manage" class="dropdown-toggle">
+                        {__($first_level_title)}
+                    </a>
+                    {elseif $first_level_title=="vendor_help" && $smarty.const.ACCOUNT_TYPE == "vendor"}
+                    <a href="/vendor.php?dispatch=help.view" class="dropdown-toggle">
+                        {__($first_level_title)}
+                    </a>
+                    {else}
                     <a href="#" class="dropdown-toggle">
                         {__($first_level_title)}
                         <b class="caret"></b>
@@ -419,6 +469,7 @@
                             </li>
                         {/foreach}
                     </ul>
+                    {/if}
                 </li>
             {/foreach}
             </ul>

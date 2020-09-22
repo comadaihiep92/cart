@@ -9,17 +9,17 @@ use Tygh\Tygh;
 if (!defined('BOOTSTRAP') || ACCOUNT_TYPE!='vendor') { die('Access denied'); }
 
 // --- local version:
-// define('NEW_UI_STATUS_PLACED', 'L'); // Placed
-// define('NEW_UI_STATUS_VCONFIRMED', 'M'); // Vendor Confirmed
-// define('NEW_UI_STATUS_PACKED', 'G');
-// define('NEW_UI_STATUS_COMPLETE', 'C');
-
-// define('NEW_UI_STATUS_CANCELED', 'I'); // Canceled
-
-// define('NEW_UI_STATUS_DISPATCHED', 'H');
-
-// define('NEW_UI_STATUS_PICKEDUP', 'P'); // Picked up (shipment)
-// define('NEW_UI_STATUS_OFD', 'B'); // Out for delivery (shipment)
+//define('NEW_UI_STATUS_PLACED', 'L'); // Placed
+//define('NEW_UI_STATUS_VCONFIRMED', 'M'); // Vendor Confirmed
+//define('NEW_UI_STATUS_PACKED', 'G');
+//define('NEW_UI_STATUS_COMPLETE', 'C');
+//
+//define('NEW_UI_STATUS_CANCELED', 'I'); // Canceled
+//
+//define('NEW_UI_STATUS_DISPATCHED', 'H');
+//
+//define('NEW_UI_STATUS_PICKEDUP', 'P'); // Picked up (shipment)
+//define('NEW_UI_STATUS_OFD', 'B'); // Out for delivery (shipment)
 
 // --- online version:
 
@@ -1178,6 +1178,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         Tygh::$app['view']->assign('order_id', $_REQUEST['order_id']);
         Tygh::$app['view']->display('addons/new_ui/views/new_orders/stock_form.tpl');
         die();
+    }elseif($mode=="get_company_status"){
+        
+        $company_status=fn_companies1_get_status(Tygh::$app['session']['auth']['company_id']);
+        $result=array(
+            'company_status' => $company_status
+        );
+        die(json_encode($result));
+        
     }
 
 }

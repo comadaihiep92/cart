@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-08-07 11:33:11
+<?php /* Smarty version Smarty-3.1.21, created on 2020-09-22 15:56:19
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\menu.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:19130199655f2d11c7a702a5-41959595%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'df4ad902d7533e228e1d4915141a197acf3cb7b4' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\menu.tpl',
-      1 => 1583399261,
+      1 => 1596878646,
       2 => 'tygh',
     ),
   ),
@@ -25,6 +25,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
       'compiled' => '',
     ),
   ),
+  'version' => 'Smarty-3.1.21',
+  'unifunc' => 'content_5f2d11c7bb3ff8_61028176',
   'variables' => 
   array (
     'attrs' => 0,
@@ -39,6 +41,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'storefront_url' => 0,
     'company_name' => 0,
     'navigation' => 0,
+    'company_status_real' => 0,
+    'vendor_user_perm' => 0,
+    'vendor_user_role' => 0,
+    'company_status' => 0,
+    'company_id' => 0,
+    'return_url' => 0,
     'first_level_title' => 0,
     'm' => 0,
     'second_level' => 0,
@@ -51,20 +59,18 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'secondary_currency' => 0,
     'user_info' => 0,
     'companies_picker_name' => 0,
-    'name' => 0,
     'id_prefix' => 0,
     'onclick' => 0,
+    'name' => 0,
   ),
   'has_nocache_code' => 0,
-  'version' => 'Smarty-3.1.21',
-  'unifunc' => 'content_5f2d11c7bb3ff8_61028176',
 ),false); /*/%%SmartyHeaderCode%%*/?>
 <?php if ($_valid && !is_callable('content_5f2d11c7bb3ff8_61028176')) {function content_5f2d11c7bb3ff8_61028176($_smarty_tpl) {?><?php if (!is_callable('smarty_block_hook')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\block.hook.php';
 if (!is_callable('smarty_modifier_enum')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\modifier.enum.php';
 if (!is_callable('smarty_modifier_truncate')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\modifier.truncate.php';
 if (!is_callable('smarty_modifier_sizeof')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\modifier.sizeof.php';
 ?><?php
-\Tygh\Languages\Helper::preloadLangVars(array('all_vendors','no_active_storefronts','view_storefront','vendor','view_storefront','vendor','signed_in_as','edit_profile','log_in_as_vendor','sign_out','search_tooltip','close','vendor','signed_in_as','edit_profile','sign_out','manage_stores','feedback_values','send_feedback','view_storefront','view_storefront','view_storefront','view_storefront','home','language','currency','go_back','search','more'));
+\Tygh\Languages\Helper::preloadLangVars(array('all_vendors','no_active_storefronts','view_storefront','vendor','view_storefront','vendor','signed_in_as','edit_profile','log_in_as_vendor','sign_out','feedback_values','send_feedback','search_tooltip','close','vendor','signed_in_as','edit_profile','sign_out','manage_stores','feedback_values','send_feedback','view_storefront','view_storefront','view_storefront','view_storefront','home','language','currency','go_back','search','more'));
 ?>
 <?php if (defined("THEMES_PANEL")) {?>
     <?php $_smarty_tpl->tpl_vars['sticky_top'] = new Smarty_variable(-5, null, 0);?>
@@ -192,7 +198,8 @@ foreach (Smarty::$global_tpl_vars as $key => $value) if(!isset($_smarty_tpl->tpl
                         <a href="<?php echo htmlspecialchars(fn_url("companies.update?company_id=".((string)$_smarty_tpl->tpl_vars['runtime']->value['company_id'])), ENT_QUOTES, 'UTF-8');?>
 "><?php echo $_smarty_tpl->__("vendor");?>
 : <?php echo htmlspecialchars($_smarty_tpl->tpl_vars['runtime']->value['company_data']['company'], ENT_QUOTES, 'UTF-8');?>
-</a>
+
+                            </a>
                     </li>
                 <?php } elseif ($_smarty_tpl->tpl_vars['runtime']->value['company_id']&&fn_check_view_permissions("companies.update","GET")) {?>
                     <li class="dropdown">
@@ -210,8 +217,23 @@ foreach (Smarty::$global_tpl_vars as $key => $value) if(!isset($_smarty_tpl->tpl
         <?php }?>
 
             <ul id="mainrightnavbar" class="nav hover-show navbar-right">
-            <?php if ($_smarty_tpl->tpl_vars['auth']->value['user_id']&&$_smarty_tpl->tpl_vars['navigation']->value['static']) {?>
+                <?php if ($_smarty_tpl->tpl_vars['auth']->value['user_id']&&$_smarty_tpl->tpl_vars['navigation']->value['static']) {?>
+                    <?php if ($_smarty_tpl->tpl_vars['company_status_real']->value=='D') {?>
+                    <li>
+                    <table><tr><td width="10%" class="right" data-th="Vendor status" style="padding-top:11px;">
+                                <img src="/images/switch_off.png" width="72" height="19">
+                    </td></tr></table>                                
+                          </li>                        
+                    <?php } elseif (@constant('ACCOUNT_TYPE')=="vendor"&&($_smarty_tpl->tpl_vars['vendor_user_perm']->value||$_smarty_tpl->tpl_vars['vendor_user_role']->value=="o")) {?>
+                    <li>
+                    <table><tr><td width="10%" class="right" data-th="Vendor status" style="padding-top:11px;">
+                        <?php ob_start();?><?php echo htmlspecialchars(smarty_modifier_enum("StorefrontStatuses::OPEN"), ENT_QUOTES, 'UTF-8');?>
+<?php $_tmp1=ob_get_clean();?><?php ob_start();?><?php echo htmlspecialchars(smarty_modifier_enum("StorefrontStatuses::CLOSED"), ENT_QUOTES, 'UTF-8');?>
+<?php $_tmp2=ob_get_clean();?><?php echo $_smarty_tpl->getSubTemplate ("common/switcher.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('meta'=>"company-switch-storefront-status-button storefront__status",'checked'=>$_smarty_tpl->tpl_vars['company_status']->value==smarty_modifier_enum("StorefrontStatuses::OPEN"),'extra_attrs'=>array("data-ca-submit-url"=>'companies1.update_vendor_status',"data-ca-company-id"=>$_smarty_tpl->tpl_vars['company_id']->value,"data-ca-opened-status"=>$_tmp1,"data-ca-closed-status"=>$_tmp2,"data-ca-return-url"=>$_smarty_tpl->tpl_vars['return_url']->value)), 0);?>
 
+                    </td></tr></table>                                
+                          </li>
+                    <?php }?>
                 <?php  $_smarty_tpl->tpl_vars['m'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['m']->_loop = false;
  $_smarty_tpl->tpl_vars['first_level_title'] = new Smarty_Variable;
  $_from = $_smarty_tpl->tpl_vars['navigation']->value['static']['top']; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
@@ -369,7 +391,10 @@ _<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['subitem_title']->value, ENT
 </a></li>
                         <?php if (!$_smarty_tpl->tpl_vars['runtime']->value['company_id']) {?>
                             <li class="divider"></li>
-                            
+                            <li>
+                                <?php echo $_smarty_tpl->getSubTemplate ("common/popupbox.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array('id'=>"group".((string)$_smarty_tpl->tpl_vars['id_prefix']->value)."feedback",'edit_onclick'=>$_smarty_tpl->tpl_vars['onclick']->value,'text'=>$_smarty_tpl->__("feedback_values"),'act'=>"link",'picker_meta'=>"cm-clear-content",'link_text'=>$_smarty_tpl->__("send_feedback",array("[product]"=>@constant('PRODUCT_NAME'))),'content'=>Smarty::$_smarty_vars['capture']['update_block'],'href'=>"feedback.prepare",'no_icon_link'=>true,'but_name'=>"dispatch[feedback.send]",'opener_ajax_class'=>"cm-ajax"), 0);?>
+
+                            </li>
                         <?php }?>
                         <?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"menu:profile"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
 
@@ -599,6 +624,38 @@ $_smarty_tpl->tpl_vars['m']->_loop = true;
  $_smarty_tpl->tpl_vars['first_level_title']->value = $_smarty_tpl->tpl_vars['m']->key;
 ?>
                 <li class="dropdown <?php if ($_smarty_tpl->tpl_vars['first_level_title']->value==$_smarty_tpl->tpl_vars['navigation']->value['selected_tab']) {?> active<?php }?> ">
+                    <?php if ($_smarty_tpl->tpl_vars['first_level_title']->value=="sales_reports"&&@constant('ACCOUNT_TYPE')=="vendor") {?>
+                    <a href="/vendor.php?dispatch=sales_reports.view" class="dropdown-toggle">
+                        <?php echo $_smarty_tpl->__($_smarty_tpl->tpl_vars['first_level_title']->value);?>
+
+                    </a>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['first_level_title']->value=="help"&&@constant('ACCOUNT_TYPE')=="vendor") {?>
+                    <a href="/vendor.php?dispatch=vendor_help.view" class="dropdown-toggle">
+                        <?php echo $_smarty_tpl->__($_smarty_tpl->tpl_vars['first_level_title']->value);?>
+
+                    </a>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['first_level_title']->value=="orders"&&@constant('ACCOUNT_TYPE')=="vendor") {?>
+                    <a href="/vendor.php?dispatch=orders.manage" class="dropdown-toggle">
+                        <?php echo $_smarty_tpl->__($_smarty_tpl->tpl_vars['first_level_title']->value);?>
+
+                    </a>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['first_level_title']->value=="profile"&&@constant('ACCOUNT_TYPE')=="vendor") {?>
+                    <a href="/vendor.php?dispatch=companies.update&company_id=<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['runtime']->value['company_data']['company_id'], ENT_QUOTES, 'UTF-8');?>
+" class="dropdown-toggle">
+                        <?php echo $_smarty_tpl->__($_smarty_tpl->tpl_vars['first_level_title']->value);?>
+
+                    </a>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['first_level_title']->value=="promotions"&&@constant('ACCOUNT_TYPE')=="vendor") {?>
+                    <a href="/vendor.php?dispatch=promotions.manage" class="dropdown-toggle">
+                        <?php echo $_smarty_tpl->__($_smarty_tpl->tpl_vars['first_level_title']->value);?>
+
+                    </a>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['first_level_title']->value=="vendor_help"&&@constant('ACCOUNT_TYPE')=="vendor") {?>
+                    <a href="/vendor.php?dispatch=help.view" class="dropdown-toggle">
+                        <?php echo $_smarty_tpl->__($_smarty_tpl->tpl_vars['first_level_title']->value);?>
+
+                    </a>
+                    <?php } else { ?>
                     <a href="#" class="dropdown-toggle">
                         <?php echo $_smarty_tpl->__($_smarty_tpl->tpl_vars['first_level_title']->value);?>
 
@@ -647,6 +704,7 @@ $_smarty_tpl->tpl_vars['sm']->_loop = true;
                             </li>
                         <?php } ?>
                     </ul>
+                    <?php }?>
                 </li>
             <?php } ?>
             </ul>

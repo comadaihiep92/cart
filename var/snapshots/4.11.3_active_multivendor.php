@@ -1,5 +1,5 @@
 <?php $snapshot = array (
-  'time' => 1600103118,
+  'time' => 1600732311,
   'files' => 
   array (
     '12a5350b4ec83ef86b6951b308a4cb00' => '/api.php',
@@ -1280,7 +1280,7 @@
     '5a86187f1d49ae96f141bea9e2e2656b' => '/app/addons/newsletters/schemas/security/object_sanitization.post.php',
     '12f8cbf6fd8e75a378c0ab38e54c05bc' => '/app/addons/newsletters/schemas/sharing/schema.post.php',
     'aaf05d47bb4b0b6f4b84d18a57b67213' => '/app/addons/new_ui/addon.xml',
-    'b9fe36204515a93695595d1cdc946aab' => '/app/addons/new_ui/controllers/backend/new_orders.php',
+    '7d64069e55fdae2747df741af4194449' => '/app/addons/new_ui/controllers/backend/new_orders.php',
     '73e044aea1ebd715e639612b1f819601' => '/app/addons/new_ui/controllers/backend/vendor_products.tpl',
     '6cf2dc294c8fc5ccdeea1042213c4935' => '/app/addons/new_ui/func.php',
     '4cca7edde669d75188defd8e564aa19c' => '/app/addons/new_ui/init.php',
@@ -9136,7 +9136,7 @@
     '609688f45114fbd38e4a7f6cc7f63481' => '/design/backend/css/addons/mobile_app/styles.less',
     '4d5c0be5b207fde638b57002a21dfa87' => '/design/backend/css/addons/mobile_app/variables.less',
     '23bdebf6e246dc4ce5b7222d7c3d886d' => '/design/backend/css/addons/new_ui/new_orders copy.less',
-    'b07a34a05cd61758db82941f983c0532' => '/design/backend/css/addons/new_ui/new_orders.less',
+    'd4c9f9f9d7387e82064b58974140e90f' => '/design/backend/css/addons/new_ui/new_orders.less',
     'a8381c18d98e2f51a44cb117b7a55dbb' => '/design/backend/css/addons/new_ui/orders.less',
     'fbdc7d96e3272871c40ba9900224bd9f' => '/design/backend/css/addons/paypal/styles.less',
     'b2cc5fe16ecccc921c0e99b759467f09' => '/design/backend/css/addons/pingpp/styles.less',
@@ -9762,8 +9762,9 @@
     'e03439f3ff1a93c8abe1605e44731a4e' => '/design/backend/templates/addons/new_ui/hooks/index/styles.post.tpl',
     '1baa04be1fc87360dd0bcaa09a181bd7' => '/design/backend/templates/addons/new_ui/views/new_orders/manage - Copy.tpl',
     'be26d4dbbbe0ed59af858b6992c5e98e' => '/design/backend/templates/addons/new_ui/views/new_orders/manage backup.tpl',
-    'c4c18e48cbb44c4684e44a93ef0a50c3' => '/design/backend/templates/addons/new_ui/views/new_orders/manage.tpl',
-    '1a8675991a2227321f7be67ab002a96e' => '/design/backend/templates/addons/new_ui/views/new_orders/totals_form.tpl',
+    'b7cda51f17167eaeab223d60848952af' => '/design/backend/templates/addons/new_ui/views/new_orders/manage.tpl',
+    '4c7e1ca199a7012f7f3739ce3aaa97a8' => '/design/backend/templates/addons/new_ui/views/new_orders/stock_form.tpl',
+    '577f335e4cdb844bf614b8c8fca53922' => '/design/backend/templates/addons/new_ui/views/new_orders/totals_form.tpl',
     '2754cc181d8e439d43019d618d7a35d7' => '/design/backend/templates/addons/onekpay/views/payments/components/cc_processors/onekpay.tpl',
     'a6306d06603b2f061fef43856ae15fd8' => '/design/backend/templates/addons/payment_dependencies/hooks/shippings/update.post.tpl',
     'b218e6b13687f98e7cc473c6aac910e3' => '/design/backend/templates/addons/paypal/common/connect_to_paypal.tpl',

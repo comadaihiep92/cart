@@ -1,0 +1,30 @@
+msgid ""
+msgstr "Project-Id-Version: tygh\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: English\n"
+"Language: en_US\n"
+
+msgctxt "Addons::name::companies1"
+msgid "companies1"
+msgstr "Vendors users"
+
+msgctxt "Addons::description::companies1"
+msgid "companies1_description"
+msgstr "Creating users with permissions for vendors"
+
+
+msgctxt "Languages::companies1"
+msgid "companies1"
+msgstr "Vendor's users"
+
+msgctxt "Languages::companies1_profile"
+msgid "companies1_profile"
+msgstr "My profile"
+
+msgctxt "Languages::privileges.view_poc"
+msgid "View POC"
+msgstr "View POC"
+
+msgctxt "Languages::privileges.manage_poc"
+msgid "Manage POC"
+msgstr "Manage POC"

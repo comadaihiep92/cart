@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<addon scheme="3.0">
+    <id>companies1</id>
+    <version>1.0</version>
+    <priority>1500</priority>
+    <status>active</status>
+    <default_language>en</default_language>
+    <compatibility>
+        <dependencies>vendor_api_key</dependencies>
+    </compatibility>
+    <queries>
+        <item for="install">
+        CREATE TABLE IF NOT EXISTS `?:companies1_permissions` (
+          `user_id` int(11) UNSIGNED NOT NULL,
+          `permission` char(1) NOT NULL,
+          KEY `user_id` (`user_id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+        </item>        
+        <item for="install">
+        CREATE TABLE IF NOT EXISTS `?:companies1_roles` (
+          `user_id` int(11) NOT NULL,
+          `role` char(1) NOT NULL,
+          PRIMARY KEY (`user_id`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+        </item>
+        <item for="install">
+        CREATE TABLE IF NOT EXISTS `?:companies1_status` (
+            `company_id` int(11) NOT NULL,
+            PRIMARY KEY (`company_id`)
+          ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+        </item>
+        <item for="install">
+		CREATE TABLE IF NOT EXISTS `?:companies1_poc_cities` (
+		  `user_id` int(11) NOT NULL,
+		  `city` varchar(50) NOT NULL,
+		  PRIMARY KEY (`user_id`,`city`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+		</item>
+        <item for="install">
+		CREATE TABLE IF NOT EXISTS `?:companies1_poc_settings` (
+		  `user_id` int(11) NOT NULL,
+		  `display_for_cities` smallint(5) UNSIGNED NOT NULL,
+		  `type` char(1) NOT NULL,
+		  PRIMARY KEY (`user_id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+		</item>
+    </queries>
+</addon>
