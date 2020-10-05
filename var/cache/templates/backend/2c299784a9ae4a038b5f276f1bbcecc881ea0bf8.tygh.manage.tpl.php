@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21, created on 2020-09-22 17:53:47
+<?php /* Smarty version Smarty-3.1.21, created on 2020-10-05 18:13:00
          compiled from "C:\xampp\htdocs\cart\design\backend\templates\addons\new_ui\views\new_orders\manage.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:15175358445f32a36e617333-05676851%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '2c299784a9ae4a038b5f276f1bbcecc881ea0bf8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\cart\\design\\backend\\templates\\addons\\new_ui\\views\\new_orders\\manage.tpl',
-      1 => 1600786421,
+      1 => 1601910775,
       2 => 'tygh',
     ),
   ),
@@ -24,14 +24,17 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'config' => 0,
     'search' => 0,
     'orders' => 0,
+    'store_location' => 0,
+    'allow_save' => 0,
     'page_title' => 0,
     'selected_storefront_id' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_5f32a36e7a9146_11375651')) {function content_5f32a36e7a9146_11375651($_smarty_tpl) {?><?php if (!is_callable('smarty_block_inline_script')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\block.inline_script.php';
+<?php if ($_valid && !is_callable('content_5f32a36e7a9146_11375651')) {function content_5f32a36e7a9146_11375651($_smarty_tpl) {?><?php if (!is_callable('smarty_block_hook')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\block.hook.php';
+if (!is_callable('smarty_block_inline_script')) include 'C:/xampp/htdocs/cart/app/functions/smarty_plugins\\block.inline_script.php';
 ?><?php
-\Tygh\Languages\Helper::preloadLangVars(array('text_admin_new_orders','orders'));
+\Tygh\Languages\Helper::preloadLangVars(array('text_admin_new_orders','orders','coordinates','latitude_short','longitude_short','latitude','longitude'));
 ?>
 <?php $_smarty_tpl->_capture_stack[0][] = array("mainbox", null, null); ob_start(); ?>
 
@@ -43,107 +46,6 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <?php $_smarty_tpl->tpl_vars['order_status_descr'] = new Smarty_variable(fn_get_simple_statuses(@constant('STATUSES_ORDER'),true,true), null, 0);?>
 <?php $_smarty_tpl->tpl_vars['order_statuses'] = new Smarty_variable(fn_get_statuses(@constant('STATUSES_ORDER'),$_smarty_tpl->tpl_vars['statuses']->value,true,true), null, 0);?>
 
-
-
-<div id="newSell" class="newSell">
-    
-    
-         <div class="newSell__left">
-            <h2 class="newSell__title">
-                <a href="#">Hotel The Leela Palace</a>
-                Hotel The Leela Palace
-            </h2>
-            <div class="newSell__star" itemprop="starRating" itemtype="https://schema.org/Rating" itemscope="true">
-                <meta itemprop="ratingValue" content="5"><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
-                    <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
-                    </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
-                    <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
-                    </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
-                    <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
-                    </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
-                    <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
-                    </svg></span><span class="icon-ic star"><svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="12" height="12" viewBox="0 0 12 12">
-                    <path class="svg-color--primary" fill="#F6AB3F" d="M11.988 5.21a.667.667 0 00-.545-.534l-3.604-.6L6.63.455a.666.666 0 00-1.262.001L4.16 4.076l-3.603.6a.667.667 0 00-.233 1.228L3.2 7.63l-1.165 3.493a.67.67 0 00.25.758.672.672 0 00.798-.026L6 9.52l2.917 2.333a.66.66 0 00.796.027.665.665 0 00.252-.758L8.8 7.63l2.876-1.725a.667.667 0 00.312-.696z"></path>
-                    </svg></span>
-            </div>
-            <div>
-                <button class="newSell__button" type="button" tabindex="-1">
-                    <span class="mr-3 newSell__button--icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="24" height="24" viewBox="0 0 24 24">
-                            <path class="svg-color--primary" fill="#37454D" d="M19.8 5h-1.1c.1-.6.1-1 .1-1 0-.6-.5-1-1-1h-12c-.5 0-1 .4-1 1 0 0 0 .4.1 1H3.8c-.5 0-1 .4-1 1 0 .2 0 2.2 2.3 4.1.7.6 1.6 1 2.6 1.4.7.6 1.6 1.1 2.5 1.4L9.9 16H8.8c-.4 0-.8.3-1 .7l-1 3c-.1.3 0 .6.1.9.3.3.6.4.9.4h8c.3 0 .6-.1.8-.4.2-.3.2-.6.1-.9l-1-3c-.1-.4-.5-.7-1-.7h-1.1l-.3-3.2c1-.2 1.8-.7 2.5-1.4 1-.3 1.9-.8 2.6-1.4 2.2-1.9 2.3-3.9 2.3-4.1.1-.5-.3-.9-.9-.9zm-14-1h12s0 .4-.1 1c0 .3-.1.6-.2 1-.2.9-.5 2.1-1.2 3.3-.3.5-.6.9-.9 1.2-.6.6-1.3 1-2.1 1.2-.3.2-.8.3-1.5.3 0 0 .1 0 0 0h-.5c-.4 0-.7-.1-1-.2-.8-.2-1.6-.7-2.2-1.2-.4-.4-.7-.8-.9-1.2-.6-1.3-.9-2.5-1.1-3.4-.1-.4-.3-2-.3-2zm-2 2H5c.2 1 .6 2.4 1.3 3.8-.1-.2-.3-.3-.5-.5-1.9-1.6-2-3.2-2-3.3zm11 11l1 3h-8l1-3h6zm-3.9-1l.3-3h1.2l.3 3h-1.8zm7-6.7c-.2.2-.4.3-.6.5C18 8.4 18.4 7 18.6 6h1.2c0 .1 0 1.7-1.9 3.3z"></path>
-                        </svg>
-                    </span>
-                    <span class="newSell__pop" >Popular Choice</span>
-                </button>
-            </div>
-            <div class="newSell__off">
-                <img class="newSell__off--icon" src="https://i.imgur.com/RU7mR4S.png" alt="" />
-                <span class="newSell__off--text">Get upto 45% OFF on Fresh Vegetables</span>
-            </div>
-            <div class="newSell__review">
-                <span class="newSell__review--rate">
-                    <span class="newSell__review--text">9.5</span>
-                </span>
-                <span class="newSell__review--count" ><strong class="newSell__review--bold" >Excellent </strong>(3020 reviews)</span>
-
-            </div>
-        </div>
-        <div class="newSell__mid">
-            <div >
-                <span >Availability:</span>
-                <span >
-                    56&nbsp;item(s)
-                </span>
-            </div>
-        </div>
-       
-    
-    
-    
-    <div class="newSell__right">
-        <div class="newSell__right--top">
-            <p class="newSell__fsai">FSAI: <span>546546</span></p>
-            <div class="newSell__days">
-                <div class="newSell__days--row">
-                     <svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="16" height="16" viewBox="0 0 16 16">
-                        <g fill="none" fill-rule="evenodd">
-                            <path d="M-1-1h18v18H-1z"></path>
-                            <path d="M8 .5a7.5 7.5 0 100 15 7.5 7.5 0 000-15z" fill="#316300"></path>
-                            <path d="M6.5 10.625l5.25-5.25m-7.5 3l2.25 2.25" stroke="#FFF" stroke-linecap="round" stroke-width="2"></path>
-                        </g>
-                    </svg>
-                    <span class="newSell__green">2 Days Return Period</span>
-                </div>
-                <div class="newSell__days--row">
-                     <svg xmlns="http://www.w3.org/2000/svg" focusable="false" tabindex="-1" width="16" height="16" viewBox="0 0 16 16">
-                        <g fill="none" fill-rule="evenodd">
-                            <path d="M-1-1h18v18H-1z"></path>
-                            <path d="M8 .5a7.5 7.5 0 100 15 7.5 7.5 0 000-15z" fill="#316300"></path>
-                            <path d="M6.5 10.625l5.25-5.25m-7.5 3l2.25 2.25" stroke="#FFF" stroke-linecap="round" stroke-width="2"></path>
-                        </g>
-                    </svg>
-                    <span class="newSell__green">Cash On Delivery</span>
-                </div>
-            </div>
-            <div class="newSell__action">
-                <a href="#" class="newSell__price">$180</a>
-                <div>
-                    <button class="newSell__buynow">
-                        <span class="newSell__buynow--icon">icon</span><span>Buy now</span>
-                    </button>
-                    <button class="newSell__save">
-                        <span>icon</span>
-                    </button>
-                </div>
-            </div>
-           
-        </div>
-        <div class="newSell__right--bottom">
-            <p class="newSell__time"><span>icon</span><a class="newSell__shipping" href="#"> Shipping:</a> by <span>Tomorrow, 10:30, from <strong>$0</strong></p>
-            <p class="newSell__covid">Covid icons displayed here</p>
-        </div>
-    </div>
-</div>
 
 
 <div class="orders__header">
@@ -292,8 +194,44 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     </div>
     
 </div>
+<?php $_smarty_tpl->tpl_vars['id'] = new Smarty_variable((($tmp = @$_smarty_tpl->tpl_vars['store_location']->value['store_location_id'])===null||$tmp==='' ? "0" : $tmp), null, 0);?>
+<?php $_smarty_tpl->tpl_vars['allow_save'] = new Smarty_variable(fn_allow_save_object($_smarty_tpl->tpl_vars['store_location']->value,"store_locations")&&fn_check_view_permissions("store_locator.update","POST"), null, 0);?>
+<?php $_smarty_tpl->tpl_vars['show_save_btn'] = new Smarty_variable($_smarty_tpl->tpl_vars['allow_save']->value, null, 2);
+$_ptr = $_smarty_tpl->parent; while ($_ptr != null) {$_ptr->tpl_vars['show_save_btn'] = clone $_smarty_tpl->tpl_vars['show_save_btn']; $_ptr = $_ptr->parent; }?>
+<?php echo $_smarty_tpl->getSubTemplate ("addons/store_locator/pickers/map.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
+
+<div class="control-group">
+    <label class="control-label cm-required"><?php echo $_smarty_tpl->__("coordinates");?>
+ (<?php echo $_smarty_tpl->__("latitude_short");?>
+ &times; <?php echo $_smarty_tpl->__("longitude_short");?>
+):</label>
+    <label class="control-label cm-required hidden" for="elm_latitude"><?php echo $_smarty_tpl->__("latitude");?>
+</label>
+    <label class="control-label cm-required hidden" for="elm_longitude"><?php echo $_smarty_tpl->__("longitude");?>
+</label>
+    <div class="controls">
+        <?php $_smarty_tpl->smarty->_tag_stack[] = array('hook', array('name'=>"store_locator:select_coordinates")); $_block_repeat=true; echo smarty_block_hook(array('name'=>"store_locator:select_coordinates"), null, $_smarty_tpl, $_block_repeat);while ($_block_repeat) { ob_start();?>
+
+        <input type="text" name="store_location_data[latitude]" id="elm_latitude" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['store_location']->value['latitude'], ENT_QUOTES, 'UTF-8');?>
+" data-ca-latest-latitude="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['store_location']->value['latitude'], ENT_QUOTES, 'UTF-8');?>
+" class="input-small">
+        &times;
+        <input type="text" name="store_location_data[longitude]" id="elm_longitude" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['store_location']->value['longitude'], ENT_QUOTES, 'UTF-8');?>
+" data-ca-latest-longitude="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['store_location']->value['longitude'], ENT_QUOTES, 'UTF-8');?>
+" class="input-small">
+        <?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_hook(array('name'=>"store_locator:select_coordinates"), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
+
+    </div>
+</div>
+
 
 <div hidden id="spinner"></div>
+<div hidden id="spinnerDone">
+<svg  class="checkmark success" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+    <circle class="checkmark_circle_success" cx="26" cy="26" r="25" fill="none"/>
+    <path class="checkmark_check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" stroke-linecap="round"/>
+</svg>
+</div>
 <!-- Modal -->
 <div class="modal modal-showStork " id="showStork" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -430,6 +368,9 @@ if (!empty($_capture_buffer)) {
 
     const NEW_UI_STATUS_PICKEDUP = 'P'; // Picked up (shipment)
     const NEW_UI_STATUS_OFD = 'B'; // Out for delivery (shipment) */
+    const NEW_UI_STATUS_COMPANY_ACTIVE = 'A'; // company status active
+
+
 
     const NEW_UI_STATUS_PLACED = '<?php echo htmlspecialchars(@constant('NEW_UI_STATUS_PLACED'), ENT_QUOTES, 'UTF-8');?>
 '; // Placed
@@ -456,7 +397,7 @@ if (!empty($_capture_buffer)) {
     // fetch status with status
     async function getStatus(status) {
         
-        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_orders&status=${status}`;
+        let url = `vendor.php?dispatch=new_orders.get_orders&status=${status}`;
         try {
             let res = await fetch(url);
            // console.log("con me no 2 +++++++: ", res)
@@ -472,7 +413,7 @@ if (!empty($_capture_buffer)) {
     async function getTotalForm(id) {
         spinner2.removeAttribute('hidden');
         
-        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.totals_form&order_id=${id}`;
+        let url = `vendor.php?dispatch=new_orders.totals_form&order_id=${id}`;
         try {
             let res = await fetch(url);
            // console.log("con me no 2 +++++++: ", res)
@@ -488,7 +429,7 @@ if (!empty($_capture_buffer)) {
     async function updateTotalForm(id) {
         spinner2.removeAttribute('hidden');
         
-        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.stock_form&order_id=${id}`;
+        let url = `vendor.php?dispatch=new_orders.stock_form&order_id=${id}`;
         try {
             let res = await fetch(url);
            // console.log("con me no 2 +++++++: ", res)
@@ -504,7 +445,7 @@ if (!empty($_capture_buffer)) {
     async function getStatusComp() {
        // spinner2.removeAttribute('hidden');
         
-        let url = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_company_status`;
+        let url = `vendor.php?dispatch=new_orders.get_company_status`;
         try {
             let res = await fetch(url);
           // console.log("con me no status +++++++: ", res)
@@ -523,7 +464,7 @@ if (!empty($_capture_buffer)) {
     
 
     async function searchId(status) {
-        let datas = await getStatus("G");
+        let datas = await getStatus(NEW_UI_STATUS_PLACED);
 
         let inputSearch = document.querySelector('.searchID').value;
 
@@ -546,21 +487,31 @@ if (!empty($_capture_buffer)) {
         containerfail.innerHTML = fail;
         console.log("status comp: ", datas)
          
-        if(datas.company_status === "A"){
+        if(datas.company_status === NEW_UI_STATUS_COMPANY_ACTIVE){
             renderLeftSide(NEW_UI_STATUS_PLACED, "order")
+
+            
             // update data after 10 sec
             setInterval(async function() {
                     let abb = await getStatus(NEW_UI_STATUS_PLACED);
                     renderLeftSide(NEW_UI_STATUS_PLACED, "order");
                     renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
+
+                    renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
+                    renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
+                    renderLeftSide(NEW_UI_STATUS_COMPLETE, "past");
+
+                    renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
+                    renderCountStatus(NEW_UI_STATUS_PACKED, "tab3");
+                    renderCountStatus(NEW_UI_STATUS_COMPLETE, "tab4");
                     //activeOrder("order",  )
                     console.log('reset---------: ',abb, abb.length)
                     
                     //renderDetails();
             }, 10000);
         } else {
-            document.querySelector(".search-order__box-input").classList.add("hidden")
-             fail
+            document.querySelector(".search-order__box-input").classList.add("hidden");
+            fail
         }
         
      }
@@ -647,6 +598,9 @@ if (!empty($_capture_buffer)) {
     // render status left side
     async function renderLeftSide(status, path) {
         let datas = await getStatus(status);
+
+        // count length of status
+        let statusLength = datas.length;
         
         //console.log("-----------datas----------:", datas[0].order_id)
         //var seconds_now = new Date().getTime() / 1000;
@@ -799,19 +753,27 @@ if (!empty($_capture_buffer)) {
         container.innerHTML = html;
 
         // render details content with first id
-
-        `${status === NEW_UI_STATUS_PLACED ? renderDetails(datas[0].order_id) : `${status === NEW_UI_STATUS_VCONFIRMED ? renderDetailsPacking(datas[0].order_id) : `${status === NEW_UI_STATUS_PACKED ? renderDetailsReady(datas[0].order_id) : renderDetailsPast(datas[0].order_id)}`}`}`;
+        
+        //`${status === NEW_UI_STATUS_PLACED ? renderDetails(datas[0].order_id) : `${status === NEW_UI_STATUS_VCONFIRMED ? renderDetailsPacking(datas[0].order_id) : `${status === NEW_UI_STATUS_PACKED ? renderDetailsReady(datas[0].order_id) : renderDetailsPast(datas[0].order_id)}`}`}`;
+        `${status === NEW_UI_STATUS_PLACED && statusLength > 0 ? renderDetails(datas[0].order_id) : []}`;
+        `${status === NEW_UI_STATUS_VCONFIRMED && statusLength > 0 ? renderDetailsPacking(datas[0].order_id) : []}`;
+        `${status === NEW_UI_STATUS_PACKED && statusLength > 0 ? renderDetailsReady(datas[0].order_id) : []}`;
+        `${status === NEW_UI_STATUS_COMPLETE && statusLength > 0 ? renderDetailsPast(datas[0].order_id) : []}`;
 
         // active css with first id
-        `${status === NEW_UI_STATUS_PLACED ? activeOrder("order", datas[0].order_id) : `${status === NEW_UI_STATUS_VCONFIRMED ? activeOrder("packing", datas[0].order_id) : `${status === NEW_UI_STATUS_PACKED ?  activeOrder("ready", datas[0].order_id) : activeOrder("past", datas[0].order_id)}`}`}`;
+        //`${status === NEW_UI_STATUS_PLACED ? activeOrder("order", datas[0].order_id) : `${status === NEW_UI_STATUS_VCONFIRMED ? activeOrder("packing", datas[0].order_id) : `${status === NEW_UI_STATUS_PACKED ?  activeOrder("ready", datas[0].order_id) : activeOrder("past", datas[0].order_id)}`}`}`;
+        `${status === NEW_UI_STATUS_PLACED && statusLength > 0 ? activeOrder("order", datas[0].order_id) : []}`;
+        `${status === NEW_UI_STATUS_VCONFIRMED && statusLength > 0 ? activeOrder("packing", datas[0].order_id) : []}`;
+        `${status === NEW_UI_STATUS_PACKED && statusLength > 0 ?  activeOrder("ready", datas[0].order_id) : []}`;
+        `${status === NEW_UI_STATUS_COMPLETE && statusLength > 0 ?  activeOrder("past", datas[0].order_id) : []}`;
     }
 
 
-   // renderLeftSide(NEW_UI_STATUS_PLACED, "order");
+   renderLeftSide(NEW_UI_STATUS_PLACED, "order");
 
 
     renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
-    renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
+   renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
     renderLeftSide(NEW_UI_STATUS_COMPLETE, "past");
 
     function activeOrder(path, id) {
@@ -847,7 +809,7 @@ if (!empty($_capture_buffer)) {
 */
     async function getDataProduct(id) {
         spinner.removeAttribute('hidden');
-        let url2 = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.get_order&order_id=${id}`;
+        let url2 = `vendor.php?dispatch=new_orders.get_order&order_id=${id}`;
         try {
             let res = await fetch(url2);
             spinner.setAttribute('hidden', '');
@@ -898,7 +860,16 @@ if (!empty($_capture_buffer)) {
 
     // get data modal
     async function getModals(ids) {
+        document.querySelector(".step3").style.display="none";
+        document.querySelector(".step1").style.display="block";
+      //  document.querySelector(".step2").style.display="none";
         
+
+        document.querySelector(".title1").style.display="block";
+        document.querySelector(".order-modal__buttons1").style.display="flex";
+        document.querySelector(".title2").style.display="none";
+        document.querySelector(".order-modal__buttons2").style.display="none";
+        $(".order-modal__quantity").removeClass('order-modal__quantity--noedit').attr("disabled", false);
         let idOrder = ids;
 
 
@@ -913,16 +884,7 @@ if (!empty($_capture_buffer)) {
         
         let form = totalForm;
         let button = '';
-      document.querySelector(".step3").style.display="none";
-       document.querySelector(".step1").style.display="block";
-      //  document.querySelector(".step2").style.display="none";
-        document.querySelector(".step3").style.display="none";
-
-        document.querySelector(".title1").style.display="block";
-        document.querySelector(".order-modal__buttons1").style.display="flex";
-        document.querySelector(".title2").style.display="none";
-        document.querySelector(".order-modal__buttons2").style.display="none";
-        $(".order-modal__quantity").removeClass('order-modal__quantity--noedit').attr("disabled", false);
+        
         
 
 
@@ -1054,7 +1016,7 @@ if (!empty($_capture_buffer)) {
     // update total
     function updateTotals2(e){    
         // e.preventDefault();
-        var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.update_totals'; 
+        var endpoint = 'vendor.php?dispatch=new_orders.update_totals'; 
 
         $.ajax({ 
             type: "POST",
@@ -1074,7 +1036,7 @@ if (!empty($_capture_buffer)) {
     // save new amount and total
     function saveTotals(id){    
         // e.preventDefault();
-        var endpoint = 'http://localhost:8080/cart/vendor.php?dispatch=new_orders.place_order.save'; 
+        var endpoint = 'vendor.php?dispatch=new_orders.place_order.save'; 
 
         $.ajax({ 
             type: "POST",
@@ -1101,6 +1063,7 @@ if (!empty($_capture_buffer)) {
         let details = await getDataProduct(ids);
        // console.log("details: ----- ", details);
 
+        
        /* document.querySelector(`.search-order__box[data-order=order${details.order_id}]`).classList.add('active')
         document.querySelector(`.have-order__mid--rel[data-order=order${details.order_id}]`).classList.add('active')
         document.querySelector(`.search-order__right-top[data-order=order${details.order_id}]`).classList.add('active') */
@@ -1124,7 +1087,7 @@ if (!empty($_capture_buffer)) {
            // console.log("a: ", a, "det: ", details.products[a].product)
             let pName = details.products[a];
             totalProducts = Object.keys(details.products).length;
-           // console.log('total product:', Object.keys(details.products).length)
+           console.log('total product:', Object.keys(details.products).length)
            // console.log("z: ", pName)
             let htmlItem0 = `
                             <li class="search-order__details">
@@ -1169,7 +1132,7 @@ if (!empty($_capture_buffer)) {
           //  console.log("time history: ", timeArray[a])
             let index = timeArray[a];
 
-            if(index.status === "G") {
+            if(index.status === NEW_UI_STATUS_PLACED) {
               //  console.log("GGGGG")
                 timePrint = `
                 ${countTimeHistory(index.timestamp)}</p>
@@ -1196,13 +1159,13 @@ if (!empty($_capture_buffer)) {
                                     </a>
                                     <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <li>
-                                            <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
+                                            <a target="_blank" href="vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
                                         </li>
                                         <li>
-                                            <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
+                                            <a target="_blank" href="vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
                                         </li>
                                         <li>
-                                            <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
+                                            <a target="_blank" href="vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -1323,6 +1286,7 @@ if (!empty($_capture_buffer)) {
         let details = await getDataProduct(ids);
         //console.log("details: ----- ", details);
         
+        if(details.length === 0) return;
 
         let html2 = "";
         let htmlSub = "";
@@ -1367,7 +1331,7 @@ if (!empty($_capture_buffer)) {
             //("time history: ", timeArray[a])
             let index = timeArray[a];
 
-            if(index.status === "G") {
+            if(index.status === NEW_UI_STATUS_PLACED) {
                // console.log("GGGGG")
                 timePrint = `
                 ${countTimeHistory(index.timestamp)}</p>
@@ -1393,13 +1357,13 @@ if (!empty($_capture_buffer)) {
                                 </a>
                                 <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
+                                        <a target="_blank" href="vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
+                                        <a target="_blank" href="vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
+                                        <a target="_blank" href="vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
                                     </li>
                                 </ul>
                             </div>
@@ -1509,6 +1473,7 @@ if (!empty($_capture_buffer)) {
     async function renderDetailsReady(ids) {
         let details = await getDataProduct(ids);
         //console.log("details: ----- ", details);
+        if(details.length === 0) return;
 
         let html2 = "";
         let htmlSub = "";
@@ -1556,7 +1521,7 @@ if (!empty($_capture_buffer)) {
            // console.log("time history: ", timeArray[a])
             let index = timeArray[a];
 
-            if(index.status === "G") {
+            if(index.status === NEW_UI_STATUS_PLACED) {
                // console.log("GGGGG")
                 timePrint = `
                 ${countTimeHistory(index.timestamp)}</p>
@@ -1582,13 +1547,13 @@ if (!empty($_capture_buffer)) {
                                 </a>
                                 <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
+                                        <a target="_blank" href="vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
+                                        <a target="_blank" href="vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
+                                        <a target="_blank" href="vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
                                     </li>
                                 </ul>
                             </div>
@@ -1739,7 +1704,7 @@ if (!empty($_capture_buffer)) {
     async function renderDetailsPast(ids) {
         let details = await getDataProduct(ids);
         //console.log("details: ----- ", details);
-
+if(details.length === 0) return;
        // console.log("time history: ", details.status_history)
 
         let html2 = "";
@@ -1762,27 +1727,27 @@ if (!empty($_capture_buffer)) {
             //console.log("time history: ", timeArray[a])
             let index = timeArray[a];
 
-            if(index.status === "G") {
+            if(index.status === NEW_UI_STATUS_PLACED) {
                // console.log("GGGGG")
                 place = `
                 <p class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
                 <p class="search-past__box-time-p">Placed</p>`
-            } else if (index.status === "E") {
+            } else if (index.status === NEW_UI_STATUS_VCONFIRMED) {
               //  console.log("EEEEE")
                 confirm = `
                 <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
                 <p class="search-past__box-time-p">Confirmed</p>`
-            } else if (index.status === "A") {
+            } else if (index.status === NEW_UI_STATUS_PACKED) {
                 //console.log("AAAAAAA")
                 packed = `
                 <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
                 <p class="search-past__box-time-p">Packed</p>`
-            } else if (index.status === "C") {
+            } else if (index.status === NEW_UI_STATUS_COMPLETE) {
                 //console.log("CCCCCCCCC")
                 delivery = ` 
                 <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
                 <p class="search-past__box-time-p">Delivered</p>`
-            } else if (index.status === "I") {
+            } else if (index.status === NEW_UI_STATUS_CANCELED) {
                // console.log("canncel IIIIIII")
                 cancel = ` 
                 <p  class="search-past__box-time-h">${countTimeHistory(index.timestamp)}</p>
@@ -1897,7 +1862,7 @@ if (!empty($_capture_buffer)) {
             //console.log("time history: ", timeArray2[a])
             let index = timeArray2[a];
 
-            if(index.status === "G") {
+            if(index.status === NEW_UI_STATUS_PLACED) {
                // console.log("GGGGG")
                 timePrint = `
                 ${countTimeHistory(index.timestamp)}</p>
@@ -1930,13 +1895,13 @@ if (!empty($_capture_buffer)) {
                                 </a>
                                 <ul class="search-order__right-print-list dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <li>
-                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
+                                        <a target="_blank" href="vendor.php?dispatch=orders.print_invoice&order_id=${details.order_id}">Invoice</a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
+                                        <a target="_blank" href="vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Invoice (PDF)</a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="http://localhost:8080/cart/vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
+                                        <a target="_blank" href="vendor.php?dispatch=orders.print_packing_slip&order_id=${details.order_id}">Packing slip</a>
                                     </li>
                                 </ul>
                             </div>
@@ -2116,15 +2081,22 @@ if (!empty($_capture_buffer)) {
 
     const spinner = document.getElementById("spinner");
     const spinner2 = document.getElementById("spinner2");
+    const spinnerDone = document.getElementById("spinnerDone");
    // console.log('spinner2: ',spinner2 )
 
     async function getChange(id) {
         spinner.removeAttribute('hidden');
-        let url2 = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.change_status&order_id=${id}&status=E`;
+        let url2 = `vendor.php?dispatch=new_orders.change_status&order_id=${id}&status=${NEW_UI_STATUS_VCONFIRMED}`;
         try {
             let res = await fetch(url2);
             spinner.setAttribute('hidden', '');
-            return await res.json();
+            
+            spinnerDone.removeAttribute('hidden');
+            setTimeout(function() {
+                    spinnerDone.setAttribute('hidden', '');
+                }, 3000) 
+            
+            //return await res.json();
         }
         catch (error2) {
             console.log(error2)
@@ -2133,8 +2105,12 @@ if (!empty($_capture_buffer)) {
         renderCountStatus(NEW_UI_STATUS_PLACED, "tab1");
         renderLeftSide(NEW_UI_STATUS_PLACED, "order");
 
+        renderDetails(id);
+        renderDetailsPacking(id);
+
+
         renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
-       renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
+        renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
 
         //document.querySelector('.tab__li[data-tab=tab1]').classList.remove('active');
         //document.querySelector('.have-tab[data-tab=tab1]').classList.remove('activeTab');
@@ -2152,11 +2128,15 @@ if (!empty($_capture_buffer)) {
 
     async function getPacked(id) {
         spinner.removeAttribute('hidden');
-        let url2 = `http://localhost:8080/cart/vendor.php?dispatch=new_orders.change_status&order_id=${id}&status=A`;
+        let url2 = `vendor.php?dispatch=new_orders.change_status&order_id=${id}&status=${NEW_UI_STATUS_PACKED}`;
         try {
             let res = await fetch(url2);
             spinner.setAttribute('hidden', '');
-            return await res.json();
+            spinnerDone.removeAttribute('hidden');
+            setTimeout(function() {
+                    spinnerDone.setAttribute('hidden', '');
+                }, 3000) 
+           // return await res.json();
         }
         catch (error2) {
             console.log(error2)
@@ -2165,6 +2145,9 @@ if (!empty($_capture_buffer)) {
         renderCountStatus(NEW_UI_STATUS_VCONFIRMED, "tab2");
         renderLeftSide(NEW_UI_STATUS_VCONFIRMED, "packing");
 
+        renderDetails(id);
+        renderDetailsPacking(id);
+        
         renderCountStatus(NEW_UI_STATUS_PACKED, "tab3");
         renderLeftSide(NEW_UI_STATUS_PACKED, "ready");
 /*
@@ -2231,5 +2214,4 @@ if (!empty($_capture_buffer)) {
 
 <?php echo '</script'; ?>
 ><?php $_block_content = ob_get_clean(); $_block_repeat=false; echo smarty_block_inline_script(array(), $_block_content, $_smarty_tpl, $_block_repeat);  } array_pop($_smarty_tpl->smarty->_tag_stack);?>
-
 <?php }} ?>

@@ -3,9 +3,9 @@
     {include file="views/profiles/components/profiles_scripts.tpl"}
 
     <h1 class="ty-mainbox-title">{__("apply_for_vendor_account")}</h1>
-
+ 
     <div id="apply_for_vendor_account" >
-
+       
         <form action="{"companies.apply_for_vendor"|fn_url}" method="post" name="apply_for_vendor_form">
             {if $invitation_key}
                 <input type="hidden" name="company_data[invitation_key]" value="{$invitation_key}" />

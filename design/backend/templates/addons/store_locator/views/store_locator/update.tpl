@@ -194,7 +194,7 @@
         {hook name="store_locator:tabs_content"}
         {/hook}
 
-        {capture name="buttons"}
+        {* {capture name="buttons"}
             {if !$id}
                 {include file="buttons/save_cancel.tpl" but_name="dispatch[store_locator.update]" but_role="submit-link" but_target_form="store_locations_form{$suffix}"}
             {else}
@@ -204,7 +204,7 @@
                 {/if}
                 {include file="buttons/save_cancel.tpl" but_name="dispatch[store_locator.update]" hide_first_button=$hide_first_button hide_second_button=$hide_second_button but_role="submit-link" but_target_form="store_locations_form{$suffix}" save=$id}
             {/if}
-        {/capture}
+        {/capture} *}
 
     </form>
 

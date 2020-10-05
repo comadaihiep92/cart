@@ -1,1 +1,1 @@
-a:2:{s:4:"data";a:1:{i:0;s:66:"C:/xampp/htdocs/cart/app/schemas/block_manager/dynamic_objects.php";}s:6:"expiry";i:0;}
+a:2:{s:4:"data";a:2:{i:0;s:66:"C:/xampp/htdocs/cart/app/schemas/block_manager/dynamic_objects.php";i:1;s:83:"C:/xampp/htdocs/cart/app/addons/blog/schemas/block_manager/dynamic_objects.post.php";}s:6:"expiry";i:0;}
